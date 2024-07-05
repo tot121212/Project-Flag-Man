@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uuajl8oup0v4"
-path="res://.godot/imported/industrial.v2.png-623709b22a2fa36ad7a63e2694483d61.ctex"
+uid="uid://i2afn6rbnltg"
+path="res://.godot/imported/flagman_tileset.png-d0127d5e63a9c1fd220fa62ff297cf4f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/industrial.v2.png"
-dest_files=["res://.godot/imported/industrial.v2.png-623709b22a2fa36ad7a63e2694483d61.ctex"]
+source_file="res://assets/flagman_tileset.png"
+dest_files=["res://.godot/imported/flagman_tileset.png-d0127d5e63a9c1fd220fa62ff297cf4f.ctex"]
 
 [params]
 

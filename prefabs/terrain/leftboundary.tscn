@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqjckcfhnsdiw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d1l5r"]
+distance = -1.0
+
+[node name="leftboundary" type="StaticBody2D"]
+
+[node name="leftboundary" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_d1l5r")

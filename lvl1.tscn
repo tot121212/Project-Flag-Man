@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://3hqyfr6y85xy"]
+
+[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/flag-man.tscn" id="1_2w801"]
+[ext_resource type="PackedScene" uid="uid://cqjckcfhnsdiw" path="res://prefabs/terrain/leftboundary.tscn" id="1_eimgf"]
+[ext_resource type="PackedScene" uid="uid://b8dcgunugsv7b" path="res://prefabs/terrain/terrain_mars_ground.tscn" id="2_n2rpf"]
+[ext_resource type="PackedScene" uid="uid://dbx0t75esjhgb" path="res://prefabs/terrain/terrain_mars_autotile.tscn" id="2_xgx80"]
+[ext_resource type="PackedScene" uid="uid://bcw66tob22of1" path="res://prefabs/characters/lizard.tscn" id="4_2xdi7"]
+[ext_resource type="PackedScene" uid="uid://dsond0v8yjxt7" path="res://prefabs/characters/tower.tscn" id="5_55sxc"]
+[ext_resource type="PackedScene" uid="uid://pgytloik1owk" path="res://prefabs/characters/tower_proj.tscn" id="6_tefg8"]
+
+[node name="Root" type="Node2D"]
+texture_filter = 1
+
+[node name="Terrain" type="Node" parent="."]
+
+[node name="leftboundary" parent="Terrain" instance=ExtResource("1_eimgf")]
+position = Vector2(-160, 10)
+
+[node name="terrain_mars_ground" parent="Terrain" instance=ExtResource("2_n2rpf")]
+position = Vector2(-160, 119)
+
+[node name="terrain_mars_ground5" parent="Terrain" instance=ExtResource("2_n2rpf")]
+position = Vector2(-480, 119)
+
+[node name="terrain_mars_ground2" parent="Terrain" instance=ExtResource("2_n2rpf")]
+position = Vector2(160, 119)
+
+[node name="terrain_mars_ground3" parent="Terrain" instance=ExtResource("2_n2rpf")]
+position = Vector2(480, 119)
+
+[node name="terrain_mars_ground4" parent="Terrain" instance=ExtResource("2_n2rpf")]
+position = Vector2(800, 119)
+
+[node name="Autotile" type="Node" parent="Terrain"]
+
+[node name="terrain_mars" parent="Terrain/Autotile" instance=ExtResource("2_xgx80")]
+
+[node name="terrain_mars2" parent="Terrain/Autotile" instance=ExtResource("2_xgx80")]
+frame = 1
+
+[node name="terrain_mars3" parent="Terrain/Autotile" instance=ExtResource("2_xgx80")]
+frame = 2
+
+[node name="terrain_mars4" parent="Terrain/Autotile" instance=ExtResource("2_xgx80")]
+frame = 3
+
+[node name="lizard" parent="." instance=ExtResource("4_2xdi7")]
+position = Vector2(257, 66)
+
+[node name="player" parent="." instance=ExtResource("1_2w801")]
+position = Vector2(-10, 70)
+
+[node name="tower" parent="." instance=ExtResource("5_55sxc")]
+position = Vector2(96, 46)
+
+[node name="tower_proj" parent="." instance=ExtResource("6_tefg8")]
+position = Vector2(138, 48)

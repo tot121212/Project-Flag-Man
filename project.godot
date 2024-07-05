@@ -11,6 +11,28 @@ config_version=5
 [application]
 
 config/name="Project-flag-man"
-run/main_scene="res://node_2d.tscn"
+run/main_scene="res://lvl1.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[aseprite_importers]
+
+aseprite_executable_path="C:/Users/evanm/Desktop/Art/3 - Resources/Aseprite/Aseprite v1.3-rc2/aseprite.exe"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=1024
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="General"
+
+[physics]
+
+2d/default_gravity=644.0

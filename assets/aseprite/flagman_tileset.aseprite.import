@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://db2ggsjla3ft"
+path="res://.godot/imported/flagman_tileset.aseprite-88b6576ba44df8a4f15b8f6e6f5c0953.res"
+
+[deps]
+
+source_file="res://assets/aseprite/flagman_tileset.aseprite"
+dest_files=["res://.godot/imported/flagman_tileset.aseprite-88b6576ba44df8a4f15b8f6e6f5c0953.res"]
+
+[params]
+
