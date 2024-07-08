@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbx0t75esjhgb"]
-
-[ext_resource type="Texture2D" uid="uid://i2afn6rbnltg" path="res://assets/flagman_tileset.png" id="1_h047o"]
-
-[node name="terrain_mars_autotile" type="Sprite2D"]
-texture_filter = 1
-texture = ExtResource("1_h047o")
-vframes = 5

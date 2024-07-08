@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbx0t75esjhgb"]
+
+[ext_resource type="PackedScene" uid="uid://bs5cder73xxdw" path="res://prefabs/terrain/mars_background.tscn" id="1_32imu"]
+
+[node name="mars_parallax" type="ParallaxBackground"]
+scroll_base_scale = Vector2(0.1, 1)
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.01, 0.6)
+motion_mirroring = Vector2(640, 0)
+
+[node name="mars_background" parent="Sky" instance=ExtResource("1_32imu")]
+centered = false
+
+[node name="mars_background2" parent="Sky" instance=ExtResource("1_32imu")]
+centered = false
+offset = Vector2(320, 0)
+
+[node name="Background" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0.8)
+motion_mirroring = Vector2(640, 0)
+
+[node name="mars_background" parent="Background" instance=ExtResource("1_32imu")]
+centered = false
+frame = 1
+
+[node name="mars_background2" parent="Background" instance=ExtResource("1_32imu")]
+centered = false
+offset = Vector2(320, 0)
+frame = 1
+
+[node name="Middleground" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.9)
+motion_mirroring = Vector2(640, 0)
+
+[node name="mars_background" parent="Middleground" instance=ExtResource("1_32imu")]
+centered = false
+frame = 2
+
+[node name="mars_background2" parent="Middleground" instance=ExtResource("1_32imu")]
+centered = false
+offset = Vector2(320, 0)
+frame = 2

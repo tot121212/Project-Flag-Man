@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://clbs54xy5txet"
+path="res://.godot/imported/tlv1_SFX harpoon_traveling.ogg-e74431538e5c5396035576540d442365.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/SFX OGG/tlv1_SFX harpoon_traveling.ogg"
+dest_files=["res://.godot/imported/tlv1_SFX harpoon_traveling.ogg-e74431538e5c5396035576540d442365.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

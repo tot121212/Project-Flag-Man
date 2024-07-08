@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://oq5s1fpgjm74"
+path="res://.godot/imported/battle - meadows.ogg-21145d60df12a2b34af7f5f732e6ea67.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/battle - meadows.ogg"
+dest_files=["res://.godot/imported/battle - meadows.ogg-21145d60df12a2b34af7f5f732e6ea67.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cm20wel5gkdnn"
+path="res://.godot/imported/shop - shopkeeper joe's theme.ogg-68b805edac74c4ce86203cebd3c3e220.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/shop - shopkeeper joe's theme.ogg"
+dest_files=["res://.godot/imported/shop - shopkeeper joe's theme.ogg-68b805edac74c4ce86203cebd3c3e220.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

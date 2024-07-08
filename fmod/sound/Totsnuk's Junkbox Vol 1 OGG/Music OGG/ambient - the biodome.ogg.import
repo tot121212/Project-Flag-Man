@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://1qk4x3im1wtl"
+path="res://.godot/imported/ambient - the biodome.ogg-7d11bb2376b98c58bce8707b0585ae1c.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/ambient - the biodome.ogg"
+dest_files=["res://.godot/imported/ambient - the biodome.ogg-7d11bb2376b98c58bce8707b0585ae1c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

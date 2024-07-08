@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d2wwn6blsq624"
+path="res://.godot/imported/ambient - starscape.ogg-ce69ccabedb4e46207fd792b65fbb3dc.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/ambient - starscape.ogg"
+dest_files=["res://.godot/imported/ambient - starscape.ogg-ce69ccabedb4e46207fd792b65fbb3dc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

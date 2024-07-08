@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=13 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/PlayerComponent.gd" id="1_k0sla"]
-[ext_resource type="Texture2D" uid="uid://5n7j2l3e6ymq" path="res://assets/flagman_anim.png" id="2_kys41"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/VelocityComponent.tscn" id="2_t1oyf"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_0607o"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_2ikux"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_45vdv"]
+[ext_resource type="Texture2D" uid="uid://5n7j2l3e6ymq" path="res://assets/aseprite/flagman_anim.png" id="6_3eluf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p41l2"]
 radius = 7.0
@@ -172,7 +175,13 @@ _data = {
 "idle": SubResource("Animation_dgh7k")
 }
 
-[node name="player" type="CharacterBody2D"]
+[sub_resource type="Resource" id="Resource_1vxug"]
+script = ExtResource("4_2ikux")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 10
 texture_filter = 1
 script = ExtResource("1_k0sla")
@@ -195,32 +204,44 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("5_45vdv")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+script = ExtResource("3_0607o")
+follow_mode = 2
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_1vxug")
 
 [node name="body" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(4, -6)
-texture = ExtResource("2_kys41")
+texture = ExtResource("6_3eluf")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 frame = 4
 
 [node name="flag_left" type="Sprite2D" parent="body"]
-texture = ExtResource("2_kys41")
+texture_filter = 1
+texture = ExtResource("6_3eluf")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 frame = 36
 
 [node name="flag_right" type="Sprite2D" parent="body"]
-texture = ExtResource("2_kys41")
+texture_filter = 1
+texture = ExtResource("6_3eluf")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 frame = 46
 
 [node name="eyes" type="Sprite2D" parent="body"]
-texture = ExtResource("2_kys41")
+texture_filter = 1
+texture = ExtResource("6_3eluf")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
@@ -228,8 +249,19 @@ frame = 56
 
 [node name="sparkle" type="Sprite2D" parent="body"]
 visible = false
-texture = ExtResource("2_kys41")
+texture_filter = 1
+texture = ExtResource("6_3eluf")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 frame = 60
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="VisciiJump" type="FmodEventEmitter2D" parent="SFX"]
+event_name = "event:/SFX_VisciiJump"
+event_guid = "{b610e314-7219-4a83-8dad-71b2581756db}"
+
+[node name="VisciiBounce2" type="FmodEventEmitter2D" parent="SFX"]
+event_name = "event:/SFX_VisciiBounce2"
+event_guid = "{5d0c8222-ef05-4c35-8d03-6d43aefc687e}"

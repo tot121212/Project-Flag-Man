@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsond0v8yjxt7"]
 
-[ext_resource type="Texture2D" uid="uid://d0s6i5i7f2xli" path="res://assets/tower.png" id="1_oudq1"]
+[ext_resource type="Texture2D" uid="uid://d0s6i5i7f2xli" path="res://assets/aseprite/tower.png" id="1_oudq1"]
 [ext_resource type="Script" path="res://prefabs/characters/tower.gd" id="1_qc4hb"]
 
 [sub_resource type="Animation" id="Animation_kwksp"]
@@ -26,7 +26,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbl4l"]
 size = Vector2(20, 34)
 
-[node name="tower" type="CharacterBody2D"]
+[node name="tower" type="CharacterBody2D" groups=["Ally"]]
 z_index = 9
 texture_filter = 1
 collision_layer = 2
@@ -34,11 +34,13 @@ collision_mask = 4
 script = ExtResource("1_qc4hb")
 
 [node name="body" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_oudq1")
 vframes = 2
 
 [node name="eyes" type="Sprite2D" parent="body"]
 z_index = 1
+texture_filter = 1
 texture = ExtResource("1_oudq1")
 vframes = 2
 metadata/_aseprite_wizard_config_ = {
@@ -66,3 +68,10 @@ libraries = {
 z_index = 1
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_cbl4l")
+
+[node name="proj_cooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+autostart = true
+
+[connection signal="timeout" from="proj_cooldown" to="." method="_on_proj_cooldown_timeout"]

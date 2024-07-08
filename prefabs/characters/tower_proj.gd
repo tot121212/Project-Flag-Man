@@ -1,11 +1,12 @@
-extends RigidBody2D
+extends Sprite2D
 
+@export var speed := 2
+@export var damage := 1
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _physics_process(delta):
+	global_position += Vector2(speed + delta, 0)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_area_2d_body_entered(body):
+	if body.has_method("take_damage"):
+		body.take_damage(damage)
+		queue_free()

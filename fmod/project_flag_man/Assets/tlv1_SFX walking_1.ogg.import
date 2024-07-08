@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ov6w8tls4bl7"
+path="res://.godot/imported/tlv1_SFX walking_1.ogg-1a44075acd39fcc2a5d2bfa8db5ec9ac.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/project_flag_man/Assets/tlv1_SFX walking_1.ogg"
+dest_files=["res://.godot/imported/tlv1_SFX walking_1.ogg-1a44075acd39fcc2a5d2bfa8db5ec9ac.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

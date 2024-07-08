@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8dcgunugsv7b"]
 
-[ext_resource type="PackedScene" uid="uid://dbx0t75esjhgb" path="res://prefabs/terrain/terrain_mars_autotile.tscn" id="1_3n5g2"]
+[ext_resource type="Texture2D" uid="uid://i2afn6rbnltg" path="res://assets/aseprite/mars_background.png" id="1_ljlln"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_1jrpa"]
 b = Vector2(320, 0)
@@ -10,13 +10,14 @@ texture_filter = 1
 collision_layer = 7
 collision_mask = 7
 
-[node name="terrain_mars5" parent="." instance=ExtResource("1_3n5g2")]
-z_index = 1
-position = Vector2(160, -119)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(160, -96)
+texture = ExtResource("1_ljlln")
+vframes = 5
 frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 2
-position = Vector2(0, -40)
+position = Vector2(0, -17)
 shape = SubResource("SegmentShape2D_1jrpa")
 one_way_collision_margin = 0.0

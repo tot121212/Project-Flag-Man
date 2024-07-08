@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs5cder73xxdw"]
+
+[ext_resource type="Texture2D" uid="uid://i2afn6rbnltg" path="res://assets/aseprite/mars_background.png" id="1_xibwm"]
+
+[node name="mars_background" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_xibwm")
+vframes = 4

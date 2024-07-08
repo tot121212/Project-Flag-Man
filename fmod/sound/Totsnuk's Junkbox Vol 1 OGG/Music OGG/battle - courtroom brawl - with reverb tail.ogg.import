@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dls28wq1kthqv"
+path="res://.godot/imported/battle - courtroom brawl - with reverb tail.ogg-0c7300d8ad5d1c0bfdfefa6a7213471d.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/battle - courtroom brawl - with reverb tail.ogg"
+dest_files=["res://.godot/imported/battle - courtroom brawl - with reverb tail.ogg-0c7300d8ad5d1c0bfdfefa6a7213471d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://kcq32x1otdlh"
+path="res://.godot/imported/tlv1_SFX landing_1.ogg-f4fa4bb88da147d729980fac698ead79.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/project_flag_man/Assets/tlv1_SFX landing_1.ogg"
+dest_files=["res://.godot/imported/tlv1_SFX landing_1.ogg-f4fa4bb88da147d729980fac698ead79.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

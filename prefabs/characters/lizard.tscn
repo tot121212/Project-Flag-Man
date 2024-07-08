@@ -1,19 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcw66tob22of1"]
+[gd_scene load_steps=5 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard.gd" id="1_8g677"]
-[ext_resource type="Texture2D" uid="uid://c3mhfuoxv2cog" path="res://assets/lizard.png" id="1_oymcu"]
+[ext_resource type="Texture2D" uid="uid://c3mhfuoxv2cog" path="res://assets/aseprite/lizard.png" id="1_oymcu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g23f4"]
 size = Vector2(47, 16)
 
-[node name="lizard" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7csk"]
+size = Vector2(200, 46)
+
+[node name="Lizard" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 10
 texture_filter = 1
 script = ExtResource("1_8g677")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_oymcu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 4)
 shape = SubResource("RectangleShape2D_g23f4")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+position = Vector2(100, -11)
+shape = SubResource("RectangleShape2D_k7csk")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(200, 0)

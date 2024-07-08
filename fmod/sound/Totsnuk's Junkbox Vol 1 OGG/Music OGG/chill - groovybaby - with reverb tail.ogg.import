@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dbe1r8doh8ycr"
+path="res://.godot/imported/chill - groovybaby - with reverb tail.ogg-724ac6a2a282991f3c2575348c0e0e99.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/chill - groovybaby - with reverb tail.ogg"
+dest_files=["res://.godot/imported/chill - groovybaby - with reverb tail.ogg-724ac6a2a282991f3c2575348c0e0e99.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

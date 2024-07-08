@@ -2,7 +2,7 @@ extends Node2D
 
 @export var max_speed := -400.0
 @export var acceleration := 2000.0
-@export var friction:= 1500.0
+@export var friction := 1500.0
 
 var velocity := Vector2.ZERO
 

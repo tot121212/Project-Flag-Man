@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://206ivc0bk2qw"]
+
+[node name="SoundBankComponent" type="Node2D"]
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://banks/Master.strings.bank", "res://banks/Master.bank", "res://banks/Music.bank", "res://banks/SFX.bank", "res://banks/SFX_UI.bank"]

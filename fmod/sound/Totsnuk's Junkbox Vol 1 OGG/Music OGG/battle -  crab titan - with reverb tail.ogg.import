@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dnj5bqrkfkd87"
+path="res://.godot/imported/battle -  crab titan - with reverb tail.ogg-15e6baedb87c72c69ce802085d128e3b.oggvorbisstr"
+
+[deps]
+
+source_file="res://fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/battle -  crab titan - with reverb tail.ogg"
+dest_files=["res://.godot/imported/battle -  crab titan - with reverb tail.ogg-15e6baedb87c72c69ce802085d128e3b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
