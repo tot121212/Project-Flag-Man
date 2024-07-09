@@ -1,0 +1,18 @@
+[remap]
+
+importer="aseprite_wizard.plugin"
+type="SpriteFrames"
+uid="uid://ca406g3pd5qjm"
+path="res://.godot/imported/tower.aseprite-b40f22ce075eecc57397d51d4b170e45.res"
+
+[deps]
+
+source_file="res://assets/aseprite/tower.aseprite"
+dest_files=["res://.godot/imported/tower.aseprite-b40f22ce075eecc57397d51d4b170e45.res"]
+
+[params]
+
+split_layers=true
+exclude_layers_pattern=" "
+only_visible_layers=false
+sheet_type="Packed"

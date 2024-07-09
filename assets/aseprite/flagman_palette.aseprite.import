@@ -1,0 +1,18 @@
+[remap]
+
+importer="aseprite_wizard.plugin"
+type="SpriteFrames"
+uid="uid://fj6iopmei4fd"
+path="res://.godot/imported/flagman_palette.aseprite-2cfa99a02fda4b7b706b979c51196a85.res"
+
+[deps]
+
+source_file="res://assets/aseprite/flagman_palette.aseprite"
+dest_files=["res://.godot/imported/flagman_palette.aseprite-2cfa99a02fda4b7b706b979c51196a85.res"]
+
+[params]
+
+split_layers=true
+exclude_layers_pattern=" "
+only_visible_layers=false
+sheet_type="Packed"
