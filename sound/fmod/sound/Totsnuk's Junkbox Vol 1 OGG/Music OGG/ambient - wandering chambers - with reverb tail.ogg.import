@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b3nq6y511xu0i"
+path="res://.godot/imported/ambient - wandering chambers - with reverb tail.ogg-c7f44c70302655feda9b378979ffdd03.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/ambient - wandering chambers - with reverb tail.ogg"
+dest_files=["res://.godot/imported/ambient - wandering chambers - with reverb tail.ogg-c7f44c70302655feda9b378979ffdd03.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

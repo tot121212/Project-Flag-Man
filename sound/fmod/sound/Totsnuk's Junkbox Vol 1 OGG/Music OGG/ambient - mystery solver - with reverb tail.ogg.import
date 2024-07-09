@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d1hioomtw8sby"
+path="res://.godot/imported/ambient - mystery solver - with reverb tail.ogg-e12dfa12bd64839719a4bea9ccb719a5.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/ambient - mystery solver - with reverb tail.ogg"
+dest_files=["res://.godot/imported/ambient - mystery solver - with reverb tail.ogg-e12dfa12bd64839719a4bea9ccb719a5.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

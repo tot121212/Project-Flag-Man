@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://pc1xognkq5o2"
+path="res://.godot/imported/tlv1_SFX ui_1.ogg-41f0706f7c5d18f735191643259da625.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/SFX OGG/tlv1_SFX ui_1.ogg"
+dest_files=["res://.godot/imported/tlv1_SFX ui_1.ogg-41f0706f7c5d18f735191643259da625.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

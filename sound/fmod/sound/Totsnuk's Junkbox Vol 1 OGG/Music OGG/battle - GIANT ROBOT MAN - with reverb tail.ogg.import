@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://62o528infgdu"
+path="res://.godot/imported/battle - GIANT ROBOT MAN - with reverb tail.ogg-4d1ad903ecfc4c39e9a451238617f075.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/battle - GIANT ROBOT MAN - with reverb tail.ogg"
+dest_files=["res://.godot/imported/battle - GIANT ROBOT MAN - with reverb tail.ogg-4d1ad903ecfc4c39e9a451238617f075.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

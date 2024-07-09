@@ -6,8 +6,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const TWO_DECIMALS: float = 0.01 # var for 2 decimal points in the snapped function
 
 @onready var animation_player = $AnimationPlayer
-@onready var viscii_jump = $SFX/VisciiJump
-@onready var viscii_bounce2 = $SFX/VisciiBounce2
+#@onready var viscii_jump = $SFX/VisciiJump
+#@onready var viscii_bounce2 = $SFX/VisciiBounce2
 
 func _ready():
 	animation_player.play("idle")
@@ -31,11 +31,11 @@ func _physics_process(delta):
 			velocity.y = move_toward(velocity.y, gravity * 2, gravity * delta * 2)
 	else: # we know we are on the floor
 		if landing == true:
-			viscii_bounce2.play()
+			#viscii_bounce2.play()
 			landing = false
 		if direction.y < 0: # if input up, then jump
 			velocity.y = jump_velocity
-			viscii_jump.play()
+			#viscii_jump.play()
 			landing = true
 	
 	if direction.x != 0:

@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bkf1dy2jfvybs"]
-
-[node name="MusicHandler" type="Node2D"]
-
-[node name="Song" type="FmodEventEmitter2D" parent="."]
-event_name = "event:/Music_Town1"
-event_guid = "{c79495cb-4209-46e8-908b-4e6309129c66}"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dphvljvhobvoq"
+path="res://.godot/imported/town - whistling cloudmen.ogg-f4ba747d81fa84bbb9d95f7a7852adaa.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/town - whistling cloudmen.ogg"
+dest_files=["res://.godot/imported/town - whistling cloudmen.ogg-f4ba747d81fa84bbb9d95f7a7852adaa.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

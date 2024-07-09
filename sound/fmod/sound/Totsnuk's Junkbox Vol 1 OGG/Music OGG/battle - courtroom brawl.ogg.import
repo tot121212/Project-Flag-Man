@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b72p6pgg5v0jn"
+path="res://.godot/imported/battle - courtroom brawl.ogg-9c779091389b180abb012db17e31330a.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/fmod/sound/Totsnuk's Junkbox Vol 1 OGG/Music OGG/battle - courtroom brawl.ogg"
+dest_files=["res://.godot/imported/battle - courtroom brawl.ogg-9c779091389b180abb012db17e31330a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

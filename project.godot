@@ -17,7 +17,7 @@ General/is_memory_tracking_enabled=false
 "Software Format/sample_rate"=48000
 "Software Format/speaker_mode"=3
 General/default_listener_count=1
-General/banks_path="res://banks"
+General/banks_path="res://sound/banks"
 General/should_load_by_name=true
 DSP/dsp_buffer_count=4
 "3D Settings/doppler_scale"=1.0
@@ -56,6 +56,15 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/fmod/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+
+[importer_defaults]
+
+aseprite_wizard.plugin={
+"exclude_layers_pattern": " ",
+"only_visible_layers": false,
+"sheet_type": "Packed",
+"split_layers": true
+}
 
 [input]
 
