@@ -1,18 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://pgytloik1owk"]
 
-[ext_resource type="Texture2D" uid="uid://dvww6j2nik6no" path="res://assets/aseprite/tower_proj.png" id="1_bcjpp"]
+[ext_resource type="Texture2D" uid="uid://du2hnknt2g8et" path="res://assets/aseprite/tower_flag.png" id="1_0qb3m"]
 [ext_resource type="Script" path="res://prefabs/characters/tower_proj.gd" id="1_wmje5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmdt3"]
-size = Vector2(10, 18)
+size = Vector2(10, 10)
 
 [node name="tower_proj" type="Sprite2D" groups=["Good_Proj"]]
 texture_filter = 1
-texture = ExtResource("1_bcjpp")
+position = Vector2(-11, 6)
+texture = ExtResource("1_0qb3m")
 script = ExtResource("1_wmje5")
 
 [node name="Area2D2" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
-position = Vector2(13, -1)
+position = Vector2(37, -5)
 shape = SubResource("RectangleShape2D_gmdt3")

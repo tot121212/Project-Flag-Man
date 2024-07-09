@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs5cder73xxdw"]
+[gd_scene load_steps=2 format=3 uid="uid://bs5cder73xxdw"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5sdsl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_800ve"]
-atlas = SubResource("CompressedTexture2D_5sdsl")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bpl0t"]
+load_path = "res://.godot/imported/flagman_tileset_mars_atlas.png-daf13c48534058bc5e280befb203e7a9.ctex"
 
 [node name="mars_background" type="Sprite2D"]
 texture_filter = 1
-texture = SubResource("AtlasTexture_800ve")
-vframes = 4
+texture = SubResource("CompressedTexture2D_bpl0t")
+vframes = 3

@@ -10,16 +10,12 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta 
 	
-	if velocity.x < max_speed:
-		velocity.x = move_toward(velocity.x, max_speed, speed * delta)
-		velocity.x += speed * delta
+	
+	#if velocity.x < max_speed:
+	#	velocity.x = move_toward(velocity.x, max_speed, speed * delta)
+	#	velocity.x += speed * delta
 	
 	move_and_slide()
 
-func take_damage(damage:float):
-	health -= damage
-	if health < 0:
-		queue_free()
+

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8dcgunugsv7b"]
 
-[ext_resource type="Texture2D" uid="uid://i2afn6rbnltg" path="res://assets/aseprite/mars_background.png" id="1_ljlln"]
+[ext_resource type="Texture2D" uid="uid://c56rmmbrwn4rd" path="res://assets/aseprite/flagman_tileset_path.png" id="1_fl0fm"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_1jrpa"]
 b = Vector2(320, 0)
@@ -12,9 +12,7 @@ collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(160, -96)
-texture = ExtResource("1_ljlln")
-vframes = 5
-frame = 4
+texture = ExtResource("1_fl0fm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 2

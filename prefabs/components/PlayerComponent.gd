@@ -6,8 +6,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const TWO_DECIMALS: float = 0.01 # var for 2 decimal points in the snapped function
 
 @onready var animation_player = $AnimationPlayer
-#@onready var viscii_jump = $SFX/VisciiJump
-#@onready var viscii_bounce2 = $SFX/VisciiBounce2
+@onready var viscii_jump = $SFX/VisciiJump
+@onready var viscii_bounce2 = $SFX/VisciiBounce2
 
 func _ready():
 	animation_player.play("idle")
