@@ -14,8 +14,6 @@ size = Vector2(48, 16)
 [node name="Lizard" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 10
 texture_filter = 1
-collision_layer = 8
-collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -28,7 +26,7 @@ shape = SubResource("RectangleShape2D_g23f4")
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetectionArea"]
 polygon = PackedVector2Array(0, 12, -24, 12, -120, 12, -120, -4, -24, -4, 0, -4, 50, -50, 150, -50, 166, 0, 150, 50, 50, 50)
@@ -40,9 +38,10 @@ detection_area = NodePath("..")
 script = ExtResource("3_glia0")
 initial_state = NodePath("LizardIdle")
 
-[node name="LizardIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
+[node name="LizardIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("body", "raycast")]
 script = ExtResource("4_qrcok")
 body = NodePath("../..")
+raycast = NodePath("")
 
 [node name="LizardCharge" type="Node" parent="StateMachine"]
 script = ExtResource("4_m1qqv")

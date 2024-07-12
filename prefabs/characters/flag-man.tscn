@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=14 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/PlayerComponent.gd" id="1_k0sla"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/VelocityComponent.tscn" id="2_t1oyf"]
-[ext_resource type="Script" path="res://prefabs/characters/player_cam-params.gd" id="4_2l0yv"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_45vdv"]
 [ext_resource type="Texture2D" uid="uid://d1jwp8368wabm" path="res://assets/aseprite/flagman_body.png" id="6_iwifs"]
 [ext_resource type="Texture2D" uid="uid://bh5bw48ufkbhc" path="res://assets/aseprite/flagman_flagleft.png" id="7_5qite"]
@@ -181,6 +180,8 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 10
 texture_filter = 1
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_k0sla")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_t1oyf")]
@@ -206,8 +207,6 @@ libraries = {
 script = ExtResource("5_45vdv")
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
-script = ExtResource("4_2l0yv")
-follow_mode = 5
 
 [node name="body" type="Sprite2D" parent="."]
 texture_filter = 1

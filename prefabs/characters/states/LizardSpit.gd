@@ -1,7 +1,7 @@
 extends State
-class_name EnemyIdle
+class_name LizardSpit
 
-@export var enemy: CharacterBody2D
+@export var body: CharacterBody2D
 @export var move_speed := 10.0
 
 var move_direction : Vector2
@@ -22,5 +22,5 @@ func Update(delta: float):
 		randomize_wander()
 		
 func Physics_Update(delta: float):
-	if enemy:
-		enemy.velocity = move_direction * move_speed
+	if body:
+		body.velocity = move_direction * move_speed
