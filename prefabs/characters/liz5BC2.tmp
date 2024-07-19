@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcw66tob22of1"]
+
+[ext_resource type="Texture2D" uid="uid://c504xi8mcwshu" path="res://assets/aseprite/lizard_body.png" id="2_7k1tw"]
+[ext_resource type="PackedScene" uid="uid://drjbn70yf418x" path="res://prefabs/components/DetectionRaycaster.tscn" id="2_lkvsr"]
+[ext_resource type="Script" path="res://prefabs/characters/states/StateMachine.gd" id="3_glia0"]
+[ext_resource type="Script" path="res://prefabs/characters/states/LizardCharge.gd" id="4_m1qqv"]
+[ext_resource type="Script" path="res://prefabs/characters/states/LizardIdle.gd" id="4_qrcok"]
+[ext_resource type="Script" path="res://prefabs/characters/states/LizardSpit.gd" id="5_w1tyr"]
+[ext_resource type="PackedScene" uid="uid://dfrwg73p8bx44" path="res://prefabs/components/GravityComponent.tscn" id="5_xhtlo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g23f4"]
+size = Vector2(48, 16)
+
+[node name="Lizard" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 10
+texture_filter = 1
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(25, 0)
+texture = ExtResource("2_7k1tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_g23f4")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetectionArea"]
+polygon = PackedVector2Array(0, 12, -24, 12, -120, 12, -120, -4, -24, -4, 0, -4, 50, -50, 150, -50, 166, 0, 150, 50, 50, 50)
+
+[node name="DetectionRaycaster" parent="PlayerDetectionArea" node_paths=PackedStringArray("detection_area") instance=ExtResource("2_lkvsr")]
+detection_area = NodePath("..")
+raycast_length = null
+collide_with_bodies = null
+collide_with_areas = null
+collision_layers = null
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_glia0")
+initial_state = NodePath("LizardIdle")
+
+[node name="LizardIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
+script = ExtResource("4_qrcok")
+body = NodePath("../..")
+
+[node name="LizardCharge" type="Node" parent="StateMachine"]
+script = ExtResource("4_m1qqv")
+
+[node name="LizardSpit" type="Node" parent="StateMachine"]
+script = ExtResource("5_w1tyr")
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("object") instance=ExtResource("5_xhtlo")]
+object = NodePath("..")

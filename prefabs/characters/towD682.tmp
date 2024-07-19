@@ -11,15 +11,19 @@ size = Vector2(10, 10)
 z_index = 8
 texture_filter = 1
 texture = ExtResource("1_0qb3m")
-offset = Vector2(-11, -8)
 script = ExtResource("1_wmje5")
+speed = null
+damage = null
 
 [node name="Area2D2" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
-position = Vector2(26, -13)
+position = Vector2(37, -5)
 shape = SubResource("RectangleShape2D_gmdt3")
 
-[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_40rk0")]
-body = NodePath("..")
-speed = Vector2(150, 0)
+[node name="ProjectileComponent" parent="." instance=ExtResource("3_40rk0")]
+speed = null
+direction = null
+lifespan = null
+damage = null
+lifespan_signal = null

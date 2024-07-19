@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qqlywqu03lmj"]
+
+[ext_resource type="Script" path="res://prefabs/characters/states/State.gd" id="1_pwdyi"]
+
+[node name="State" type="Node"]
+script = ExtResource("1_pwdyi")

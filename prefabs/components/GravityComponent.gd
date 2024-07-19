@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @export var object : CharacterBody2D
 
