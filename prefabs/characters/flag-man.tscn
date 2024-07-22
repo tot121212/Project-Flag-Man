@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://bmgtu0lwsfh3c"]
 
-[ext_resource type="Script" path="res://prefabs/components/PlayerComponent.gd" id="1_k0sla"]
-[ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/VelocityComponent.tscn" id="2_t1oyf"]
+[ext_resource type="Script" path="res://prefabs/components/Properties/Player/PlayerComponent.gd" id="1_2gyab"]
+[ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/Properties/Velocity/VelocityComponent.tscn" id="2_fwv8r"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_45vdv"]
 [ext_resource type="Texture2D" uid="uid://d1jwp8368wabm" path="res://assets/aseprite/flagman_body.png" id="6_iwifs"]
 [ext_resource type="Texture2D" uid="uid://bh5bw48ufkbhc" path="res://assets/aseprite/flagman_flagleft.png" id="7_5qite"]
@@ -182,9 +182,9 @@ z_index = 10
 texture_filter = 1
 collision_layer = 2
 collision_mask = 9
-script = ExtResource("1_k0sla")
+script = ExtResource("1_2gyab")
 
-[node name="VelocityComponent" parent="." instance=ExtResource("2_t1oyf")]
+[node name="VelocityComponent" parent="." instance=ExtResource("2_fwv8r")]
 
 [node name="hitbox_collisionshape2d" type="CollisionShape2D" parent="."]
 position = Vector2(6, -1)
