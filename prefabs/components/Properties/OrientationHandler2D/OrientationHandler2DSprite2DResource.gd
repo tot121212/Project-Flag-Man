@@ -1,0 +1,2 @@
+extends OrientationHandler2DResource
+class_name OrientationHandler2DSprite2DResource

@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8dcgunugsv7b"]
+[gd_scene load_steps=4 format=3 uid="uid://b8dcgunugsv7b"]
 
-[ext_resource type="Texture2D" uid="uid://c56rmmbrwn4rd" path="res://assets/aseprite/flagman_tileset_path.png" id="1_fl0fm"]
+[ext_resource type="Texture2D" uid="uid://ekyts2fchj3i" path="res://assets/aseprite/flagman_tileset.png" id="1_fxkl1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is0wf"]
+atlas = ExtResource("1_fxkl1")
+region = Rect2(0, 585, 320, 39)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_1jrpa"]
 b = Vector2(320, 0)
@@ -10,8 +14,8 @@ texture_filter = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(160, -96)
-texture = ExtResource("1_fl0fm")
+position = Vector2(160, -19)
+texture = SubResource("AtlasTexture_is0wf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 2

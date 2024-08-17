@@ -1,19 +1,15 @@
 extends Node2D
+class_name VelocityComponent
 
-@export var max_speed := -400.0
-@export var acceleration := 2000.0
-@export var friction := 1500.0
+@export var root : Node2D # what node are we enacting velocity changes onto
+@export var stats_component: Node2D
 
-var velocity := Vector2.ZERO
+@export var acceleration_coefficient : float = 100.0
+@export var friction : float = 50.0
 
-func apply_acceleration(direction: Vector2, delta: float):
-	if direction != Vector2.ZERO:
-		velocity = velocity.move_toward(direction * max_speed, acceleration * delta)
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+func move(delta: float, direction: Vector2):
+	var new_velocity = root.velocity.move_toward(direction * stats_component.max_speed, acceleration_coefficient * delta)
+	root.velocity.x = clamp(new_velocity.x, -stats_component.max_speed, stats_component.max_speed) 
 
 func apply_friction(delta: float):
-	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
-
-func get_velocity() -> Vector2:
-	return velocity
+	root.velocity = root.velocity.move_toward(Vector2.ZERO, friction * delta)

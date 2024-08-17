@@ -1,6 +1,8 @@
 extends Node
 class_name ProjectileComponent
 
+signal proj_delete_self
+
 @export var body: Node2D ## projectile root
 @export var speed: Vector2 = Vector2(400.0, 0.0) ## speed of projectile
 @export var direction: Vector2 = Vector2.RIGHT ## direction of projectile
@@ -29,7 +31,6 @@ func _ready():
 func _physics_process(delta):
 	body.position += speed * delta
 
-signal proj_delete_self
 func _on_timer_timeout():
 	if lifespan_signal:
 		proj_delete_self.emit()

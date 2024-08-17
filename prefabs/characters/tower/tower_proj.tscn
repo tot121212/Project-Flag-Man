@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://pgytloik1owk"]
+
+[ext_resource type="Texture2D" path="res://assets/aseprite/tower_flag.png" id="1_0qb3m"]
+[ext_resource type="Script" path="res://prefabs/characters/tower/tower_proj.gd" id="1_wmje5"]
+[ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/Properties/Projectile/ProjectileComponent.tscn" id="3_40rk0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmdt3"]
+size = Vector2(10, 10)
+
+[node name="tower_proj" type="Node2D" groups=["Ally_Proj"]]
+script = ExtResource("1_wmje5")
+
+[node name="tower_proj" type="Sprite2D" parent="."]
+z_index = 8
+texture_filter = 1
+texture = ExtResource("1_0qb3m")
+offset = Vector2(-11, -8)
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(26, -13)
+shape = SubResource("RectangleShape2D_gmdt3")
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_40rk0")]
+body = NodePath("..")
+speed = Vector2(150, 0)

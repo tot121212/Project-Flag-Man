@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsond0v8yjxt7"]
+
+[ext_resource type="Script" path="res://prefabs/characters/tower/tower.gd" id="1_qc4hb"]
+[ext_resource type="Texture2D" path="res://assets/aseprite/tower_body.png" id="2_wshfm"]
+[ext_resource type="PackedScene" uid="uid://pgytloik1owk" path="res://prefabs/characters/tower/tower_proj.tscn" id="2_ycsty"]
+[ext_resource type="Texture2D" path="res://assets/aseprite/tower_eyes.png" id="3_h20u0"]
+[ext_resource type="PackedScene" uid="uid://dfrwg73p8bx44" path="res://prefabs/components/Properties/Gravity/GravityComponent.tscn" id="5_vxsmv"]
+
+[sub_resource type="Animation" id="Animation_kwksp"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1j0kd"]
+_data = {
+"attack": SubResource("Animation_kwksp")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbl4l"]
+size = Vector2(20, 34)
+
+[node name="tower" type="CharacterBody2D" groups=["Ally"]]
+z_index = 9
+texture_filter = 1
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_qc4hb")
+proj_scene = ExtResource("2_ycsty")
+debug_infinite_proj = true
+
+[node name="body" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(24, 0)
+texture = ExtResource("2_wshfm")
+
+[node name="eyes" type="Sprite2D" parent="body"]
+z_index = 1
+texture_filter = 1
+texture = ExtResource("3_h20u0")
+metadata/_aseprite_wizard_config_ = {
+"i_mode": -1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"slice": "",
+"source": ""
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1j0kd")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_cbl4l")
+
+[node name="proj_cooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+autostart = true
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("object") instance=ExtResource("5_vxsmv")]
+object = NodePath("..")
+
+[connection signal="timeout" from="proj_cooldown" to="." method="_on_proj_cooldown_timeout"]

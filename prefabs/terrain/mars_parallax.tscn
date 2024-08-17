@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbx0t75esjhgb"]
+[gd_scene load_steps=7 format=3 uid="uid://dbx0t75esjhgb"]
 
 [ext_resource type="Script" path="res://prefabs/terrain/mars_parallax_sky.gd" id="1_jjf2c"]
-[ext_resource type="Texture2D" uid="uid://nkyreue1s6qi" path="res://assets/aseprite/flagman_tileset_sky.png" id="1_k45g4"]
-[ext_resource type="Texture2D" uid="uid://nqf3mcx8fij5" path="res://assets/aseprite/flagman_tileset_background.png" id="2_a4s03"]
-[ext_resource type="Texture2D" uid="uid://h473tgkry77w" path="res://assets/aseprite/flagman_tileset_middleground.png" id="3_nyfh8"]
+[ext_resource type="Texture2D" uid="uid://ekyts2fchj3i" path="res://assets/aseprite/flagman_tileset.png" id="2_52jpw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0gbo"]
+atlas = ExtResource("2_52jpw")
+region = Rect2(0, 320, 320, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r64sn"]
+atlas = ExtResource("2_52jpw")
+region = Rect2(0, 464, 320, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hefu"]
+atlas = ExtResource("2_52jpw")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roiyo"]
+atlas = ExtResource("2_52jpw")
+region = Rect2(0, 592, 320, 144)
 
 [node name="mars_parallax" type="ParallaxBackground"]
 scroll_base_scale = Vector2(0.1, 1)
@@ -14,28 +28,43 @@ motion_mirroring = Vector2(640, 0)
 script = ExtResource("1_jjf2c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
-texture = ExtResource("1_k45g4")
+texture = SubResource("AtlasTexture_y0gbo")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sky"]
-texture = ExtResource("1_k45g4")
+position = Vector2(320, 0)
+texture = SubResource("AtlasTexture_y0gbo")
 centered = false
-offset = Vector2(320, 0)
-
-[node name="sky_movement_timer" type="Timer" parent="Sky"]
-process_callback = 0
-autostart = true
 
 [node name="Background" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.2, 0.8)
 motion_mirroring = Vector2(640, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
-texture = ExtResource("2_a4s03")
+position = Vector2(0, 80)
+texture = SubResource("AtlasTexture_r64sn")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Background"]
-texture = ExtResource("2_a4s03")
+position = Vector2(0, 80)
+texture = SubResource("AtlasTexture_r64sn")
+centered = false
+offset = Vector2(320, 0)
+
+[node name="Underground" type="ParallaxLayer" parent="."]
+position = Vector2(0, 1)
+motion_scale = Vector2(0.8, 0.8)
+motion_offset = Vector2(0, 15)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Underground"]
+position = Vector2(0, 214)
+texture = SubResource("AtlasTexture_1hefu")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Underground"]
+position = Vector2(0, 214)
+texture = SubResource("AtlasTexture_1hefu")
 centered = false
 offset = Vector2(320, 0)
 
@@ -44,12 +73,12 @@ motion_scale = Vector2(0.5, 0.9)
 motion_mirroring = Vector2(640, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Middleground"]
-texture = ExtResource("3_nyfh8")
+position = Vector2(0, 102)
+texture = SubResource("AtlasTexture_roiyo")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Middleground"]
-texture = ExtResource("3_nyfh8")
+position = Vector2(0, 102)
+texture = SubResource("AtlasTexture_roiyo")
 centered = false
 offset = Vector2(320, 0)
-
-[connection signal="timeout" from="Sky/sky_movement_timer" to="Sky" method="_on_sky_movement_timer_timeout"]
