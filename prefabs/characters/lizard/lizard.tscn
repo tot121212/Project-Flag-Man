@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard/lizard.gd" id="1_i42rh"]
-[ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2DSimplified/OrientationHandler2DSimplified.tscn" id="2_2kjo4"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
+[ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_u7sv1"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="3_ysfwk"]
 [ext_resource type="PackedScene" uid="uid://drjbn70yf418x" path="res://prefabs/components/Properties/DetectionRaycaster/DetectionRaycaster.tscn" id="4_lvdp3"]
 [ext_resource type="Script" path="res://prefabs/characters/lizard/States/LizardIdle.gd" id="4_twjhp"]
@@ -53,7 +53,7 @@ navigation_agent = NodePath("NavigationAgent2D")
 path_postprocessing = 1
 debug_enabled = true
 
-[node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_2kjo4")]
+[node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_u7sv1")]
 root = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("..")])
 

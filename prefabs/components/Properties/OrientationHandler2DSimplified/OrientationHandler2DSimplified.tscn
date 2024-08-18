@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dd5fpvwuwrhgx"]
-
-[ext_resource type="Script" path="res://prefabs/components/Properties/OrientationHandler2DSimplified/OrientationHandler2DSimplified.gd" id="1_y8sla"]
-
-[node name="OrientationHandler2DSimplified" type="Node2D"]
-script = ExtResource("1_y8sla")

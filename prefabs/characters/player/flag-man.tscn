@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://prefabs/components/Properties/Player/PlayerComponent.gd" id="1_2gyab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://ct33u6w1jg7eu" path="res://prefabs/characters/player/flag-man.tres" id="2_8blmv"]
-[ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2DSimplified/OrientationHandler2DSimplified.tscn" id="2_08w8m"]
+[ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_08w8m"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/Properties/Velocity/VelocityComponent.tscn" id="2_fwv8r"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="8_dsusd"]
 [ext_resource type="Script" path="res://prefabs/components/state_machine/StateMachine.gd" id="11_b00kn"]
