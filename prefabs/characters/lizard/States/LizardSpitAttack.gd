@@ -1,3 +1,3 @@
 extends State
 
-@export var body : Node2D
+@export var root : Node2D

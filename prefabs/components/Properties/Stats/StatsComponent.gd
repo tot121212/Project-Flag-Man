@@ -6,7 +6,7 @@ signal health_changed
 @export var can_walk : bool = true
 @export var can_fly : bool = false
 
-@export var max_speed : float = 35.0
+@export var max_speed : float = 55.0
 
 @export var max_health : int = 1
 

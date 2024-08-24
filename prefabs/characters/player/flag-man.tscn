@@ -81,7 +81,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerHitboxArea2D/PlayerHitbox:position")
+tracks/5/path = NodePath("PlayerHitbox:position")
 tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -122,7 +122,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerHitboxArea2D/PlayerHitbox:position")
+tracks/1/path = NodePath("PlayerHitbox:position")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -202,6 +202,7 @@ z_index = 10
 texture_filter = 1
 collision_layer = 2
 collision_mask = 9
+collision_priority = 4.0
 script = ExtResource("1_2gyab")
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
@@ -218,19 +219,6 @@ next/idle = &"attack"
 tree_root = ExtResource("2_8blmv")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false
-
-[node name="PlayerHitboxArea2D" type="Area2D" parent="." groups=["Player_Hitbox"]]
-collision_layer = 2
-collision_mask = 9
-
-[node name="PlayerHitbox" type="CollisionShape2D" parent="PlayerHitboxArea2D"]
-position = Vector2(-3, -3)
-shape = SubResource("CapsuleShape2D_p41l2")
-one_way_collision_margin = 0.0
-
-[node name="PlayerMovementShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_p41l2")
-one_way_collision_margin = 0.0
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("11_b00kn")
@@ -261,7 +249,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 22
+frame = 20
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -270,7 +258,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 32
+frame = 30
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -279,7 +267,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 42
+frame = 40
 
 [node name="Eyes" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -288,7 +276,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 52
+frame = 50
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -299,6 +287,17 @@ offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 frame = 60
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 0)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CapsuleShape2D_p41l2")
+one_way_collision_margin = 0.0
+
+[node name="PlayerMovementShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_p41l2")
+one_way_collision_margin = 0.0
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_fwv8r")]
 

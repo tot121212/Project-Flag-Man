@@ -1,21 +1,9 @@
 extends TileMap
 class_name TileMapPathFind
 
-class PointInfo:
-	func _init(POINT_ID : int = -1, POSITION : Vector2 = Vector2.ZERO):
-		point_id = POINT_ID
-		position = POSITION
-	
-	var is_fall_tile : bool
-	var is_left_edge : bool
-	var is_right_edge : bool
-	var is_left_wall : bool
-	var is_right_wall : bool
-	var is_position_point : bool
-	var point_id : int
-	var position : Vector2
-
 @export var show_debug_graph : bool = true
+var jump_distance : int = 5
+var jump_height : int = 4
 const COLLISION_LAYER : int          = 0
 const CELL_IS_EMPTY : int            = -1
 const MAX_TIME_FALL_SCAN_DEPTH : int = 500
@@ -33,12 +21,59 @@ func _ready():
 func build_graph():
 	add_graph_points()
 
+func get_point_info_at_position(pos : Vector2) -> PointInfo:
+	var new_info_point : PointInfo = PointInfo.new(-10000, pos) # create new pointinfo with pos
+	new_info_point.is_position_point = true # mark as position point
+	var tile = local_to_map(pos) # get tile position
+	
+	#if tile below
+	if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x, tile.y + 1)) != CELL_IS_EMPTY:
+		# if tile exists on sides
+		if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x - 1, tile.y)) != CELL_IS_EMPTY:
+			new_info_point.is_left_wall = true
+		if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x + 1, tile.y)) != CELL_IS_EMPTY:
+			new_info_point.is_right_wall = true 
+		if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x - 1, tile.y + 1)) != CELL_IS_EMPTY:
+			new_info_point.is_left_edge = true
+		if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x + 1, tile.y + 1)) != CELL_IS_EMPTY:
+			new_info_point.is_right_edge = true
+	return new_info_point
+
+func reverse_stack(stack: Array) -> Array:
+	var reversed_stack: Array = []
+	while stack.size() > 0:
+		reversed_stack.append(stack.pop_back())
+	return reversed_stack
+
+func get_platform_2d_path(start_pos : Vector2, end_pos : Vector2):
+	var path_stack : Array[PointInfo] = []
+	var id_path = _astar_graph.get_id_path(_astar_graph.get_closest_point(start_pos), _astar_graph.get_closest_point(end_pos))
+	if id_path.size <= 0: return path_stack
+	var start_point = get_point_info_at_position(start_pos)
+	var end_point = get_point_info_at_position(end_pos)
+	var num_points_in_path = id_path.size()
+	
+	for i in range(num_points_in_path):
+		var cur_point = get_info_point_by_point_id(id_path[i])
+		path_stack.push_back(cur_point)
+
+func get_info_point_by_point_id(point_id : int) -> PointInfo:
+	for p in _point_info_list:
+		if p.point_id == point_id:
+			return p
+	return null
+
+func draw_debug_line(to : Vector2, from : Vector2, color : Color):
+	if show_debug_graph:
+		draw_line(to, from, color)
+
 func add_graph_points():
 	for tile in _used_tiles:
 		add_left_edge_point(tile)
 		add_right_edge_point(tile)
 		add_left_wall_point(tile)
 		add_right_wall_point(tile)
+		add_fall_point(tile)
 
 func tile_already_exists_in_graph(tile : Vector2i):
 	# map position to screen coords
@@ -152,6 +187,109 @@ func get_point_info(tile : Vector2i):
 			return point_info
 	return null
 
+func _draw():
+	if show_debug_graph:
+		connect_points()
+
+func connect_points(): # for each point, connect to viable neighbors
+	for p1 in _point_info_list:
+		connect_horizontal_points(p1)
+		connect_jump_points(p1)
+		connect_fall_point(p1)
+
+func connect_fall_point(p1 : PointInfo):
+	if p1.is_left_edge or p1.is_right_edge:
+		var local_pos = local_to_map(p1.position)
+		local_pos.y += 1
+		
+		var fall_point = find_fall_point(local_pos)
+		if fall_point != null:
+			var point_info : PointInfo = get_point_info(fall_point)
+			var p2_map : Vector2 = local_to_map(p1.position)
+			var p1_map : Vector2 = local_to_map(point_info.position)
+			
+			if p1_map.distance_to(p2_map) <= jump_height:
+				_astar_graph.connect_points(p1.point_id, point_info.point_id)
+				draw_debug_line(p1.position, point_info.position, Color(0,1,0,1)) # green if within jump distance
+			else:
+				_astar_graph.connect_points(p1.point_id, point_info.point_id, false)
+				draw_debug_line(p1.position, point_info.position, Color(1,1,0,1))
+
+func connect_jump_points(p1: PointInfo):
+	for p2 in _point_info_list:
+		connect_horizontal_platform_jumps(p1, p2)
+		connect_diagonal_jump_right_edge_to_left_edge(p1, p2)
+		connect_diagonal_jump_left_edge_to_right_edge(p1, p2)
+
+func connect_diagonal_jump_right_edge_to_left_edge(p1 : PointInfo, p2 : PointInfo):
+	if p1.is_right_edge:
+		var p1_map : Vector2 = local_to_map(p1.position)
+		var p2_map : Vector2 = local_to_map(p2.position)
+		
+		# if p2 is left edge
+		# and p2 is to right of p1
+		# and p2 is below p1
+		# and distance between is within jump reach
+		if (p2.is_left_edge 
+		and p2.position.x > p1.position.x 
+		and p2.position.y > p1.position.y 
+		and p2_map.distance_to(p1_map) <= jump_distance): 
+			_astar_graph.connect_points(p1.point_id, p2.point_id)
+			draw_debug_line(p1.position, p2.position, Color(1,1,0,1))
+
+func connect_diagonal_jump_left_edge_to_right_edge(p1 : PointInfo, p2 : PointInfo):
+	if p1.is_left_edge:
+		var p1_map : Vector2 = local_to_map(p1.position)
+		var p2_map : Vector2 = local_to_map(p2.position)
+		
+		# if p2 is left edge
+		# and p2 is to right of p1
+		# and p2 is below p1
+		# and distance between is within jump reach
+		if (p2.is_right_edge 
+		and p2.position.x < p1.position.x 
+		and p2.position.y > p1.position.y 
+		and p2_map.distance_to(p1_map) <= jump_distance): 
+			_astar_graph.connect_points(p1.point_id, p2.point_id)
+			draw_debug_line(p1.position, p2.position, Color(0,1,0,1))
+
+func connect_horizontal_platform_jumps(p1 : PointInfo, p2 : PointInfo):
+	if p1.point_id == p2.point_id: return
+	
+	if p2.position.y == p1.position.y and p1.is_right_edge and p2.is_left_edge:
+		if p2.position.x > p1.position.x:
+			var p2_map : Vector2 = local_to_map(p2.position)
+			var p1_map : Vector2 = local_to_map(p1.position)
+			
+			if p2_map.distance_to(p1_map) <= jump_distance: # if distance between map pos is within jump reach
+				_astar_graph.connect_points(p1.point_id, p2.point_id) # connect points
+				draw_debug_line(p1.position, p2.position, Color(0,1,1,1)) # create line
+
+func connect_horizontal_points(p1 : PointInfo):
+	if p1.is_left_edge or p1.is_left_wall or p1.is_fall_tile:
+		var closest : PointInfo = null
+		for p2 in _point_info_list:
+			if p1.point_id == p2.point_id: continue # if points are same, go to next point. self cant be connected to self, duh
+			#if p2 is to the right of p1 with no y difference, and is a right edge or wall
+			if (p2.is_right_edge or p2.is_right_wall or p2.is_fall_tile) and p2.position.y == p1.position.y and p2.position.x > p1.position.x:
+				if closest == null: # if closesnt not initialized, initialize
+					closest = PointInfo.new(p2.point_id, p2.position)
+				if p2.position.x < closest.position.x: # if closer, set to closest
+					closest.position = p2.position
+					closest.point_id = p2.point_id
+		if closest != null:
+			if (horizontal_connection_can_be_made(p1.position, closest.position)):
+				_astar_graph.connect_points(p1.point_id, closest.point_id)
+				draw_debug_line(p1.position, closest.position, Color(0,1,0,1)) # draw lines horizontally
+
+func horizontal_connection_can_be_made(p1 : Vector2i, p2 : Vector2i):
+	var start_scan = local_to_map(p1)
+	var end_scan = local_to_map(p2)
+	for i in range(start_scan.x, end_scan.x):
+		if get_cell_source_id(COLLISION_LAYER, Vector2i(i, start_scan.y)) != CELL_IS_EMPTY or get_cell_source_id(COLLISION_LAYER, Vector2i(i, start_scan.y + 1)) == CELL_IS_EMPTY:
+			return false
+	return true
+
 func get_start_scan_tile_for_fall_points(tile : Vector2i):
 	var tile_above = Vector2(tile.x, tile.y - 1)
 	var point = get_point_info(tile_above)
@@ -165,7 +303,7 @@ func get_start_scan_tile_for_fall_points(tile : Vector2i):
 		return tile_scan
 	return null
 
-func find_fall_point(tile : Vector2):
+func find_fall_point(tile : Vector2i):
 	var scan = get_start_scan_tile_for_fall_points(tile as Vector2i)
 	if scan == null: return null
 	
@@ -180,6 +318,25 @@ func find_fall_point(tile : Vector2):
 	
 	return fall_tile
 
+func add_fall_point(tile : Vector2i):
+	var fall_tile = find_fall_point(tile)               # find fall tile point
+	if fall_tile == null: return                                   # if not found return
+	var fall_tile_local : Vector2i = map_to_local(fall_tile)       # get local coords of fall tile
+	var existing_point_id = tile_already_exists_in_graph(fall_tile)# check if point already added
+	if existing_point_id == -1:                                    # if point doesnt exist
+		var point_id = _astar_graph.get_available_point_id()       # get an id
+		var point_info = PointInfo.new(point_id, fall_tile_local)  # make new pointinfo object
+		point_info.is_fall_tile = true                             # flag is fall tile
+		_point_info_list.append(point_info)                        # append object to list
+		_astar_graph.add_point(point_id, fall_tile_local)          # add point to astar graph
+		add_visual_point(fall_tile, Color(1, 0.35, 0.1, 1), 0.35)  # render visual for point
+	else:
+		for point_info in _point_info_list:                               
+			if point_info.point_id == existing_point_id:                  # flag that existing point is
+				point_info.is_fall_tile = true
+				add_visual_point(fall_tile, Color("#ef7d57"), 0.30)
+				break
+	
 func tile_above_exists(tile : Vector2i):
 	if get_cell_source_id(COLLISION_LAYER, Vector2i(tile.x, tile.y - 1)) == CELL_IS_EMPTY:
 		return false # if empty, return false
