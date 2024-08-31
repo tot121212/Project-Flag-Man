@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://be52tqdqjnxwb"]
+
+[ext_resource type="Script" path="res://prefabs/components/Properties/ObjectDetectRaycasts/object_detect_raycasts.gd" id="1_bikp4"]
+
+[node name="ObjectDetectRaycasts" type="Node2D" node_paths=PackedStringArray("raycast_front", "raycast_front_down")]
+script = ExtResource("1_bikp4")
+raycast_front = NodePath("Front")
+raycast_front_down = NodePath("FrontDown")
+
+[node name="Front" type="RayCast2D" parent="."]
+position = Vector2(24, 10)
+target_position = Vector2(16, 0)
+hit_from_inside = true
+
+[node name="FrontDown" type="RayCast2D" parent="."]
+position = Vector2(24, 0)
+target_position = Vector2(0, 16)
+hit_from_inside = true
+
+[node name="BackDown" type="RayCast2D" parent="."]
+position = Vector2(-24, 0)
+target_position = Vector2(0, 16)
+hit_from_inside = true

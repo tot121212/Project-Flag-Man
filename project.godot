@@ -42,12 +42,17 @@ aseprite_executable_path="C:/Users/evanm/Desktop/Art/3 - Resources/Aseprite/Asep
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Signalbus="*res://prefabs/components/SignalBus/signalbus.gd"
 
+[debug]
+
+shapes/navigation/geometry_edge_color=Color(0.501961, 1, 1, 0.109804)
+shapes/collision/shape_color=Color(0, 0.6, 0.701961, 0.141176)
+
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=2
 window/size/always_on_top=true
+window/size/transparent=true
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 

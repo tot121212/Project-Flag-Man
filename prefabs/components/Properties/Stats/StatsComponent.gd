@@ -6,10 +6,13 @@ signal health_changed
 @export var can_walk : bool = true
 @export var can_fly : bool = false
 
-@export var max_speed : float = 55.0
+@export var max_speed : Vector2 = Vector2(55.0, 40.0)
+
+@export var initial_jump_speed : float = 75.0
+@export var jump_speed : float = 35.0
+@export var jump_time : float = 0.4
 
 @export var max_health : int = 1
-
 var cur_health : int = 1
 
 func set_cur_health(new_health: int) -> void:

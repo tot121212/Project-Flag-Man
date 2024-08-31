@@ -1,4 +1,5 @@
 extends Node2D
+class_name GravityComponent
 
 @export var root : CharacterBody2D
 
