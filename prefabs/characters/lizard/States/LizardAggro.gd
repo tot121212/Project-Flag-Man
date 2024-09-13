@@ -4,8 +4,8 @@ extends State
 @export var state_machine_parent : Node
 
 @onready var aggro_timer : Timer = Timer.new()
-var aggro_timer_lower_range : float = 12.0
-var aggro_timer_upper_range : float = 24.0
+var aggro_timer_lower_range : float = 6.0
+var aggro_timer_upper_range : float = 12.0
 var cur_aggro_target : Node
 
 func _ready():

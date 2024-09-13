@@ -19,9 +19,12 @@ var target_group : String # the group with which self should attack
 
 var target_position : Vector2 # what position are we tryna go to
 
+var is_jumping : bool = false
+
 func _physics_process(delta):
-	if not velocity_component.is_jumping:
+	if not is_jumping:
 		velocity_component.apply_friction(delta)
-	else: 
+	else:
+		velocity_component.apply_friction(delta, 0.8)
 		velocity_component.apply_jump(delta)
 	move_and_slide()

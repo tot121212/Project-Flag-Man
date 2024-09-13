@@ -515,7 +515,7 @@ transform = Transform2D(1, 0, 0, 1, 0, -160)
 [node name="NavigationLink2D" type="NavigationLink2D" parent="."]
 position = Vector2(360, 5)
 bidirectional = false
-end_position = Vector2(20, 50)
+end_position = Vector2(16.835, 50.925)
 
 [node name="Player" parent="." instance=ExtResource("1_2w801")]
 position = Vector2(-156, 90)

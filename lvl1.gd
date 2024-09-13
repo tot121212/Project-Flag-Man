@@ -6,5 +6,3 @@ extends Node2D
 func _ready():
 	#song.play()
 	pass
-
-
