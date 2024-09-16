@@ -15,7 +15,7 @@ func state_update(_delta):
 
 func state_physics_update(delta):
 	if root.input_direction.x != 0: # if x direction input
-		velocity_component.move(delta, root.input_direction, Vector2(stats_component.max_speed.x * absf(root.input_direction.x), 0))
+		velocity_component.move(delta, root.input_direction, Vector2(stats_component.max_speed.x, 0))
 		if not root.is_attacking:
 			root.change_orientation.emit(root.input_direction)
 	

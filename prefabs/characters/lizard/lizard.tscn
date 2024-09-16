@@ -67,6 +67,7 @@ navigation_agent = NodePath("../NavigationAgent2D")
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_u7sv1")]
 root = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../Area2D")])
+start_facing_right = false
 
 [node name="ObjectDetectRaycasts" parent="." instance=ExtResource("4_jqr2a")]
 

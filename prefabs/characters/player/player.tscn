@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_08w8m"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/Properties/Velocity/VelocityComponent.tscn" id="2_fwv8r"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="4_hpxyj"]
+[ext_resource type="PackedScene" uid="uid://ccvduv36cygqj" path="res://prefabs/components/Properties/Projectile/ProjectileInstantiator.tscn" id="6_2ytui"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="8_dsusd"]
 [ext_resource type="Script" path="res://prefabs/components/state_machine/StateMachine.gd" id="11_b00kn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_l8k7m"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Gravity/GravityComponent.gd" id="12_5m2gb"]
-[ext_resource type="Script" path="res://prefabs/characters/player/Idle.gd" id="12_lt6qw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_rxaur"]
 [ext_resource type="Script" path="res://prefabs/characters/player/Walk.gd" id="13_77jqb"]
 [ext_resource type="Script" path="res://prefabs/characters/player/CoyoteTimer.gd" id="14_pjbqf"]
@@ -233,12 +233,12 @@ gravity_coefficient = 0.8
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("root", "stats_component") instance=ExtResource("2_fwv8r")]
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-acceleration_coefficient = Vector2(1024, 64)
+acceleration_coefficient = Vector2(768, 64)
 friction = 256.0
 
 [node name="StatsComponent" type="Node2D" parent="."]
 script = ExtResource("4_hpxyj")
-max_speed = Vector2(128, 256)
+max_speed = Vector2(96, 256)
 initial_jump_speed = 128.0
 jump_speed = 64.0
 jump_time = 0.5
@@ -246,6 +246,8 @@ jump_time = 0.5
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
 root = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Body"), NodePath("../FlagLeft"), NodePath("../FlagRight"), NodePath("../Eyes"), NodePath("../Sparkles"), NodePath("../PlayerCollisionShape"), NodePath("../StaticBody2D")])
+
+[node name="ProjectileOrganizer" parent="." instance=ExtResource("6_2ytui")]
 
 [node name="CoyoteTimer" type="Timer" parent="." node_paths=PackedStringArray("root", "stats_component")]
 process_callback = 0
@@ -304,7 +306,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 22
+frame = 24
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 visible = false
@@ -314,7 +316,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 32
+frame = 34
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -323,7 +325,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 42
+frame = 44
 
 [node name="Eyes" type="Sprite2D" parent="."]
 visible = false
@@ -333,7 +335,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 52
+frame = 54
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -343,14 +345,14 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 60
+frame = 61
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 8
 
 [node name="PlayerHurtbox" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-3, -3)
+position = Vector2(-1, -6)
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
@@ -368,9 +370,6 @@ tween_resource = SubResource("Resource_ne41x")
 script = ExtResource("11_b00kn")
 initial_state = NodePath("PlayerMovementWalk")
 
-[node name="PlayerMovementIdle" type="Node" parent="MovementStateMachine"]
-script = ExtResource("12_lt6qw")
-
 [node name="PlayerMovementWalk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("root", "velocity_component", "gravity_component", "stats_component", "coyote_timer", "jump_buffer_timer")]
 script = ExtResource("13_77jqb")
 root = NodePath("../..")
@@ -384,10 +383,11 @@ jump_buffer_timer = NodePath("../../JumpBufferTimer")
 script = ExtResource("11_b00kn")
 initial_state = NodePath("PlayerCombatAttack")
 
-[node name="PlayerCombatAttack" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("root", "sparkles_sprite", "throw_flag_cooldown")]
+[node name="PlayerCombatAttack" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("root", "sparkles_sprite", "projectile_organizer", "throw_flag_cooldown")]
 script = ExtResource("14_w5hej")
 root = NodePath("../..")
 sparkles_sprite = NodePath("../../Sparkles")
+projectile_organizer = NodePath("../../ProjectileOrganizer")
 throw_flag_cooldown = NodePath("Throw Flag Cooldown")
 
 [node name="Throw Flag Cooldown" type="Timer" parent="CombatStateMachine/PlayerCombatAttack"]

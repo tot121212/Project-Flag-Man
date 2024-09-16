@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c75lcu6etujpf"]
+[gd_scene load_steps=13 format=3 uid="uid://c75lcu6etujpf"]
 
 [ext_resource type="Script" path="res://prefabs/characters/player/Player Flag/player_flag.gd" id="1_doyhw"]
 [ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/Properties/Projectile/ProjectileComponent.tscn" id="1_i1dkc"]
@@ -9,6 +9,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbf3l"]
 size = Vector2(16, 8)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ilgmf"]
+a = Vector2(-11, -4)
+b = Vector2(11, -4)
 
 [sub_resource type="Animation" id="Animation_0ttd0"]
 length = 0.001
@@ -111,43 +115,47 @@ animation_player = NodePath("AnimationPlayer")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 8
 texture_filter = 1
-position = Vector2(0, -27)
+position = Vector2(-8, -31)
 texture = ExtResource("1_k21j7")
 centered = false
 offset = Vector2(0, -10)
 hframes = 10
 vframes = 7
-frame = 10
+frame = 13
 region_rect = Rect2(0, 80, 24, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(11, 1)
 shape = SubResource("RectangleShape2D_xbf3l")
 
-[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("root", "velocity_component", "orientation_handler") instance=ExtResource("1_i1dkc")]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_ilgmf")
+
+[node name="OrientationHandler2DSimplified" type="Node2D" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("6_d0pd1")
+root = NodePath("..")
+nodes_to_flip = Array[NodePath]([NodePath("..")])
+ignore_diagonals = false
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("root", "velocity_component", "orientation_handler", "stats_component") instance=ExtResource("1_i1dkc")]
+z_index = 20
 root = NodePath("..")
 velocity_component = NodePath("../VelocityComponent")
 orientation_handler = NodePath("../OrientationHandler2DSimplified")
-speed = Vector2(150, 100)
+stats_component = NodePath("../StatsComponent")
 lifespan_signal = true
 
 [node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("root", "stats_component")]
 script = ExtResource("3_0ykjo")
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-acceleration_coefficient = Vector2(1000, 100)
+acceleration_coefficient = Vector2(1000, 1000)
 friction = 0.0
 
 [node name="StatsComponent" type="Node2D" parent="."]
 script = ExtResource("4_6djib")
-max_speed = Vector2(200, 200)
+max_speed = Vector2(160, 160)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_pl251")
 }
-
-[node name="OrientationHandler2DSimplified" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-script = ExtResource("6_d0pd1")
-root = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("..")])
