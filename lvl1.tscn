@@ -407,6 +407,9 @@ texture = ExtResource("3_pp1rv")
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_8grxt")
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kfd32"]
 source_geometry_group_name = &"navigation_polygon_source_group"
