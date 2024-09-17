@@ -7,27 +7,47 @@ extends TileMap
 @export var navigation_atlas_coords : Vector2i = Vector2i(1, 0) ## coordinate in atlas at which you have your navigation area texture. should be kept as an empty square, ideally
 @export var max_recursions : int = 10 ## max amount of regions to add before stopping recursion
 
-var used_tile_positions : Array[Vector2i]
-var navigation_region_tile_positions : Array[Vector2i]
-var navigation_region_floor_tile_positions : Array[Vector2i]
+var cells_with_terrain : Array[Vector2i]
+var navigation_region_cell : Array[Vector2i] = []
+var navigation_region_floor_cell : Array[Vector2i] = []
 
 func _ready():
-	self.add_to_group("Tilemap")
-	used_tile_positions = get_used_cells_by_id(terrain_layer) # get used tiles only for layer used, which is usually terrain layer
+	add_to_group("Tilemap")
 	create_navigation_regions()
 
+func _input(_event):
+	if Input.is_action_just_pressed("regenerate_navmeshes"):
+		print("Regenerating Navmeshes")
+		clear_navigation_regions()
+		print("~")
+		create_navigation_regions()
+		print("~")
+		print("Navmeshes Regenerated")
+
 func create_navigation_regions(): # place nav tile above any tile that has an empty space above it, recursively up to max_recursions
-	for i in range(used_tile_positions.size()):
-		var used_tile_position : Vector2i = used_tile_positions[i]
-		create_navigation_region_above_position(used_tile_position, max_recursions)
+	cells_with_terrain = get_used_cells(terrain_layer) # Array[Vector2]
+	print("Used Tile Cells: " + str(cells_with_terrain))
+	for i in cells_with_terrain:
+		create_navigation_region_above_cell_recursively(i, max_recursions)
 
-func create_navigation_region_above_position(tile_position : Vector2i, _remaining_recursions: int):
-	var above_tile_position = Vector2i(tile_position.x, tile_position.y - 1)
-	if get_cell_source_id(terrain_source_id, above_tile_position) == -1: # if above position on terrain layer has no cell to get id from, we know that there is no terrain there
-		set_cell(navigation_layer, above_tile_position, navigation_source_id, navigation_atlas_coords) # create nav region tile at above_tile_position
+func cell_is_empty_of_terrain(cell):
+	if cells_with_terrain.find(cell) == -1:
+		return true
+	else:
+		return false
+
+func create_navigation_region_above_cell_recursively(cell_pos : Vector2i, _remaining_recursions: int):
+	var above_cell = Vector2i(cell_pos.x, cell_pos.y - 1) # get above cell
+	if cell_is_empty_of_terrain(above_cell): # if above cell is empty
+		set_cell(navigation_layer, above_cell, navigation_source_id, navigation_atlas_coords) # create nav region tile at above_cell
 		if _remaining_recursions == max_recursions: # if recursion hasnt happened yet its the first tile, aka the floor tile
-			navigation_region_floor_tile_positions.append(above_tile_position) # add to floor tiles
-		navigation_region_tile_positions.append(above_tile_position) # append to an array of positions for future deletion if necessary
+			navigation_region_floor_cell.append(above_cell) # add to floor tiles
+		navigation_region_cell.append(above_cell) # append to an array of positions for future deletion if necessary
 		if _remaining_recursions > 0: # recurse if remaining
-			create_navigation_region_above_position(above_tile_position, _remaining_recursions - 1)
+			create_navigation_region_above_cell_recursively(above_cell, _remaining_recursions - 1)
+	else:
+		return
 
+func clear_navigation_regions():
+	for cell_pos in navigation_region_cell:
+		set_cell(navigation_layer, cell_pos, navigation_source_id, Vector2i(-1, -1) ) # deletes select tile at position on layer

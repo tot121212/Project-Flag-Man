@@ -306,7 +306,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 24
+frame = 27
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 visible = false
@@ -316,7 +316,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 34
+frame = 37
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -325,7 +325,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 44
+frame = 47
 
 [node name="Eyes" type="Sprite2D" parent="."]
 visible = false
@@ -335,7 +335,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 54
+frame = 57
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -352,7 +352,7 @@ collision_layer = 2
 collision_mask = 8
 
 [node name="PlayerHurtbox" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-1, -6)
+position = Vector2(3, 0)
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
