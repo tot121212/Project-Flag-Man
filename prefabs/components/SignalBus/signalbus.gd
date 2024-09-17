@@ -1,3 +1,3 @@
 extends Node
 
-signal change_orientation(direction, target)
+signal change_orientation

@@ -64,4 +64,3 @@ func idle_logic(direction = random_direction()): # direction will be random by d
 		wander_in_direction(direction, 2, 3)
 	else:
 		idle_in_place(1, 2)
-

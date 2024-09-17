@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+addons/phantom_camera/examples/textures/2D/sign_prompt.png.import
+addons/phantom_camera/examples/textures/2D/level_spritesheet.png.import
+addons/phantom_camera/examples/textures/2D/inventory_container.png.import

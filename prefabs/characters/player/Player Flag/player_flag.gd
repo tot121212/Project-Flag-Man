@@ -8,9 +8,9 @@ signal was_queue_freed
 @export var animation_player : AnimationPlayer
 @export var flag_shapes : Array[CollisionShape2D]
 
-var non_frozen_layers : Array[int] = [6]
-var non_frozen_masks : Array[int] = [1,4]
-var frozen_layers : Array[int] = [1]
+@export var non_frozen_layers : Array[int] = [6]
+@export var non_frozen_masks : Array[int] = [1,4]
+@export var frozen_layers : Array[int] = [1]
 var is_frozen : bool = false
 
 func _ready():
