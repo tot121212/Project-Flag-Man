@@ -104,7 +104,7 @@ _data = {
 "flying": SubResource("Animation_e2a4l")
 }
 
-[node name="PlayerFlag" type="CharacterBody2D" node_paths=PackedStringArray("projectile_component", "animation_player")]
+[node name="PlayerFlag" type="CharacterBody2D" node_paths=PackedStringArray("projectile_component", "animation_player") groups=["Player_Projectile"]]
 collision_layer = 32
 collision_mask = 9
 motion_mode = 1
@@ -148,12 +148,12 @@ lifespan_signal = true
 script = ExtResource("3_0ykjo")
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-acceleration_coefficient = Vector2(1000, 1000)
+acceleration_coefficient = Vector2(2000, 1000)
 friction = 0.0
 
 [node name="StatsComponent" type="Node2D" parent="."]
 script = ExtResource("4_6djib")
-max_speed = Vector2(192, 128)
+max_speed = Vector2(256, 128)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

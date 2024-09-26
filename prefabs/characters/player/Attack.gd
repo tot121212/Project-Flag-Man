@@ -54,14 +54,14 @@ func throw_flag():
 var flags_currently_frozen : Array[Projectile] = []
 func freeze_flags():
 	# unfreeze currently frozen flags
-	if flags_currently_frozen:
-		for flag in flags_currently_frozen:
-			if is_instance_valid(flag):
-				flag.call("unfreeze")
-		flags_currently_frozen = []
+	#if flags_currently_frozen:
+	for flag in flags_currently_frozen:
+		if is_instance_valid(flag):
+			flag.call("unfreeze")
+	flags_currently_frozen = []
 	# freeze most recent flags
-	else: # array is empty which means that we cant freeze stuff now
-		for flag in most_recent_flags:
-			if is_instance_valid(flag):
-				flag.call("freeze")
-				flags_currently_frozen.append(flag)
+	#else: # array is empty which means that we cant freeze stuff now
+	for flag in most_recent_flags:
+		if is_instance_valid(flag):
+			flag.call("freeze")
+			flags_currently_frozen.append(flag)

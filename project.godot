@@ -40,7 +40,7 @@ aseprite_executable_path="C:/Users/evanm/Desktop/Art/3 - Resources/Aseprite/Asep
 [autoload]
 
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-Signalbus="*res://prefabs/components/SignalBus/signalbus.gd"
+SignalBus="*res://prefabs/components/SignalBus/signalbus.gd"
 
 [debug]
 
@@ -58,6 +58,14 @@ window/vsync/vsync_mode=0
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
+[global_group]
+
+Player_Projectile=""
+Player=""
+Enemy=""
+Terrain=""
+Platforms=""
 
 [importer_defaults]
 
@@ -140,10 +148,13 @@ regenerate_navmeshes={
 [layer_names]
 
 2d_physics/layer_1="Terrain"
+2d_navigation/layer_1="Navigation"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Player_Ally"
 2d_physics/layer_4="Enemy"
+2d_physics/layer_5="Terrain_Player_Projectile"
 2d_physics/layer_6="Player_Projectile"
+2d_physics/layer_7="Terrain_Platform"
 
 [physics]
 

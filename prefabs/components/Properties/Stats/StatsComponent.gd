@@ -13,11 +13,20 @@ signal health_changed
 @export var jump_speed : float = 35.0 ## constant speed after initial jump up to maximum (whilst holding jump button)
 @export var jump_time : float = 0.4 ## maximum time of jump
 
-@export var has_health : bool = true
+@export var has_health : bool = true ## enables or disables signal that is emitted when health is changed
 @export var max_health : int = 1
-var cur_health : int = 1
+var cur_health : int
+
+func _ready():
+	set_cur_health(max_health)
 
 func set_cur_health(new_health : int) -> void:
+	cur_health = clamp(new_health, 0, max_health)
 	if has_health:
-		cur_health = clamp(new_health, 0, max_health)
 		health_changed.emit(cur_health)
+
+func take_damage(damage):
+	set_cur_health(cur_health - abs(damage))
+
+func heal(amount):
+	set_cur_health(cur_health + abs(amount))

@@ -10,19 +10,26 @@ signal was_queue_freed
 
 @export var non_frozen_layers : Array[int] = [6]
 @export var non_frozen_masks : Array[int] = [1,4]
-@export var frozen_layers : Array[int] = [1]
+@export var frozen_layers : Array[int] = [5]
 var is_frozen : bool = false
 
 func _ready():
-	print("projectile spawned")
 	projectile_component.proj_delete_self.connect(_on_delete_self)
 	animation_player.animation_finished.connect(free_if_correct_anim)
 
 func _physics_process(_delta):
 	if not is_frozen:
 		var is_colliding = move_and_slide()
-		if is_colliding:
-			_on_delete_self()
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			var collider = collision.get_collider()
+			if collider.is_in_group("Enemy"):
+				SignalBus.projectile_collision.emit(self, collider, projectile_component.damage)
+				projectile_component.proj_delete_self.emit()
+			elif collider.is_in_group("Terrain") or collider.is_in_group("Platforms"):
+				projectile_component.proj_delete_self.emit()
+			print("Collided with: ", collision.get_collider().name)
+		
 
 func _on_delete_self():
 	# play anim of fading out

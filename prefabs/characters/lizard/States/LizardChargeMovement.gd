@@ -21,44 +21,43 @@ func state_enter():
 	# await get_tree().create_timer(randf_range(0.6, 1.2)).timeout
 	
 	# initialize first target
-	find_closest_target()
+	find_and_set_closest_target()
 	
 	# timer for finding closest target
-	closest_target_acquisiton_timer.timeout.connect(find_closest_target)
-	closest_target_acquisiton_timer.start(0.5)
+	closest_target_acquisiton_timer.timeout.connect(find_and_set_closest_target)
+	closest_target_acquisiton_timer.start(1)
 
 func state_exit():
 	closest_target_acquisiton_timer.stop()
-	closest_target_acquisiton_timer.timeout.disconnect(find_closest_target)
+	closest_target_acquisiton_timer.timeout.disconnect(find_and_set_closest_target)
 
 func state_physics_update(delta: float):
 	if closest_target: # attack if able first
 		if (get_distance_to_target(closest_target) < 15.0 
-		#and abs(root.global_position.y - closest_target.global_position.y) <= 5.0
+		and abs(root.global_position.y - closest_target.global_position.y) <= 5.0
 		):
 			transition.emit(self, "LizardChargeAttack")
 	
-	# else, we movin
+	#print_debug(str(navigation_agent.get_final_position()) + " = " + str(root.global_position))
 	if not navigation_agent.is_navigation_finished(): # if navigation not finished
 		var next_pos = navigation_agent.get_next_path_position() # get next point
-		print(next_pos)
 		if next_pos: # only change direction and move if wanting to move
 			var direction_of_target_from_root = root.global_position.direction_to(next_pos).normalized()
 			
-			if object_detect_raycasts.is_surface_front and root.is_on_floor() and not velocity_component.is_jumping:
+			root.change_orientation.emit(direction_of_target_from_root)
+			
+			if object_detect_raycasts.is_surface_front and root.is_on_floor() and not root.is_jumping:
 				velocity_component.jump()
 			
 			velocity_component.move(delta, direction_of_target_from_root, Vector2(stats_component.max_speed.x, 0))
-			root.change_orientation.emit(direction_of_target_from_root)
 
-func find_closest_target(): # check all targets in target_group for closest node to root
-	if not closest_target:
-		closest_target = get_tree().get_first_node_in_group(target_group)
-		if closest_target:
-			distance_to_closest_target = get_distance_to_target(closest_target)
-		else: 
-			print("no closest target")
-			return
+func find_and_set_closest_target(): # check all targets in target_group for closest node to root
+	closest_target = get_tree().get_first_node_in_group(target_group) # initialize closest target
+	if closest_target:
+		distance_to_closest_target = get_distance_to_target(closest_target)
+	else: 
+		print_debug("no closest target")
+		return
 	
 	for target in get_tree().get_nodes_in_group(target_group):
 		var distance_to_target = get_distance_to_target(target)
@@ -66,7 +65,8 @@ func find_closest_target(): # check all targets in target_group for closest node
 			closest_target = target
 			distance_to_closest_target = distance_to_target
 	
-	print("Closest Target: " + closest_target.name)
+	navigation_agent.set_target_position(closest_target.global_position)
+	#print_debug("Closest Target: " + str(navigation_agent.get_closest_target()))
 
 func get_distance_to_target(target): # get distance from root to target
 	return root.global_position.distance_to(target.global_position)

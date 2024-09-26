@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bcw66tob22of1"]
+[gd_scene load_steps=25 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard/lizard.gd" id="1_i42rh"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://prefabs/components/state_machine/StateMachineParent.gd" id="9_1lped"]
 [ext_resource type="Script" path="res://prefabs/characters/lizard/States/LizardSpitAttack.gd" id="9_w2i3c"]
 [ext_resource type="PackedScene" uid="uid://dvvomv6o68kt2" path="res://prefabs/components/Properties/Stats/StatsComponent.tscn" id="15_hn17x"]
+[ext_resource type="PackedScene" uid="uid://bbf3tdtwcldp5" path="res://prefabs/components/Properties/PatrolPoints/PatrolPointsContainer.tscn" id="20_cvcej"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g23f4"]
 size = Vector2(47, 16)
@@ -28,8 +29,8 @@ atlas = ExtResource("2_pw6jo")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ccjrs"]
-radius = 125.0
-height = 300.0
+radius = 96.0
+height = 192.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4x1l4"]
 height = 20.0
@@ -38,7 +39,7 @@ height = 20.0
 z_index = 10
 texture_filter = 1
 collision_layer = 8
-collision_mask = 5
+collision_mask = 69
 script = ExtResource("1_i42rh")
 sprite = NodePath("Sprite2D")
 orientation_handler = NodePath("OrientationHandler2DSimplified")
@@ -56,6 +57,8 @@ shape = SubResource("RectangleShape2D_g23f4")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 30.0
+path_postprocessing = 1
 debug_enabled = true
 debug_path_custom_point_size = 10.0
 debug_path_custom_line_width = 1.0
@@ -66,10 +69,21 @@ navigation_agent = NodePath("../NavigationAgent2D")
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_u7sv1")]
 root = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../Area2D")])
+nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../Area2D"), NodePath("../ObjectDetectRaycasts")])
 start_facing_right = false
 
 [node name="ObjectDetectRaycasts" parent="." instance=ExtResource("4_jqr2a")]
+
+[node name="Front" parent="ObjectDetectRaycasts" index="0"]
+target_position = Vector2(5, 0)
+
+[node name="FrontDown" parent="ObjectDetectRaycasts" index="1"]
+position = Vector2(24, 10)
+target_position = Vector2(0, 5)
+
+[node name="BackDown" parent="ObjectDetectRaycasts" index="2"]
+position = Vector2(-22, 9)
+target_position = Vector2(0, 5)
 
 [node name="StatsComponent" parent="." instance=ExtResource("15_hn17x")]
 script = ExtResource("3_ysfwk")
@@ -115,7 +129,7 @@ script = ExtResource("9_1lped")
 script = ExtResource("8_uld4n")
 initial_state = NodePath("LizardIdleMovement")
 
-[node name="LizardIdleMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "stats_component", "velocity_component", "navigation_component", "navigation_agent", "object_detect_raycasts")]
+[node name="LizardIdleMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "stats_component", "velocity_component", "navigation_component", "navigation_agent", "object_detect_raycasts", "patrol_points")]
 script = ExtResource("6_miti0")
 root = NodePath("../../..")
 stats_component = NodePath("../../../StatsComponent")
@@ -123,6 +137,7 @@ velocity_component = NodePath("../../../VelocityComponent")
 navigation_component = NodePath("../../../NavigationComponent")
 navigation_agent = NodePath("../../../NavigationAgent2D")
 object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
+patrol_points = NodePath("../../../PatrolPointsContainer")
 
 [node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "object_detect_raycasts", "stats_component")]
 script = ExtResource("6_qpu2t")
@@ -153,7 +168,20 @@ script = ExtResource("4_twjhp")
 root = NodePath("../../..")
 state_machine_parent = NodePath("../..")
 
-[node name="LizardAggro" type="Node" parent="StateMachineParent/AggroStateMachine" node_paths=PackedStringArray("root", "state_machine_parent")]
+[node name="LizardAggro" type="Node" parent="StateMachineParent/AggroStateMachine" node_paths=PackedStringArray("root", "state_machine_parent", "detection_raycaster")]
 script = ExtResource("6_edfj2")
 root = NodePath("../../..")
 state_machine_parent = NodePath("../..")
+detection_raycaster = NodePath("../../../DetectionRaycaster")
+
+[node name="PatrolPointsContainer" parent="." node_paths=PackedStringArray("root", "navigation_component") instance=ExtResource("20_cvcej")]
+root = NodePath("..")
+navigation_component = NodePath("../NavigationComponent")
+
+[node name="Marker2D" type="Marker2D" parent="PatrolPointsContainer"]
+position = Vector2(-75, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="PatrolPointsContainer"]
+position = Vector2(75, 0)
+
+[editable path="ObjectDetectRaycasts"]

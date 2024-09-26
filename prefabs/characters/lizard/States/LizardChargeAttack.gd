@@ -10,3 +10,6 @@ func state_update(_delta):
 
 func state_exit():
 	pass
+
+func charge_in_direction(direction):
+	pass

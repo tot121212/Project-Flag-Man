@@ -1,4 +1,5 @@
 extends Node2D
+class_name DetectionRaycaster
 
 signal is_colliding_with_target(raycast, target)
 

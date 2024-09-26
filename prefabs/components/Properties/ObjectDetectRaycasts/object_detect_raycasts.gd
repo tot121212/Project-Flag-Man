@@ -20,10 +20,10 @@ func create_object_detect_raycasts_cooldown_timer():
 	raycasts_cooldown_timer.start(0.1)
 
 func _on_raycasts_cooldown_timer_timeout():
-	if not raycast_front.is_colliding():
-		is_surface_front = false
-	else:
+	if raycast_front.is_colliding():
 		is_surface_front = true
+	else:
+		is_surface_front = false
 	
 	if raycast_front_down.is_colliding():
 		is_surface_front_down = true

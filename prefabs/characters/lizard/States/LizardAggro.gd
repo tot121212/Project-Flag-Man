@@ -2,6 +2,7 @@ extends State
 
 @export var root: Node2D
 @export var state_machine_parent : Node
+@export var detection_raycaster : DetectionRaycaster
 
 @onready var aggro_timer : Timer = Timer.new()
 var aggro_timer_lower_range : float = 6.0
@@ -13,12 +14,18 @@ func _ready():
 	add_child(aggro_timer)
 
 func state_enter():
-	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
+	if not aggro_timer.timeout.is_connected(_on_aggro_timer_timeout):
+		aggro_timer.timeout.connect(_on_aggro_timer_timeout)
+	if not detection_raycaster.is_colliding_with_target.is_connected(_on_detection_raycaster_is_colliding_with_target):
+		detection_raycaster.is_colliding_with_target.connect(_on_detection_raycaster_is_colliding_with_target)
 	reset_timer()
 	choose_attack_state()
 
 func state_exit():
-	aggro_timer.timeout.disconnect(_on_aggro_timer_timeout)
+	if aggro_timer.timeout.is_connected(_on_aggro_timer_timeout):
+		aggro_timer.timeout.disconnect(_on_aggro_timer_timeout)
+	if detection_raycaster.is_colliding_with_target.is_connected(_on_detection_raycaster_is_colliding_with_target):
+		detection_raycaster.is_colliding_with_target.disconnect(_on_detection_raycaster_is_colliding_with_target)
 
 func reset_timer():
 	var duration = randf_range(aggro_timer_lower_range, aggro_timer_upper_range)
