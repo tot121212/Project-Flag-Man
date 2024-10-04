@@ -144,7 +144,6 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 30.0
 path_postprocessing = 1
-simplify_path = true
 debug_enabled = true
 debug_path_custom_point_size = 10.0
 debug_path_custom_line_width = 1.0
@@ -227,7 +226,7 @@ object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
 patrol_points = NodePath("../../../PatrolPointsContainer")
 animation_player = NodePath("../../../AnimationPlayer")
 
-[node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "object_detect_raycasts", "stats_component", "animation_player", "lizard_charge_attack_state")]
+[node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "object_detect_raycasts", "stats_component", "animation_player")]
 script = ExtResource("6_qpu2t")
 root = NodePath("../../..")
 velocity_component = NodePath("../../../VelocityComponent")
@@ -235,7 +234,7 @@ navigation_agent = NodePath("../../../NavigationAgent2D")
 object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
 stats_component = NodePath("../../../StatsComponent")
 animation_player = NodePath("../../../AnimationPlayer")
-lizard_charge_attack_state = NodePath("../LizardChargeAttack")
+target_group = null
 
 [node name="LizardChargeAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "object_detect_raycasts", "stats_component", "charge_attack_area_2d", "animation_player")]
 script = ExtResource("7_f0vwd")
@@ -246,9 +245,8 @@ stats_component = NodePath("../../../StatsComponent")
 charge_attack_area_2d = NodePath("../../../ChargeAttackArea")
 animation_player = NodePath("../../../AnimationPlayer")
 
-[node name="LizardSpitMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root")]
+[node name="LizardSpitMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine"]
 script = ExtResource("7_plu44")
-root = NodePath("../../..")
 
 [node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root")]
 script = ExtResource("9_w2i3c")

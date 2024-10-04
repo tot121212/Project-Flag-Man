@@ -13,7 +13,7 @@ signal change_orientation
 @export var navigation_agent : NavigationAgent2D
 @export var object_detect_raycasts : ObjectDetectRaycasts
 
-var direction : Vector2 = Vector2.ZERO # direction self is trying to go
+var direction_of_next_nav_point : Vector2 = Vector2.ZERO # direction of next point of navigation agent
 var current_target : Node # node of player or the target of aggro in general
 var target_group : String # the group with which self should attack
 

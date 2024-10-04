@@ -3,16 +3,18 @@ extends Node2D
 @export var tilemap_layers : Array[Node2D] ## array of tilemap layers
 
 var navigation_layer_index : int = 0
-var terrain_layer_index : int = 1
-var background_layer_index : int = 2
+var platform_layer_index : int = 1
+var terrain_layer_index : int = 2
+var background_layer_index : int = 3
 
 var terrain_source_id : int = 0
 var navigation_source_id : int = 1
 var background_source_id : int = 2
+var platform_source_id : int = background_source_id
 
 var navigation_atlas_coords : Vector2i = Vector2i(1, 0) ## coordinate in atlas at which you have your navigation area texture. should be kept as an empty square, ideally
-var navigation_atlas_empty_tile_coords : Vector2i = Vector2i(2, 0)
-var max_recursions : int = 10 ## max amount of regions to add before stopping recursion
+var navigation_atlas_empty_tile_coords : Vector2i = Vector2i(2, 0) # used for clearing out area
+@export var max_recursions : int = 10 ## max amount of regions to add before stopping recursion
 
 var cells_with_terrain : Array[Vector2i] = []
 var cells_with_platforms : Array[Vector2i] = []
@@ -35,9 +37,11 @@ func _input(_event):
 
 func create_navigation_regions(): # place nav tile above any tile that has an empty space above it, recursively up to max_recursions
 	cells_with_terrain = tilemap_layers[terrain_layer_index].get_used_cells_by_id(terrain_source_id)
-	cells_with_platforms = tilemap_layers[terrain_layer_index].get_used_cells_by_id(background_source_id)
+	cells_with_platforms = tilemap_layers[platform_layer_index].get_used_cells_by_id(platform_source_id)
 	print("Used Tile Cells: " + str(cells_with_terrain))
 	for i in cells_with_terrain:
+		create_navigation_region_above_cell_recursively(i, max_recursions)
+	for i in cells_with_platforms:
 		create_navigation_region_above_cell_recursively(i, max_recursions)
 
 func cell_is_empty_of_terrain(cell):

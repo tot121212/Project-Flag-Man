@@ -44,24 +44,28 @@ func throw_flag():
 			#print("Root Pos: " + str(root.global_position))
 			
 			# set most recent flags
-			most_recent_flags = []
-			most_recent_flags = [new_flag]
+			most_recent_flags.clear()
+			most_recent_flags.append(new_flag)
 		else:
 			push_warning("new flag was not instantiated properly")
 	else:
 		push_warning("cant spawn projectile")
 
 var flags_currently_frozen : Array[Projectile] = []
+var flags_just_unfrozen : Array[Projectile] = []
 func freeze_flags():
-	# unfreeze currently frozen flags
-	#if flags_currently_frozen:
 	for flag in flags_currently_frozen:
 		if is_instance_valid(flag):
 			flag.call("unfreeze")
-	flags_currently_frozen = []
-	# freeze most recent flags
-	#else: # array is empty which means that we cant freeze stuff now
+			flags_currently_frozen.erase(flag)
+			flags_just_unfrozen.append(flag)
+			print("unfreezing " + str(flag))
+	
 	for flag in most_recent_flags:
-		if is_instance_valid(flag):
+		if is_instance_valid(flag) and not flag in flags_just_unfrozen:
 			flag.call("freeze")
 			flags_currently_frozen.append(flag)
+			print("freezing " + str(flag))
+	
+	if flags_just_unfrozen:
+		flags_just_unfrozen.clear()

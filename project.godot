@@ -66,6 +66,7 @@ Player=""
 Enemy=""
 Terrain=""
 Platforms=""
+Player_Body=""
 
 [importer_defaults]
 
@@ -150,11 +151,13 @@ regenerate_navmeshes={
 2d_physics/layer_1="Terrain"
 2d_navigation/layer_1="Navigation"
 2d_physics/layer_2="Player"
+2d_navigation/layer_2="Navigation2"
 2d_physics/layer_3="Player_Ally"
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Terrain_Player_Projectile"
 2d_physics/layer_6="Player_Projectile"
 2d_physics/layer_7="Terrain_Platform"
+2d_physics/layer_8="Player_Collision_Shape"
 
 [physics]
 

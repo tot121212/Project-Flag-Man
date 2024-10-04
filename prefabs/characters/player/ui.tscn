@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://l7j2lgkm4aml"]
+
+[ext_resource type="Texture2D" uid="uid://0v0g62ev5sag" path="res://assets/aseprite/UI_HP.png" id="1_2bk3r"]
+[ext_resource type="Script" path="res://prefabs/characters/player/ui.gd" id="1_rvaen"]
+
+[node name="UI" type="Control" node_paths=PackedStringArray("hp_text", "flag_pole", "flag")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("1_rvaen")
+hp_text = NodePath("HPText")
+flag_pole = NodePath("FlagPole")
+flag = NodePath("Flag")
+
+[node name="HPText" type="Sprite2D" parent="."]
+position = Vector2(90, 64)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_2bk3r")
+vframes = 3
+
+[node name="FlagPole" type="Sprite2D" parent="."]
+position = Vector2(90, 64)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_2bk3r")
+vframes = 3
+frame = 1
+
+[node name="Flag" type="Sprite2D" parent="."]
+position = Vector2(90, 64)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_2bk3r")
+vframes = 3
+frame = 2

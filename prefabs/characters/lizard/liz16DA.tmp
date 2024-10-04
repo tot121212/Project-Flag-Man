@@ -144,7 +144,6 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 30.0
 path_postprocessing = 1
-simplify_path = true
 debug_enabled = true
 debug_path_custom_point_size = 10.0
 debug_path_custom_line_width = 1.0

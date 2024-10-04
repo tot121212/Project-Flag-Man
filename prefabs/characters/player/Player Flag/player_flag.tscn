@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c75lcu6etujpf"]
+[gd_scene load_steps=14 format=3 uid="uid://c75lcu6etujpf"]
 
 [ext_resource type="Script" path="res://prefabs/characters/player/Player Flag/player_flag.gd" id="1_doyhw"]
 [ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/Properties/Projectile/ProjectileComponent.tscn" id="1_i1dkc"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://prefabs/components/Properties/Velocity/VelocityComponent.gd" id="3_0ykjo"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="4_6djib"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.gd" id="6_d0pd1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hk0wc"]
+size = Vector2(22, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbf3l"]
 size = Vector2(16, 8)
@@ -104,13 +107,14 @@ _data = {
 "flying": SubResource("Animation_e2a4l")
 }
 
-[node name="PlayerFlag" type="CharacterBody2D" node_paths=PackedStringArray("projectile_component", "animation_player") groups=["Player_Projectile"]]
+[node name="PlayerFlag" type="CharacterBody2D" node_paths=PackedStringArray("projectile_component", "animation_player", "detect_terrain_surface_area_2d") groups=["Player_Projectile"]]
 collision_layer = 32
 collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_doyhw")
 projectile_component = NodePath("ProjectileComponent")
 animation_player = NodePath("AnimationPlayer")
+detect_terrain_surface_area_2d = NodePath("DetectTerrainSurfaceArea2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 8
@@ -123,6 +127,13 @@ hframes = 10
 vframes = 7
 frame = 13
 region_rect = Rect2(0, 80, 24, 16)
+
+[node name="DetectTerrainSurfaceArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 158
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectTerrainSurfaceArea2D"]
+shape = SubResource("RectangleShape2D_hk0wc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xbf3l")

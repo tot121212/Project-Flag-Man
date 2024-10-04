@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=22 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/Properties/Player/PlayerComponent.gd" id="1_2gyab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://ct33u6w1jg7eu" path="res://prefabs/characters/player/player.tres" id="2_8blmv"]
 [ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_08w8m"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/Properties/Velocity/VelocityComponent.tscn" id="2_fwv8r"]
+[ext_resource type="PackedScene" uid="uid://l7j2lgkm4aml" path="res://prefabs/characters/player/ui.tscn" id="2_sxn4t"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="4_hpxyj"]
 [ext_resource type="PackedScene" uid="uid://ccvduv36cygqj" path="res://prefabs/components/Properties/Projectile/ProjectileInstantiator.tscn" id="6_2ytui"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="8_dsusd"]
@@ -84,7 +85,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("StaticBody2D/PlayerHurtbox:position")
+tracks/5/path = NodePath("PlayerBody/PlayerHurtbox:position")
 tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -139,7 +140,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody2D/PlayerHurtbox:position")
+tracks/1/path = NodePath("PlayerBody/PlayerHurtbox:position")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -217,7 +218,7 @@ ease = 2
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree", "stats_component", "orientation_handler", "debug_raycasts") groups=["Player"]]
 z_index = 10
 texture_filter = 1
-collision_layer = 0
+collision_layer = 128
 collision_mask = 81
 collision_priority = 4.0
 script = ExtResource("1_2gyab")
@@ -246,7 +247,7 @@ jump_time = 0.5
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
 root = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("../Body"), NodePath("../FlagLeft"), NodePath("../FlagRight"), NodePath("../Eyes"), NodePath("../Sparkles"), NodePath("../PlayerCollisionShape"), NodePath("../StaticBody2D")])
+nodes_to_flip = Array[NodePath]([NodePath("../Body"), NodePath("../FlagLeft"), NodePath("../FlagRight"), NodePath("../Eyes"), NodePath("../Sparkles"), NodePath("../PlayerCollisionShape"), NodePath("../PlayerBody")])
 
 [node name="ProjectileOrganizer" parent="." instance=ExtResource("6_2ytui")]
 
@@ -293,12 +294,17 @@ texture_filter = 1
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 drag_left_margin = 0.05
 drag_top_margin = 0.05
 drag_right_margin = 0.05
 drag_bottom_margin = 0.05
+
+[node name="UI" parent="Camera2D" node_paths=PackedStringArray("stats_component") instance=ExtResource("2_sxn4t")]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+stats_component = NodePath("../../StatsComponent")
 
 [node name="Body" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -307,7 +313,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 22
+frame = 24
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 visible = false
@@ -317,7 +323,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 32
+frame = 34
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -326,7 +332,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 42
+frame = 44
 
 [node name="Eyes" type="Sprite2D" parent="."]
 visible = false
@@ -336,7 +342,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 52
+frame = 54
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -347,12 +353,12 @@ offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="PlayerBody" type="StaticBody2D" parent="." groups=["Player", "Player_Body"]]
 collision_layer = 2
 collision_mask = 8
 
-[node name="PlayerHurtbox" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-3, -3)
+[node name="PlayerHurtbox" type="CollisionShape2D" parent="PlayerBody"]
+position = Vector2(-1, -6)
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
