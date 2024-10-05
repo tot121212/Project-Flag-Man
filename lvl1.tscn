@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=4 uid="uid://3hqyfr6y85xy"]
+[gd_scene load_steps=10 format=4 uid="uid://3hqyfr6y85xy"]
 
-[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="1_2w801"]
-[ext_resource type="Script" path="res://lvl1.gd" id="1_xjr72"]
+[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/Player.tscn" id="1_2w801"]
+[ext_resource type="Script" path="res://Lvl1.gd" id="1_xjr72"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/Navigation2D/TileMapNavmeshConstructor.gd" id="3_543ru"]
 [ext_resource type="TileSet" uid="uid://dma76sqrjithb" path="res://prefabs/terrain/Terrain.tres" id="3_eobu4"]
 [ext_resource type="PackedScene" uid="uid://bcw66tob22of1" path="res://prefabs/characters/lizard/lizard.tscn" id="4_2xdi7"]
 [ext_resource type="TileSet" uid="uid://dcio12seaf63c" path="res://prefabs/terrain/Platforms.tres" id="4_uplqj"]
+[ext_resource type="PackedScene" uid="uid://l7j2lgkm4aml" path="res://prefabs/characters/player/UIControl.tscn" id="7_03vat"]
 [ext_resource type="PackedScene" uid="uid://dbx0t75esjhgb" path="res://prefabs/terrain/mars_parallax.tscn" id="7_7vbt4"]
 
 [sub_resource type="Environment" id="Environment_83ikn"]
@@ -50,6 +51,17 @@ transform = Transform2D(1, 0, 0, 1, 0, -160)
 [node name="Player" parent="." instance=ExtResource("1_2w801")]
 position = Vector2(-154, 88)
 
+[node name="UIControl" parent="Player" instance=ExtResource("7_03vat")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -300.0
+offset_top = -160.0
+offset_right = -300.0
+offset_bottom = -160.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="Lizard2" parent="." instance=ExtResource("4_2xdi7")]
 position = Vector2(294, 4)
 
@@ -61,6 +73,10 @@ position = Vector2(350, 7)
 
 [node name="Lizard" parent="." instance=ExtResource("4_2xdi7")]
 position = Vector2(182, 84)
+
+[node name="FrontView" parent="Lizard/PlayerDetectionArea" index="0"]
+position = Vector2(-182, -84)
+scale = Vector2(1, 1)
 
 [node name="Marker2D" parent="Lizard/PatrolPointsContainer" index="0"]
 position = Vector2(127, 86)

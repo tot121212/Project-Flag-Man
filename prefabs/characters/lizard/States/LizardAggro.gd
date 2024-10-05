@@ -45,7 +45,7 @@ func _on_detection_raycaster_is_colliding_with_target(_raycast, target):
 				reset_timer()
 
 func _on_aggro_timer_timeout():
-	if not state_machine_parent.get_current_state_of_state_machine() == "LizardChargeAttack":
+	if not state_machine_parent.get_current_state_of_state_machine("MovementAttackStateMachine").name == "LizardChargeAttack":
 		transition.emit(self, "LizardIdle")
 	else:
 		reset_timer()

@@ -1,3 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://bfgw1ilyp4grd"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bfgw1ilyp4grd"]
+
+[ext_resource type="StyleBox" uid="uid://b5e4h6p1k5msb" path="res://assets/themes/stylebox/hp_fading_color.tres" id="1_1fl3a"]
 
 [resource]
+Panel/styles/panel = ExtResource("1_1fl3a")

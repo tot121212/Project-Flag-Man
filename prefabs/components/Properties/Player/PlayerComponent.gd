@@ -58,3 +58,20 @@ func set_available_jumps(new_available_jumps):
 
 func reset_available_jumps():
 	set_available_jumps(stats_component.jump_max)
+
+func is_on_platform() -> bool :
+	for idx in get_slide_collision_count():
+		var collision = get_slide_collision(idx)
+		var normal = collision.get_normal()
+		if normal == Vector2(0, -1):
+			return true
+	return false
+
+func is_inside_platform() -> bool :
+	is_overlapping_bodies()
+	for idx in get_slide_collision_count():
+		var collision = get_slide_collision(idx)
+		var normal = collision.get_normal()
+		if normal == Vector2(0, -1):
+			return true
+	return false
