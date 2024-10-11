@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=24 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/Properties/Player/PlayerComponent.gd" id="1_2gyab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://ct33u6w1jg7eu" path="res://prefabs/characters/player/Player.tres" id="2_8blmv"]
 [ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_08w8m"]
 [ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/Properties/Velocity/VelocityComponent.tscn" id="2_fwv8r"]
+[ext_resource type="PackedScene" uid="uid://bk0k5li26wqeg" path="res://prefabs/components/Properties/Soft Collisions/soft_collisions_area_2d.tscn" id="2_kun4p"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="4_hpxyj"]
 [ext_resource type="PackedScene" uid="uid://ccvduv36cygqj" path="res://prefabs/components/Properties/Projectile/ProjectileInstantiator.tscn" id="6_2ytui"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="8_dsusd"]
@@ -14,9 +15,25 @@
 [ext_resource type="Script" path="res://prefabs/characters/player/Walk.gd" id="13_77jqb"]
 [ext_resource type="Script" path="res://prefabs/characters/player/CoyoteTimer.gd" id="14_pjbqf"]
 [ext_resource type="Script" path="res://prefabs/characters/player/Attack.gd" id="14_w5hej"]
+[ext_resource type="PackedScene" uid="uid://c75lcu6etujpf" path="res://prefabs/characters/player/Player Flag/player_flag.tscn" id="15_duie8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qi7t"]
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_m1nxg"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerBody/PlayerHurtbox:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -6)]
+}
 
 [sub_resource type="Animation" id="Animation_uuhcj"]
 resource_name = "attack"
@@ -143,10 +160,10 @@ tracks/1/path = NodePath("PlayerBody/PlayerHurtbox:position")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.1, 0.2, 0.3, 0.549551, 0.649551, 0.749551),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.45, 0.55, 0.66, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(6, -1), Vector2(-5, 0), Vector2(-4, -1), Vector2(-3, -3), Vector2(-1, -6), Vector2(1, -3), Vector2(1, -1), Vector2(3, 0)]
+"values": [Vector2(-5, 0), Vector2(-4, -1), Vector2(-3, -3), Vector2(-1, -6), Vector2(0, -6), Vector2(3, -3), Vector2(1, -1), Vector2(3, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -205,8 +222,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p41l2"]
-radius = 7.0
-height = 14.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="Resource" id="Resource_ne41x"]
 script = ExtResource("12_rxaur")
@@ -214,7 +231,7 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree", "stats_component", "orientation_handler", "debug_raycasts") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree", "stats_component", "orientation_handler", "debug_raycasts_parent", "platform_detection_area_2d") groups=["Player"]]
 z_index = 10
 texture_filter = 1
 collision_layer = 128
@@ -224,7 +241,18 @@ script = ExtResource("1_2gyab")
 animation_tree = NodePath("AnimationTree")
 stats_component = NodePath("StatsComponent")
 orientation_handler = NodePath("OrientationHandler2DSimplified")
-debug_raycasts = [NodePath("RayCast2D"), NodePath("RayCast2D2")]
+debug_raycasts_parent = NodePath("DebugRaycasts")
+platform_detection_area_2d = NodePath("PlatformDetectionArea2D")
+
+[node name="SoftCollisionsArea2D" parent="." node_paths=PackedStringArray("root", "velocity_component") instance=ExtResource("2_kun4p")]
+collision_layer = 0
+collision_mask = 14
+root = NodePath("..")
+velocity_component = NodePath("../VelocityComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollisionsArea2D"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_0qi7t")
 
 [node name="GravityComponent" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("12_5m2gb")
@@ -232,17 +260,12 @@ root = NodePath("..")
 gravity_coefficient = 0.8
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("root", "stats_component") instance=ExtResource("2_fwv8r")]
+visible = false
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-acceleration_coefficient = Vector2(640, 64)
-friction = 256.0
 
 [node name="StatsComponent" type="Node2D" parent="."]
 script = ExtResource("4_hpxyj")
-max_speed = Vector2(96, 256)
-initial_jump_speed = 128.0
-jump_speed = 64.0
-jump_time = 0.5
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
 root = NodePath("..")
@@ -274,16 +297,16 @@ tree_root = ExtResource("2_8blmv")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="DebugRaycasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="DebugRaycasts"]
 modulate = Color(0, 1, 0, 1)
-enabled = false
 target_position = Vector2(25, 0)
 collision_mask = 0
 collide_with_bodies = false
 
-[node name="RayCast2D2" type="RayCast2D" parent="."]
+[node name="RayCast2D2" type="RayCast2D" parent="DebugRaycasts"]
 modulate = Color(1, 0, 0, 1)
-enabled = false
 target_position = Vector2(25, 0)
 collision_mask = 0
 collide_with_bodies = false
@@ -308,7 +331,6 @@ vframes = 7
 frame = 24
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(0, -6)
 texture = ExtResource("8_dsusd")
@@ -327,7 +349,6 @@ vframes = 7
 frame = 44
 
 [node name="Eyes" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(0, -6)
 texture = ExtResource("8_dsusd")
@@ -345,7 +366,7 @@ offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 
-[node name="PlayerBody" type="StaticBody2D" parent="." groups=["Player", "Player_Body"]]
+[node name="PlayerBody" type="StaticBody2D" parent="." groups=["Player_Body"]]
 collision_layer = 2
 collision_mask = 8
 
@@ -356,7 +377,7 @@ shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 
@@ -377,7 +398,7 @@ tween_resource = SubResource("Resource_ne41x")
 script = ExtResource("11_b00kn")
 initial_state = NodePath("PlayerMovementWalk")
 
-[node name="PlayerMovementWalk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("root", "velocity_component", "gravity_component", "stats_component", "coyote_timer", "jump_buffer_timer")]
+[node name="PlayerMovementWalk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("root", "velocity_component", "gravity_component", "stats_component", "coyote_timer", "jump_buffer_timer", "player_collision_shape")]
 script = ExtResource("13_77jqb")
 root = NodePath("../..")
 velocity_component = NodePath("../../VelocityComponent")
@@ -385,6 +406,7 @@ gravity_component = NodePath("../../GravityComponent")
 stats_component = NodePath("../../StatsComponent")
 coyote_timer = NodePath("../../CoyoteTimer")
 jump_buffer_timer = NodePath("../../JumpBufferTimer")
+player_collision_shape = NodePath("../../PlatformDetectionArea2D")
 
 [node name="CombatStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("11_b00kn")
@@ -395,6 +417,7 @@ script = ExtResource("14_w5hej")
 root = NodePath("../..")
 sparkles_sprite = NodePath("../../Sparkles")
 projectile_organizer = NodePath("../../ProjectileOrganizer")
+proj_player_flag_scene = ExtResource("15_duie8")
 throw_flag_cooldown = NodePath("Throw Flag Cooldown")
 
 [node name="Throw Flag Cooldown" type="Timer" parent="CombatStateMachine/PlayerCombatAttack"]

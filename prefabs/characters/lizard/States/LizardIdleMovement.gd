@@ -3,8 +3,10 @@ extends State
 @export var root: Node2D
 @export var stats_component : StatsComponent
 @export var velocity_component : VelocityComponent
-@export var navigation_component: NavigationComponent
+
 @export var navigation_agent: NavigationAgent2D
+@export var navigation_component: NavigationComponent
+
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var patrol_points : PatrolPointsContainer
 @export var animation_player : AnimationPlayer
@@ -63,11 +65,11 @@ func random_direction(): # returns a vector 2 with either -1,0 or 1,0
 
 func set_target_pos_to_random(direction, min_time, max_time):
 	wander_timer.start(randf_range(min_time, max_time))
-	navigation_component.set_target_position(Vector2(root.global_position.x + randi_range(0, wander_distance * direction.x), root.global_position.y))
+	navigation_component.set_target_position_safely(Vector2(root.global_position.x + randi_range(0, wander_distance * direction.x), root.global_position.y))
 
 func idle_in_place(min_time, max_time): # idle in place for i amount of seconds
 	wander_timer.start(randf_range(min_time, max_time))
-	navigation_component.set_target_position(root.global_position)
+	navigation_component.set_target_position_safely(root.global_position)
 
 func idle_between_patrol_points(min_time, max_time):
 	wander_timer.start(randf_range(min_time, max_time))
@@ -84,9 +86,9 @@ func idle_logic(direction = random_direction()): # direction will be random by d
 		if chance > 2:
 			if patrol_points.should_patrol_if_able and patrol_points.amt_of_patrol_points > 0:
 				idle_between_patrol_points(3, 5)
-				print("pathing to patrol point")
+				print("LizardIdle: Pathing to patrol point")
 			else:
 				set_target_pos_to_random(direction, 2, 3)
-				print("pathing randomly")
+				print("LizardIdle: Pathing randomly")
 		else:
 			idle_in_place(1, 2)

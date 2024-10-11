@@ -6,12 +6,13 @@ signal health_changed
 @export var can_walk : bool = true
 @export var can_fly : bool = false
 
-@export var max_speed : Vector2 = Vector2(55.0, 40.0)
+@export var max_speed : Vector2 = Vector2(96.0, 128.0)
 
 @export var jump_max : int = 1 ## maximum amount of jumps, i.e. double jump, triple jump, etc
-@export var initial_jump_speed : float = 75.0 ## initial speed of jump
-@export var jump_speed : float = 35.0 ## constant speed after initial jump up to maximum (whilst holding jump button)
-@export var jump_time : float = 0.4 ## maximum time of jump
+@export var initial_jump_speed : float = 128.0 ## initial speed of jump
+@export var jump_speed : float = 64.0 ## constant speed after initial jump up to maximum (whilst holding jump button)
+@export var jump_time : float = 0.5 ## maximum time of jump
+@onready var max_jump_height = calculate_max_jump_height()
 
 @export var has_health : bool = true ## enables or disables signal that is emitted when health is changed
 @export var max_health : int = 1
@@ -30,3 +31,13 @@ func take_damage(damage):
 
 func heal(amount):
 	set_cur_health(cur_health + abs(amount))
+
+func calculate_max_jump_height():
+	# height during initial jump phase
+	# average velocity during intial jump
+	var average_speed_initial = (initial_jump_speed + jump_speed / 2)
+	var height_initial = average_speed_initial * jump_time
+	
+	var height_sustained = jump_speed * jump_time
+	
+	return height_initial + height_sustained

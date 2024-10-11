@@ -14,7 +14,6 @@ signal is_colliding_with_target(raycast, target)
 @onready var detection_targets: Array[Node2D] = [] # array to store all viable node2d's inside of the detection_area
 
 func _ready():
-	
 	if detection_area:
 		detection_area.body_entered.connect(_on_body_entered)
 		detection_area.body_exited.connect(_on_body_exited)

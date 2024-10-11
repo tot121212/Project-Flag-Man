@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://bcw66tob22of1"]
 
-[ext_resource type="Script" path="res://prefabs/characters/lizard/Lizard.gd" id="1_i42rh"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/lizard.gd" id="1_i42rh"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
 [ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/Properties/OrientationHandler2D/OrientationHandler2DSimplified.tscn" id="2_u7sv1"]
 [ext_resource type="Script" path="res://prefabs/components/Properties/Stats/StatsComponent.gd" id="3_ysfwk"]
@@ -143,15 +143,12 @@ shape = SubResource("RectangleShape2D_g23f4")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 16.0
-target_desired_distance = 32.0
+target_desired_distance = 30.0
 path_postprocessing = 1
 simplify_path = true
-avoidance_enabled = true
-radius = 20.0
-max_speed = 120.0
 debug_enabled = true
-debug_use_custom = true
+debug_path_custom_point_size = 10.0
+debug_path_custom_line_width = 1.0
 
 [node name="NavigationComponent" parent="." node_paths=PackedStringArray("root", "navigation_agent") instance=ExtResource("7_q4r2v")]
 root = NodePath("..")
@@ -167,15 +164,15 @@ start_facing_right = false
 [node name="ObjectDetectRaycasts" parent="." instance=ExtResource("4_jqr2a")]
 
 [node name="Front" parent="ObjectDetectRaycasts" index="0"]
-target_position = Vector2(10, 0)
+target_position = Vector2(5, 0)
 
 [node name="FrontDown" parent="ObjectDetectRaycasts" index="1"]
 position = Vector2(24, 10)
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 5)
 
 [node name="BackDown" parent="ObjectDetectRaycasts" index="2"]
 position = Vector2(-22, 9)
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 5)
 
 [node name="AimingRaycast2D" type="RayCast2D" parent="."]
 position = Vector2(20, 0)
@@ -185,8 +182,6 @@ hit_from_inside = true
 
 [node name="StatsComponent" parent="." instance=ExtResource("15_hn17x")]
 script = ExtResource("3_ysfwk")
-initial_jump_speed = 96.0
-jump_time = 0.25
 
 [node name="GravityComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("8_x2nol")]
 root = NodePath("..")
@@ -241,7 +236,7 @@ object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
 patrol_points = NodePath("../../../PatrolPointsContainer")
 animation_player = NodePath("../../../AnimationPlayer")
 
-[node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "lizard_charge_attack_state", "lizard_aggro_state", "closest_target_acquisiton_timer")]
+[node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "lizard_charge_attack_state", "lizard_aggro_state")]
 script = ExtResource("6_qpu2t")
 root = NodePath("../../..")
 velocity_component = NodePath("../../../VelocityComponent")
@@ -252,7 +247,6 @@ stats_component = NodePath("../../../StatsComponent")
 animation_player = NodePath("../../../AnimationPlayer")
 lizard_charge_attack_state = NodePath("../LizardChargeAttack")
 lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
-closest_target_acquisiton_timer = NodePath("../../AggroStateMachine/LizardAggro/ClosestTargetAcquisitionTimer")
 
 [node name="LizardChargeAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "object_detect_raycasts", "stats_component", "charge_attack_area_2d", "animation_player", "orientation_handler", "charge_timer", "charge_cooldown_timer")]
 script = ExtResource("7_f0vwd")
@@ -320,7 +314,7 @@ closest_target_acquisiton_timer = NodePath("ClosestTargetAcquisitionTimer")
 one_shot = true
 
 [node name="ClosestTargetAcquisitionTimer" type="Timer" parent="StateMachineParent/AggroStateMachine/LizardAggro"]
-wait_time = 0.3
+wait_time = 0.25
 
 [node name="PatrolPointsContainer" parent="." node_paths=PackedStringArray("root", "navigation_component", "patrol_points") instance=ExtResource("20_cvcej")]
 root = NodePath("..")

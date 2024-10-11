@@ -15,7 +15,10 @@ var is_frozen : bool = false
 
 @export var detect_terrain_surface_area_2d : Area2D
 
+#@export var one_way_collision_shapes : Array[CollisionShape2D]
+
 func _ready():
+	#change_one_way_based_on_direction()
 	projectile_component.proj_delete_self.connect(_on_delete_self)
 	animation_player.animation_finished.connect(free_if_correct_anim)
 
@@ -67,5 +70,19 @@ func unfreeze():
 		set_collision_layer_value(layer, false)
 	for layer in non_frozen_layers:
 		set_collision_layer_value(layer, true)
+
+#func change_one_way_based_on_direction():
+	#match projectile_component.direction:
+		#Vector2(-1,0), Vector2(1,0):
+			#for shape in one_way_collision_shapes:
+				#shape.one_way_collision_direction = Vector2(0, -1)
+		#Vector2(0,-1):
+			#for shape in one_way_collision_shapes:
+				#shape.one_way_collision_direction = Vector2(1, 0)
+		#Vector2(0, 1):
+			#for shape in one_way_collision_shapes:
+				#shape.one_way_collision_direction = Vector2(-1, 0)
+		#_:
+			#return
 
 # NOTE TO FUTURE SELF : Need to add one way collisions somehow, it will make gameplay better

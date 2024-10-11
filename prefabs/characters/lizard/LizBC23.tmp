@@ -143,13 +143,7 @@ shape = SubResource("RectangleShape2D_g23f4")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 16.0
-target_desired_distance = 32.0
-path_postprocessing = 1
 simplify_path = true
-avoidance_enabled = true
-radius = 20.0
-max_speed = 120.0
 debug_enabled = true
 debug_use_custom = true
 
@@ -185,8 +179,6 @@ hit_from_inside = true
 
 [node name="StatsComponent" parent="." instance=ExtResource("15_hn17x")]
 script = ExtResource("3_ysfwk")
-initial_jump_speed = 96.0
-jump_time = 0.25
 
 [node name="GravityComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("8_x2nol")]
 root = NodePath("..")

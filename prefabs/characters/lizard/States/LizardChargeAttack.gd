@@ -6,39 +6,40 @@ extends State
 @export var stats_component : StatsComponent
 @export var charge_attack_area_2d : Area2D
 @export var animation_player : AnimationPlayer
+@export var orientation_handler : OrientationHandler2DSimplified
 
-var charge_timer : Timer # charge in direction for certain amount of time, then stop
-var charge_timer_length : float = 4.0
+@export var charge_timer : Timer # charge in direction for certain amount of time, then stop
+@export var charge_cooldown_timer : Timer # this timer shouldnt be ended on state_exit() 
+								  # bc we need to keep track of the cooldown continuosly
 
 var direction : Vector2 # just a static copy of a var just in case it changes for some reason while charging, 
 						# we want the charge to be static
 
-var charge_cooldown_timer : Timer # this timer shouldnt be ended on state_exit() 
-										 # bc we need to keep track of that damage cooldown continuosly
-var charge_cooldown_timer_length : float = 1.5 # seconds
-
-func _ready():
-	charge_timer = Timer.new()
-	charge_timer.wait_time = charge_timer_length
-	charge_timer.one_shot = true
-	charge_timer.timeout.connect(_on_charge_timer_timeout)
-	add_child(charge_timer)
-	
-	charge_cooldown_timer = Timer.new()
-	charge_cooldown_timer.wait_time = charge_cooldown_timer_length
-	charge_cooldown_timer.one_shot = true
-	add_child(charge_cooldown_timer)
-
 func state_enter():
+	if not charge_timer.timeout.is_connected(_on_charge_timer_timeout):
+		charge_timer.timeout.connect(_on_charge_timer_timeout)
+		
 	if charge_timer.is_stopped():
 		charge_timer.start()
-	direction = root.direction_of_next_nav_point
+	
+	if root.direction_of_next_nav_point.x != 0:
+		direction = root.direction_of_next_nav_point
+	else:
+		direction = Vector2.RIGHT
+	
 	root.change_orientation.emit(direction)
+	orientation_handler.ignore_orientation_changes = true
+	
 	animation_player.set_current_animation("charge")
 
 func state_exit():
+	orientation_handler.ignore_orientation_changes = false
+	
 	if not charge_timer.is_stopped():
 		charge_timer.stop()
+		
+	if charge_timer.timeout.is_connected(_on_charge_timer_timeout):
+		charge_timer.timeout.disconnect(_on_charge_timer_timeout)
 
 func state_physics_update(delta):
 	if charge_in_direction(delta) == false:
@@ -47,13 +48,10 @@ func state_physics_update(delta):
 func charge_in_direction(delta):
 	if attack_if_able(): # if we attacked, transition out
 		_on_charge_timer_timeout()
-		return false
-	
-	# V - this isnt adctually what it does yet but eh - V
-	# if object_detect a wall in front: play hitting wall stun animation
-	if object_detect_raycasts.raycast_front.is_colliding(): 
+
+	if object_detect_raycasts.raycast_front.is_colliding():
+		# TODO: play hitting wall stun animation
 		_on_charge_timer_timeout()
-		return false
 	
 	#print("Delta: ", delta, " Direction: ", direction, " Max Speed: ", Vector2(stats_component.max_speed.x, 0), " Random Vector: ", Vector2(randf_range(-2, 2), 0))
 	velocity_component.move(delta, direction, Vector2(stats_component.max_speed.x * 4.5, 0), Vector2(randf_range(-2,2), 0))
@@ -63,11 +61,10 @@ func attack_if_able():
 	for body in bodies:
 		if body.is_in_group("Player") and body.is_in_group("Player_Body"):
 			if charge_cooldown_timer.is_stopped():
-				# we can attack
 				body.get_parent().velocity.x = root.velocity.x * 3.5
 				body.get_parent().velocity.y -= abs(root.velocity.x) * 2.5
 				charge_cooldown_timer.start()
-				return true # return true if attack succesfully
+				return true
 	return false
 
 func _on_charge_timer_timeout():

@@ -21,7 +21,7 @@ func _ready():
 		current_state.state_enter()
 		_on_state_enter_print(current_state.name, initial_state.name)
 	else:
-		print_debug("no current state")
+		print_debug("No current state")
 
 func _process(delta):
 	if current_state:
@@ -49,4 +49,4 @@ func on_child_transition(state : State, new_state_name : String):
 	_on_state_enter_print(current_state.name, previous_state.name)
 
 func _on_state_enter_print(state_name, prev_state_name): # for debug
-	print_debug(self.name + " changed state from: " + prev_state_name + " to state: " + state_name)
+	print(self.name + " changed state from: " + prev_state_name + " to state: " + state_name)

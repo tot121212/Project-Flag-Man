@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c75lcu6etujpf"]
+[gd_scene load_steps=13 format=3 uid="uid://c75lcu6etujpf"]
 
 [ext_resource type="Script" path="res://prefabs/characters/player/Player Flag/player_flag.gd" id="1_doyhw"]
 [ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/Properties/Projectile/ProjectileComponent.tscn" id="1_i1dkc"]
@@ -11,11 +11,7 @@
 size = Vector2(22, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbf3l"]
-size = Vector2(16, 8)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_ilgmf"]
-a = Vector2(-11, -4)
-b = Vector2(11, -4)
+size = Vector2(18, 10)
 
 [sub_resource type="Animation" id="Animation_0ttd0"]
 length = 0.001
@@ -137,9 +133,6 @@ shape = SubResource("RectangleShape2D_hk0wc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xbf3l")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-shape = SubResource("SegmentShape2D_ilgmf")
 
 [node name="OrientationHandler2DSimplified" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("6_d0pd1")

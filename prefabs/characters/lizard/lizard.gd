@@ -13,13 +13,8 @@ signal change_orientation
 @export var navigation_agent : NavigationAgent2D
 @export var object_detect_raycasts : ObjectDetectRaycasts
 
-var direction_of_next_nav_point : Vector2 = Vector2.ZERO # direction of next point of navigation agent
-var current_target : Node # node of player or the target of aggro in general
-var target_group : String # the group with which self should attack
-
-var target_position : Vector2 # what position are we tryna go to
-
 var is_jumping : bool = false
+var direction_of_next_nav_point : Vector2 = Vector2.ZERO # direction of next point of navigation agent
 
 func _ready():
 	SignalBus.projectile_collision.connect(_on_projectile_collision)

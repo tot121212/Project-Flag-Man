@@ -4,7 +4,7 @@ class_name PlayerCombatAttack
 @export var root : Node2D
 @export var sparkles_sprite : Sprite2D
 @export var projectile_organizer : ProjectileOrganizer
-var proj_player_flag_scene = preload("res://prefabs/characters/player/Player Flag/player_flag.tscn")
+@export var proj_player_flag_scene : PackedScene
 var most_recent_flags : Array[Projectile] = [] # keeps track of most recent flags for use with freeze ability
 
 @export var throw_flag_cooldown : Timer

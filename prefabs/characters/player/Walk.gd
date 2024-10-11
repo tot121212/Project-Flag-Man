@@ -50,8 +50,10 @@ func state_physics_update(delta):
 			gravity_component.gravity * holding_down_coefficient, 
 			gravity_component.gravity * delta * holding_down_coefficient * root.input_direction.y)
 	
-	if is_falling_through_platform:
-		
+	if is_falling_through_platform and not root.is_inside_platform():
+		player_collision_shape.set_collision_mask_value(7, true)
+		is_falling_through_platform = false
+	
 	elif Input.is_action_just_pressed("down") and root.is_on_platform(): # and not is_falling_through_platform
 		#fall through platform
 		is_falling_through_platform = true

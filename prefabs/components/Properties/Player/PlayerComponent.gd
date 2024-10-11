@@ -6,7 +6,9 @@ signal change_orientation
 @export var animation_tree : AnimationTree
 @export var stats_component : StatsComponent
 @export var orientation_handler : OrientationHandler2DSimplified
-@export var debug_raycasts : Array[RayCast2D]
+@export var debug_raycasts_parent : Node
+var debug_raycasts : Array[RayCast2D] = []
+@export var platform_detection_area_2d : Area2D
 
 var last_input_direction : Vector2 = Vector2.RIGHT
 var input_direction : Vector2 = Vector2.ZERO
@@ -21,6 +23,9 @@ var is_jumping: bool = false
 var available_jumps : int
 
 func _ready():
+	for raycast in debug_raycasts_parent.get_children():
+		if raycast is RayCast2D:
+			debug_raycasts.append(raycast)
 	reset_available_jumps()
 
 func _physics_process(_delta):
@@ -59,7 +64,8 @@ func set_available_jumps(new_available_jumps):
 func reset_available_jumps():
 	set_available_jumps(stats_component.jump_max)
 
-func is_on_platform() -> bool :
+func is_on_platform() -> bool:
+	print("Is on platform")
 	for idx in get_slide_collision_count():
 		var collision = get_slide_collision(idx)
 		var normal = collision.get_normal()
@@ -67,11 +73,8 @@ func is_on_platform() -> bool :
 			return true
 	return false
 
-func is_inside_platform() -> bool :
-	is_overlapping_bodies()
-	for idx in get_slide_collision_count():
-		var collision = get_slide_collision(idx)
-		var normal = collision.get_normal()
-		if normal == Vector2(0, -1):
-			return true
+func is_inside_platform() -> bool:
+	print("Is inside platform")
+	if platform_detection_area_2d.has_overlapping_bodies():
+		return true
 	return false

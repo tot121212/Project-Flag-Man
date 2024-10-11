@@ -1,4 +1,5 @@
 extends State
+class_name LizardIdleState
 
 @export var root: Node2D
 @export var state_machine_parent : StateMachineParent
