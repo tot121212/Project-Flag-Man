@@ -5,8 +5,6 @@ class_name LizardIdleState
 @export var state_machine_parent : StateMachineParent
 @export var detection_raycaster : DetectionRaycaster
 
-@export var target_group : String = "Player"
-
 func state_enter():
 	# the movement attack state machine must load before this or...
 	# it will not work due to the order in which it loads
@@ -19,5 +17,7 @@ func state_exit():
 		detection_raycaster.is_colliding_with_target.disconnect(_on_detection_raycaster_is_colliding_with_target)
 
 func _on_detection_raycaster_is_colliding_with_target(_raycast, target):
-	if target_group in target.get_groups():
+	if root.target_group in target.get_groups():
 		transition.emit(self, "LizardAggro")
+		#TODO: V
+		print("Transition to LizardAggro should've happened.")

@@ -15,19 +15,21 @@ func _ready():
 
 func _on_change_orientation(direction):
 	if not ignore_orientation_changes:
-		last_direction = direction
-		for node_path in nodes_to_flip:
-			var node = get_node_or_null(node_path)
-			if node:
-				if ignore_diagonals:
-					if direction.x > 0:
-						node.scale.x = abs(node.scale.x)
-					elif direction.x < 0:
-						node.scale.x = -abs(node.scale.x)
-				else:
-					if direction.x > 0 or direction.y < 0:
-						node.scale.x = abs(node.scale.x)
-						root.rotation = fmod(Vector2.RIGHT.angle_to(direction), PI)
-					elif direction.x < 0 or direction.y > 0:
-						node.scale.x = -abs(node.scale.x)
-						root.rotation = fmod(Vector2.LEFT.angle_to(direction), PI)
+		if last_direction != direction:
+			for node_path in nodes_to_flip:
+				var node = get_node_or_null(node_path)
+				if node:
+					if ignore_diagonals:
+						if direction.x > 0:
+							node.scale.x = abs(node.scale.x)
+						elif direction.x < 0:
+							node.scale.x = -abs(node.scale.x)
+					else:
+						if direction.x > 0 or direction.y < 0:
+							node.scale.x = abs(node.scale.x)
+							root.rotation = fmod(Vector2.RIGHT.angle_to(direction), PI)
+						elif direction.x < 0 or direction.y > 0:
+							node.scale.x = -abs(node.scale.x)
+							root.rotation = fmod(Vector2.LEFT.angle_to(direction), PI)
+			last_direction = direction
+			print(root.name + " changed orientation to:" + str(direction))

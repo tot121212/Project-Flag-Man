@@ -7,6 +7,7 @@ var previous_state : State
 var states : Dictionary = {}
 
 func _ready():
+	print("Initial state")
 	if not initial_state:
 		print_debug("No initial state")
 		return
@@ -32,6 +33,7 @@ func _physics_process(delta):
 		current_state.state_physics_update(delta)
 
 func on_child_transition(state : State, new_state_name : String):
+	print("child is transitioning")
 	if state != current_state:
 		return
 	
@@ -49,4 +51,4 @@ func on_child_transition(state : State, new_state_name : String):
 	_on_state_enter_print(current_state.name, previous_state.name)
 
 func _on_state_enter_print(state_name, prev_state_name): # for debug
-	print(self.name + " changed state from: " + prev_state_name + " to state: " + state_name)
+	print(self.get_parent().get_parent().name + " changed state from: " + prev_state_name + " to state: " + state_name)

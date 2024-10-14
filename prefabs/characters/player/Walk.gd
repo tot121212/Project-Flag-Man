@@ -24,7 +24,7 @@ func state_physics_update(delta):
 	
 	#print("Available Jumps: " + str(root.available_jumps))
 	
-	if root.is_jumping and root.input_direction.y >= 0: # cancel jump if let go of key
+	if root.is_jumping and (root.input_direction.y >= 0 or root.is_on_roof()): # cancel jump if let go of key or if touching a roof
 		#print("Player cancelled jump")
 		velocity_component.cancel_jump()
 	

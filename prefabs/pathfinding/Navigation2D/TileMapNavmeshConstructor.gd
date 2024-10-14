@@ -38,7 +38,7 @@ func _input(_event):
 func create_navigation_regions(): # place nav tile above any tile that has an empty space above it, recursively up to max_recursions
 	cells_with_terrain = tilemap_layers[terrain_layer_index].get_used_cells_by_id(terrain_source_id)
 	cells_with_platforms = tilemap_layers[platform_layer_index].get_used_cells_by_id(platform_source_id)
-	print("Used Tile Cells: " + str(cells_with_terrain))
+	#print("Used Tile Cells: " + str(cells_with_terrain))
 	for i in cells_with_terrain:
 		create_navigation_region_above_cell_recursively(i, max_recursions)
 	for i in cells_with_platforms:

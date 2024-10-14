@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcw66tob22of1"]
+[gd_scene load_steps=31 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard/Lizard.gd" id="1_i42rh"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
@@ -20,10 +20,11 @@
 [ext_resource type="Script" path="res://prefabs/components/state_machine/StateMachineParent.gd" id="9_1lped"]
 [ext_resource type="Script" path="res://prefabs/characters/lizard/States/LizardSpitAttack.gd" id="9_w2i3c"]
 [ext_resource type="PackedScene" uid="uid://dvvomv6o68kt2" path="res://prefabs/components/Properties/Stats/StatsComponent.tscn" id="15_hn17x"]
+[ext_resource type="PackedScene" uid="uid://tw3j61nslv8m" path="res://prefabs/characters/lizard/LizardSpitProjectile.tscn" id="19_hperg"]
 [ext_resource type="PackedScene" uid="uid://bbf3tdtwcldp5" path="res://prefabs/components/Properties/PatrolPoints/PatrolPointsContainer.tscn" id="20_cvcej"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g23f4"]
-size = Vector2(48, 16)
+size = Vector2(46, 14)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ccjrs"]
 radius = 128.0
@@ -31,7 +32,7 @@ height = 256.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4x1l4"]
 radius = 6.0
-height = 20.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_a2to8"]
 length = 0.001
@@ -114,11 +115,27 @@ tracks/1/keys = {
 "values": [Vector2(0, 4)]
 }
 
+[sub_resource type="Animation" id="Animation_04f5n"]
+resource_name = "spit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jniao"]
 _data = {
 "RESET": SubResource("Animation_a2to8"),
 "charge": SubResource("Animation_14cy7"),
-"idle": SubResource("Animation_htxtq")
+"idle": SubResource("Animation_htxtq"),
+"spit": SubResource("Animation_04f5n")
 }
 
 [node name="Lizard" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "orientation_handler", "detection_raycaster", "stats_component", "aggro_state_machine", "movement_attack_state_machine", "velocity_component", "navigation_agent", "object_detect_raycasts") groups=["Enemy"]]
@@ -145,9 +162,9 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 16.0
 target_desired_distance = 32.0
+path_max_distance = 128.0
 path_postprocessing = 1
 simplify_path = true
-avoidance_enabled = true
 radius = 20.0
 max_speed = 120.0
 debug_enabled = true
@@ -159,7 +176,7 @@ navigation_agent = NodePath("../NavigationAgent2D")
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_u7sv1")]
 root = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../ChargeAttackArea"), NodePath("../ObjectDetectRaycasts"), NodePath("../AimingRaycast2D")])
+nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../ChargeAttackArea"), NodePath("../ObjectDetectRaycasts")])
 start_facing_right = false
 
 [node name="ProjectileOrganizer" parent="." instance=ExtResource("4_ycerx")]
@@ -177,14 +194,9 @@ target_position = Vector2(0, 10)
 position = Vector2(-22, 9)
 target_position = Vector2(0, 10)
 
-[node name="AimingRaycast2D" type="RayCast2D" parent="."]
-position = Vector2(20, 0)
-target_position = Vector2(0, 0)
-collision_mask = 2
-hit_from_inside = true
-
-[node name="StatsComponent" parent="." instance=ExtResource("15_hn17x")]
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("15_hn17x")]
 script = ExtResource("3_ysfwk")
+root = NodePath("..")
 initial_jump_speed = 96.0
 jump_time = 0.25
 
@@ -198,6 +210,7 @@ stats_component = NodePath("../StatsComponent")
 [node name="DetectionRaycaster" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("4_lvdp3")]
 detection_area = NodePath("../PlayerDetectionArea")
 collision_layers = Array[int]([2, 1])
+raycast_for_tilemap_layers = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -219,7 +232,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="ChargeAttackHitbox" type="CollisionShape2D" parent="ChargeAttackArea"]
-position = Vector2(18, 4)
+position = Vector2(19, 2)
 shape = SubResource("CapsuleShape2D_4x1l4")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
@@ -267,14 +280,13 @@ charge_timer = NodePath("ChargeTimer")
 charge_cooldown_timer = NodePath("ChargeCooldownTimer")
 
 [node name="ChargeTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardChargeAttack"]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [node name="ChargeCooldownTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardChargeAttack"]
-wait_time = 1.5
 one_shot = true
 
-[node name="LizardSpitMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "detection_raycaster", "lizard_aggro_state", "aiming_raycast")]
+[node name="LizardSpitMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "detection_raycaster", "lizard_aggro_state", "lizard_spit_attack_state", "closest_target_acquisiton_timer")]
 script = ExtResource("7_plu44")
 root = NodePath("../../..")
 velocity_component = NodePath("../../../VelocityComponent")
@@ -285,17 +297,21 @@ stats_component = NodePath("../../../StatsComponent")
 animation_player = NodePath("../../../AnimationPlayer")
 detection_raycaster = NodePath("../../../DetectionRaycaster")
 lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
-aiming_raycast = NodePath("../../../AimingRaycast2D")
+lizard_spit_attack_state = NodePath("../LizardSpitAttack")
+closest_target_acquisiton_timer = NodePath("../../AggroStateMachine/LizardAggro/ClosestTargetAcquisitionTimer")
 
-[node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "lizard_aggro_state", "projectile_organizer", "animation_player")]
+[node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "lizard_aggro_state", "projectile_organizer", "animation_player", "spit_cooldown_timer")]
 script = ExtResource("9_w2i3c")
 root = NodePath("../../..")
 lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
+lizard_spit_projectile_scene = ExtResource("19_hperg")
 projectile_organizer = NodePath("../../../ProjectileOrganizer")
 animation_player = NodePath("../../../AnimationPlayer")
+spit_cooldown_timer = NodePath("SpitCooldownTimer")
 
 [node name="SpitCooldownTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardSpitAttack"]
-wait_time = 2.0
+process_callback = 0
+wait_time = 3.0
 one_shot = true
 
 [node name="AggroStateMachine" type="Node" parent="StateMachineParent" node_paths=PackedStringArray("initial_state")]
@@ -320,7 +336,7 @@ closest_target_acquisiton_timer = NodePath("ClosestTargetAcquisitionTimer")
 one_shot = true
 
 [node name="ClosestTargetAcquisitionTimer" type="Timer" parent="StateMachineParent/AggroStateMachine/LizardAggro"]
-wait_time = 0.3
+wait_time = 0.5
 
 [node name="PatrolPointsContainer" parent="." node_paths=PackedStringArray("root", "navigation_component", "patrol_points") instance=ExtResource("20_cvcej")]
 root = NodePath("..")
@@ -339,3 +355,4 @@ libraries = {
 }
 
 [editable path="ObjectDetectRaycasts"]
+[editable path="DetectionRaycaster"]

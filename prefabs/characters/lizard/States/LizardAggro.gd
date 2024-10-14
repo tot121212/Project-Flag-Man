@@ -5,8 +5,6 @@ class_name LizardAggroState
 @export var state_machine_parent : Node
 @export var detection_raycaster : DetectionRaycaster
 
-@export var target_group : String = "Player"
-
 @export var aggro_timer : Timer # used to define how long aggro lasts after player is not visible anymore
 var aggro_timer_lower_range : float = 6.0
 var aggro_timer_upper_range : float = 12.0
@@ -18,6 +16,11 @@ var direction_to_current_target : Vector2
 @export var closest_target_acquisiton_timer : Timer # used by aggro states to proc closest target acquisition
 var closest_target : Node2D
 var distance_to_closest_target : float = -1
+
+@export var start_in_charge : bool = false
+@export var lock_to_charge : bool = false
+@export var start_in_spit : bool = false
+@export var lock_to_spit : bool = false
 
 func state_enter():
 	if not aggro_timer.timeout.is_connected(_on_aggro_timer_timeout):
@@ -53,14 +56,26 @@ func reset_timer():
 	aggro_timer.start(duration)
 
 func choose_attack_state(): # choose either charge or spit as attack for lizard
-	var chance = randi_range(0,3)
-	if chance <= 3: # i have this at 0 for now while working on each state
+	if start_in_charge == true:
 		state_machine_parent.transition_state_machine_to_state("MovementAttackStateMachine", "LizardChargeMovement")
+		if lock_to_charge == false:
+			start_in_charge = false
+		return 0
+	if start_in_spit == true:
+		state_machine_parent.transition_state_machine_to_state("MovementAttackStateMachine", "LizardSpitMovement")
+		if lock_to_charge == false:
+			start_in_charge = false
+		return 1
+	var chance = randi_range(0,3)
+	if chance <= 2:
+		state_machine_parent.transition_state_machine_to_state("MovementAttackStateMachine", "LizardChargeMovement")
+		return 2
 	else:
 		state_machine_parent.transition_state_machine_to_state("MovementAttackStateMachine", "LizardSpitMovement")
+		return 3
 
 func _on_detection_raycaster_is_colliding_with_target(_raycast, target):
-	if target_group in target.get_groups():
+	if root.target_group in target.get_groups():
 		if aggro_timer.get_time_left() <= aggro_timer.wait_time / 2:
 			if aggro_timer.is_connected("timeout", _on_aggro_timer_timeout):
 				#print("LizardAggro: Aggro Timer extended on " + str(root.name))
@@ -80,8 +95,8 @@ func get_direction_to_target(target):
 
 func find_closest_target(): # check all targets in target_group for closest node to root
 	#print("LizardAggro: Finding closest target")
-	closest_target = get_tree().get_first_node_in_group(target_group)
-	for target in get_tree().get_nodes_in_group(target_group):
+	closest_target = get_tree().get_first_node_in_group(root.target_group)
+	for target in get_tree().get_nodes_in_group(root.target_group):
 		var distance_to_target : float = get_distance_to_target(target)
 		
 		if (distance_to_target

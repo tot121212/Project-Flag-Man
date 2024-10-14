@@ -3,6 +3,8 @@ class_name StatsComponent
 
 signal health_changed
 
+@export var root : Node2D
+
 @export var can_walk : bool = true
 @export var can_fly : bool = false
 
@@ -40,4 +42,6 @@ func calculate_max_jump_height():
 	
 	var height_sustained = jump_speed * jump_time
 	
-	return height_initial + height_sustained
+	var final_answer = height_initial + height_sustained
+	print("Max Jump Height for " + root.name + " is " + str(final_answer))
+	return final_answer

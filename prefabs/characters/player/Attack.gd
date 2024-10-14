@@ -39,7 +39,7 @@ func throw_flag():
 				new_flag.projectile_component.direction = root.input_direction
 			else:
 				new_flag.projectile_component.direction = Vector2(root.orientation_handler.last_direction.x, 0)
-			new_flag.global_position = Vector2(root.global_position.x + (5 * signf(new_flag.projectile_component.direction.x)), root.global_position.y - 3)
+			new_flag.global_position = Vector2(root.global_position.x + (5 * signf(new_flag.projectile_component.direction.x)), root.global_position.y - 6)
 			#print("New Flag Pos: " + str(new_flag.global_position))
 			#print("Root Pos: " + str(root.global_position))
 			

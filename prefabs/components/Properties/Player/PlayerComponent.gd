@@ -65,16 +65,22 @@ func reset_available_jumps():
 	set_available_jumps(stats_component.jump_max)
 
 func is_on_platform() -> bool:
-	print("Is on platform")
 	for idx in get_slide_collision_count():
 		var collision = get_slide_collision(idx)
 		var normal = collision.get_normal()
 		if normal == Vector2(0, -1):
+			print("Is on platform")
 			return true
 	return false
 
 func is_inside_platform() -> bool:
-	print("Is inside platform")
 	if platform_detection_area_2d.has_overlapping_bodies():
+		print("Is inside platform")
+		return true
+	return false
+
+func is_on_roof():
+	if is_on_ceiling():
+		print("Is touching roof")
 		return true
 	return false

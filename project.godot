@@ -61,12 +61,12 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
-Player_Projectile=""
 Player=""
 Enemy=""
 Terrain=""
 Platforms=""
-Player_Body=""
+PlayerBody=""
+PlayerProjectile=""
 
 [importer_defaults]
 
@@ -158,6 +158,7 @@ regenerate_navmeshes={
 2d_physics/layer_6="Player_Projectile"
 2d_physics/layer_7="Terrain_Platform"
 2d_physics/layer_8="Player_Collision_Shape"
+2d_physics/layer_9="Enemy_Projectile"
 
 [physics]
 

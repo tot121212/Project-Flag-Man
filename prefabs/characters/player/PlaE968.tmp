@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://c75lcu6etujpf" path="res://prefabs/characters/player/Player Flag/player_flag.tscn" id="15_duie8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0qi7t"]
-radius = 6.0
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_m1nxg"]
 length = 0.001
@@ -222,8 +222,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p41l2"]
-radius = 8.0
-height = 16.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="Resource" id="Resource_ne41x"]
 script = ExtResource("12_rxaur")
@@ -245,7 +245,6 @@ debug_raycasts_parent = NodePath("DebugRaycasts")
 platform_detection_area_2d = NodePath("PlatformDetectionArea2D")
 
 [node name="SoftCollisionsArea2D" parent="." node_paths=PackedStringArray("root", "velocity_component") instance=ExtResource("2_kun4p")]
-position = Vector2(0, -4)
 collision_layer = 0
 collision_mask = 14
 root = NodePath("..")
@@ -264,9 +263,8 @@ gravity_coefficient = 0.8
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
 
-[node name="StatsComponent" type="Node2D" parent="." node_paths=PackedStringArray("root")]
+[node name="StatsComponent" type="Node2D" parent="."]
 script = ExtResource("4_hpxyj")
-root = NodePath("..")
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
 root = NodePath("..")
@@ -329,7 +327,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 25
+frame = 23
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -338,7 +336,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 35
+frame = 33
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -347,7 +345,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 45
+frame = 43
 
 [node name="Eyes" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -356,7 +354,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 55
+frame = 53
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -367,7 +365,7 @@ offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
 
-[node name="PlayerBody" type="StaticBody2D" parent="." groups=["PlayerBody"]]
+[node name="PlayerBody" type="StaticBody2D" parent="." groups=["Player_Body"]]
 collision_layer = 2
 collision_mask = 8
 
@@ -378,7 +376,7 @@ shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 
@@ -387,7 +385,7 @@ collision_layer = 0
 collision_mask = 64
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="PlatformDetectionArea2D"]
-position = Vector2(0, -4)
+position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 

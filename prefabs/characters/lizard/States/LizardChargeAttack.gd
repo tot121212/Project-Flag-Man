@@ -15,6 +15,8 @@ extends State
 var direction : Vector2 # just a static copy of a var just in case it changes for some reason while charging, 
 						# we want the charge to be static
 
+var stun_time : float = 0.5 # seconds
+
 func state_enter():
 	if not charge_timer.timeout.is_connected(_on_charge_timer_timeout):
 		charge_timer.timeout.connect(_on_charge_timer_timeout)
@@ -40,18 +42,21 @@ func state_exit():
 		
 	if charge_timer.timeout.is_connected(_on_charge_timer_timeout):
 		charge_timer.timeout.disconnect(_on_charge_timer_timeout)
+		
+	charge_cooldown_timer.start()
 
 func state_physics_update(delta):
-	if charge_in_direction(delta) == false:
-		return
+	if not has_been_stunned:
+		charge_in_direction(delta)
 
+var has_been_stunned = false
 func charge_in_direction(delta):
 	if attack_if_able(): # if we attacked, transition out
 		_on_charge_timer_timeout()
 
 	if object_detect_raycasts.raycast_front.is_colliding():
-		# TODO: play hitting wall stun animation
-		_on_charge_timer_timeout()
+		has_been_stunned = true
+		call_deferred("_on_charge_timer_timeout_delayed")
 	
 	#print("Delta: ", delta, " Direction: ", direction, " Max Speed: ", Vector2(stats_component.max_speed.x, 0), " Random Vector: ", Vector2(randf_range(-2, 2), 0))
 	velocity_component.move(delta, direction, Vector2(stats_component.max_speed.x * 4.5, 0), Vector2(randf_range(-2,2), 0))
@@ -59,7 +64,7 @@ func charge_in_direction(delta):
 func attack_if_able():
 	var bodies = charge_attack_area_2d.get_overlapping_bodies()
 	for body in bodies:
-		if body.is_in_group("Player") and body.is_in_group("Player_Body"):
+		if body.is_in_group("Player"):
 			if charge_cooldown_timer.is_stopped():
 				body.get_parent().velocity.x = root.velocity.x * 3.5
 				body.get_parent().velocity.y -= abs(root.velocity.x) * 2.5
@@ -69,3 +74,13 @@ func attack_if_able():
 
 func _on_charge_timer_timeout():
 	transition.emit(self, "LizardChargeMovement")
+
+func _on_charge_timer_timeout_delayed():
+	if has_been_stunned == true:
+		has_been_stunned = false
+	
+	# TODO: play hitting wall stun animation
+	# animation_player.set_current_animation("stunned")
+	await get_tree().create_timer(stun_time).timeout
+	
+	_on_charge_timer_timeout()

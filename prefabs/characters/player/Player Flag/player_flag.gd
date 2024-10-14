@@ -4,7 +4,6 @@ class_name PlayerFlag
 signal change_orientation
 signal was_queue_freed
 
-@export var projectile_component : ProjectileComponent
 @export var animation_player : AnimationPlayer
 @export var flag_shapes : Array[CollisionShape2D]
 
@@ -20,7 +19,8 @@ var is_frozen : bool = false
 func _ready():
 	#change_one_way_based_on_direction()
 	projectile_component.proj_delete_self.connect(_on_delete_self)
-	animation_player.animation_finished.connect(free_if_correct_anim)
+	animation_player.animation_finished.connect(_on_proj_free)
+	animation_player.play("flying")
 
 func _physics_process(_delta):
 	if not is_frozen:
@@ -31,20 +31,21 @@ func _physics_process(_delta):
 			if collider.is_in_group("Enemy"):
 				SignalBus.projectile_collision.emit(self, collider, projectile_component.damage)
 				projectile_component.proj_delete_self.emit()
-			elif collider.is_in_group("Terrain") or collider.is_in_group("Platforms"):
+			elif collider.is_in_group("Terrain"):
 				projectile_component.proj_delete_self.emit()
 			print("Collided with: ", collision.get_collider().name)
-		
 
 func _on_delete_self():
 	# play anim of fading out
-	animation_player.play("fade_sprite_out")
-	self.set_process(false)
-	self.set_physics_process(false)
-	await animation_player.animation_finished
+	if animation_player.has_animation("on_proj_free"):
+		animation_player.play("on_proj_free")
+		self.set_process(false)
+		self.set_physics_process(false)
+	else:
+		_on_proj_free("on_proj_free")
 
-func free_if_correct_anim(anim_name : StringName):
-	if anim_name == "fade_sprite_out":
+func _on_proj_free(anim_name : StringName):
+	if anim_name == "on_proj_free":
 		was_queue_freed.emit(self)
 		queue_free()
 

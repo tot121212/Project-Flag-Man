@@ -13,6 +13,8 @@ signal change_orientation
 @export var navigation_agent : NavigationAgent2D
 @export var object_detect_raycasts : ObjectDetectRaycasts
 
+@export var target_group : String = "PlayerBody"
+
 var is_jumping : bool = false
 var direction_of_next_nav_point : Vector2 = Vector2.ZERO # direction of next point of navigation agent
 

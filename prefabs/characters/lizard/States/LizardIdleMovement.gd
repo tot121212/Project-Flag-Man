@@ -86,9 +86,9 @@ func idle_logic(direction = random_direction()): # direction will be random by d
 		if chance > 2:
 			if patrol_points.should_patrol_if_able and patrol_points.amt_of_patrol_points > 0:
 				idle_between_patrol_points(3, 5)
-				print("LizardIdle: Pathing to patrol point")
+				print(root.name + ": LizardIdle: Pathing to patrol point")
 			else:
 				set_target_pos_to_random(direction, 2, 3)
-				print("LizardIdle: Pathing randomly")
+				print(root.name + ": LizardIdle: Pathing randomly")
 		else:
 			idle_in_place(1, 2)

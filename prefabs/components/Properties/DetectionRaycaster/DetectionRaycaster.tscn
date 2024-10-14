@@ -2,5 +2,12 @@
 
 [ext_resource type="Script" path="res://prefabs/components/Properties/DetectionRaycaster/DetectionRaycaster.gd" id="1_oly1x"]
 
-[node name="DetectionRaycaster" type="Node2D"]
+[node name="DetectionRaycaster" type="Node2D" node_paths=PackedStringArray("raycast_cast_timer")]
 script = ExtResource("1_oly1x")
+raycast_lifespan_in_seconds = 0.2
+raycast_cast_timer = NodePath("RaycastCastTimer")
+
+[node name="RaycastCastTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
