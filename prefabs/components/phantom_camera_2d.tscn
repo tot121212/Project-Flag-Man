@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://164qfkxciijw"]
+
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_bu7wd"]
+[ext_resource type="Script" path="res://prefabs/components/phantom_camera_2d.gd" id="1_gfeky"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_fibr2"]
+
+[sub_resource type="Resource" id="Resource_em5eh"]
+script = ExtResource("2_fibr2")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="PhantomCamera2DParent" type="Node2D" node_paths=PackedStringArray("phantom_camera_2d")]
+script = ExtResource("1_gfeky")
+phantom_camera_2d = NodePath("PhantomCamera2D")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+script = ExtResource("1_bu7wd")
+follow_mode = 5
+snap_to_pixel = true
+tween_resource = SubResource("Resource_em5eh")
+tween_on_load = false

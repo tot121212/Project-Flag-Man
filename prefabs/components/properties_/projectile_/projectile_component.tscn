@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://npl4s72alvjw"]
+
+[ext_resource type="Script" path="res://prefabs/components/properties_/projectile_/projectile_component.gd" id="1_d8pie"]
+
+[node name="ProjectileComponent" type="Node2D" node_paths=PackedStringArray("lifespan_timer", "is_off_screen_timer", "visible_on_screen_notifier")]
+script = ExtResource("1_d8pie")
+lifespan_timer = NodePath("LifespanTimer")
+is_off_screen_timer = NodePath("IsOffScreenTimer")
+visible_on_screen_notifier = NodePath("VisibleOnScreenNotifier2D")
+
+[node name="LifespanTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="IsOffScreenTimer" type="Timer" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

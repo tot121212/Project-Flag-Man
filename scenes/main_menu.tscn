@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://66gngf4ex7ln"]
+
+[ext_resource type="Theme" uid="uid://buw7l36rrsutl" path="res://scenes/main_menu_theme.tres" id="1_e8674"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_g0p0q"]
+[ext_resource type="Texture2D" uid="uid://b33cl5d1gnwoo" path="res://scenes/flag_man_icon.tres" id="3_26gfu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5421r"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("node_2d", "marker")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_right = -640.0
+offset_bottom = -361.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e8674")
+script = ExtResource("1_g0p0q")
+node_2d = NodePath("Node2D")
+marker = NodePath("Node2D/Marker2D")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_right = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FlagManButton" type="TextureButton" parent="Panel/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../QuitButton")
+focus_neighbor_right = NodePath("../StartButton")
+texture_normal = ExtResource("3_26gfu")
+stretch_mode = 5
+
+[node name="StartButton" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../FlagManButton")
+focus_neighbor_right = NodePath("../LoadButton")
+text = "Start"
+
+[node name="LoadButton" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../StartButton")
+focus_neighbor_right = NodePath("../QuitButton")
+text = "Load"
+
+[node name="QuitButton" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../LoadButton")
+focus_neighbor_right = NodePath("../FlagManButton")
+text = "Quit"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Node2D"]
+position = Vector2(337, 119)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(336, 165)
+shape = SubResource("WorldBoundaryShape2D_5421r")

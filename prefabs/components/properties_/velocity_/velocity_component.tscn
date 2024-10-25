@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cul8k4e4apnjx"]
+
+[ext_resource type="Script" path="res://prefabs/components/properties_/velocity_/velocity_component.gd" id="1_pjl8m"]
+
+[node name="VelocityComponent" type="Node2D"]
+script = ExtResource("1_pjl8m")
+acceleration_coefficient = Vector2(640, 64)
+friction = 256.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://pgytloik1owk"]
 
 [ext_resource type="Script" path="res://prefabs/characters/tower/tower_proj.gd" id="1_wmje5"]
-[ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/Properties/Projectile/ProjectileComponent.tscn" id="3_40rk0"]
+[ext_resource type="PackedScene" uid="uid://npl4s72alvjw" path="res://prefabs/components/properties_/projectile_/projectile_component.tscn" id="3_40rk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmdt3"]
 size = Vector2(10, 10)

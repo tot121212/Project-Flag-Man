@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b33cl5d1gnwoo"]
+
+[ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="1_4cptn"]
+
+[resource]
+atlas = ExtResource("1_4cptn")
+region = Rect2(200, 112, 32, 40)

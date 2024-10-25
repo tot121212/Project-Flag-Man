@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://catgfmk74ypo"]
-
-[ext_resource type="Script" path="res://prefabs/components/state_machine/StateMachineParent.gd" id="1_2m6kl"]
-
-[node name="StateMachineParent" type="Node"]
-script = ExtResource("1_2m6kl")

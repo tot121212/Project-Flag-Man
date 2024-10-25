@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/aseprite/tower_body.png" id="2_wshfm"]
 [ext_resource type="PackedScene" uid="uid://pgytloik1owk" path="res://prefabs/characters/tower/tower_proj.tscn" id="2_ycsty"]
 [ext_resource type="Texture2D" path="res://assets/aseprite/tower_eyes.png" id="3_h20u0"]
-[ext_resource type="PackedScene" uid="uid://dfrwg73p8bx44" path="res://prefabs/components/Properties/Gravity/GravityComponent.tscn" id="5_vxsmv"]
+[ext_resource type="PackedScene" uid="uid://dfrwg73p8bx44" path="res://prefabs/components/properties_/gravity_component/gravity_component.tscn" id="5_vxsmv"]
 
 [sub_resource type="Animation" id="Animation_kwksp"]
 resource_name = "attack"

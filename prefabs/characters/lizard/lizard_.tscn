@@ -1,0 +1,554 @@
+[gd_scene load_steps=54 format=3 uid="uid://bcw66tob22of1"]
+
+[ext_resource type="Script" path="res://prefabs/characters/lizard/lizard_.gd" id="1_174pm"]
+[ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
+[ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/properties_/orientation_handler_2d_simplified/orientation_handler_2d_simplified.tscn" id="2_u7sv1"]
+[ext_resource type="Script" path="res://prefabs/components/properties_/stats_/stats_component.gd" id="3_ysfwk"]
+[ext_resource type="PackedScene" uid="uid://be52tqdqjnxwb" path="res://prefabs/components/properties_/object_detect_raycasts/object_detect_raycasts.tscn" id="4_jqr2a"]
+[ext_resource type="PackedScene" uid="uid://drjbn70yf418x" path="res://prefabs/components/properties_/detection_raycaster/detection_raycaster.tscn" id="4_lvdp3"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardIdle.gd" id="4_twjhp"]
+[ext_resource type="PackedScene" uid="uid://ccvduv36cygqj" path="res://prefabs/components/properties_/projectile_/projectile_instantiator.tscn" id="4_ycerx"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardAggro.gd" id="6_edfj2"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardIdleMovement.gd" id="6_miti0"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardChargeMovement.gd" id="6_qpu2t"]
+[ext_resource type="PackedScene" uid="uid://cul8k4e4apnjx" path="res://prefabs/components/properties_/velocity_/velocity_component.tscn" id="6_xx5g6"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardChargeAttack.gd" id="7_f0vwd"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardSpitMovement.gd" id="7_plu44"]
+[ext_resource type="PackedScene" uid="uid://bsorxlqa6g0ci" path="res://prefabs/components/properties_/navigation_component/navigation_component.tscn" id="7_q4r2v"]
+[ext_resource type="Script" path="res://prefabs/components/state_machine/state_machine.gd" id="8_uld4n"]
+[ext_resource type="PackedScene" uid="uid://dfrwg73p8bx44" path="res://prefabs/components/properties_/gravity_component/gravity_component.tscn" id="8_x2nol"]
+[ext_resource type="Script" path="res://prefabs/components/state_machine/state_machine_parent.gd" id="9_1lped"]
+[ext_resource type="Script" path="res://prefabs/characters/lizard/states_/LizardSpitAttack.gd" id="9_w2i3c"]
+[ext_resource type="PackedScene" uid="uid://dvvomv6o68kt2" path="res://prefabs/components/properties_/stats_/stats_component.tscn" id="15_hn17x"]
+[ext_resource type="PackedScene" uid="uid://tw3j61nslv8m" path="res://prefabs/characters/lizard/lizard_spit_projectile.tscn" id="19_hperg"]
+[ext_resource type="PackedScene" uid="uid://bbf3tdtwcldp5" path="res://prefabs/components/properties_/patrol_points_container/patrol_points_container.tscn" id="20_cvcej"]
+
+[sub_resource type="Animation" id="Animation_a2to8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LizardHurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ejnqq"]
+resource_name = "blink"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0.607843), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_14cy7"]
+resource_name = "charge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LizardHurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_wb41t"]
+resource_name = "death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_htxtq"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LizardHurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_04f5n"]
+resource_name = "spit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jniao"]
+_data = {
+"RESET": SubResource("Animation_a2to8"),
+"blink": SubResource("Animation_ejnqq"),
+"charge": SubResource("Animation_14cy7"),
+"death": SubResource("Animation_wb41t"),
+"idle": SubResource("Animation_htxtq"),
+"spit": SubResource("Animation_04f5n")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_myobl"]
+animation = &"blink"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qmhdr"]
+animation = &"charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_51bi7"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1xw0k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_figjo"]
+animation = &"spit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ciavj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ogllc"]
+advance_mode = 2
+advance_condition = &"is_blinking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_18l3i"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ts0b7"]
+advance_mode = 2
+advance_condition = &"is_charging"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rosq4"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_chcix"]
+advance_mode = 2
+advance_condition = &"is_dying"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cu01s"]
+advance_mode = 2
+advance_condition = &"is_spitting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g6qan"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lb3fh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_icrta"]
+advance_mode = 2
+advance_condition = &"is_blinking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tf8il"]
+advance_mode = 2
+advance_condition = &"is_blinking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7yfxn"]
+advance_mode = 2
+advance_condition = &"is_dying"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wxth7"]
+advance_mode = 2
+advance_condition = &"is_dying"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_abrmq"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_charging"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g3qwj"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_spitting"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_l4rn2"]
+states/End/position = Vector2(700, 17)
+states/Start/position = Vector2(-161, 17)
+states/blink/node = SubResource("AnimationNodeAnimation_myobl")
+states/blink/position = Vector2(111, -64)
+states/charge/node = SubResource("AnimationNodeAnimation_qmhdr")
+states/charge/position = Vector2(-36, -182)
+states/death/node = SubResource("AnimationNodeAnimation_51bi7")
+states/death/position = Vector2(534, 17)
+states/idle/node = SubResource("AnimationNodeAnimation_1xw0k")
+states/idle/position = Vector2(-36, 17)
+states/spit/node = SubResource("AnimationNodeAnimation_figjo")
+states/spit/position = Vector2(-36, 193)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ciavj"), "idle", "blink", SubResource("AnimationNodeStateMachineTransition_ogllc"), "blink", "idle", SubResource("AnimationNodeStateMachineTransition_18l3i"), "idle", "charge", SubResource("AnimationNodeStateMachineTransition_ts0b7"), "charge", "idle", SubResource("AnimationNodeStateMachineTransition_rosq4"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_chcix"), "idle", "spit", SubResource("AnimationNodeStateMachineTransition_cu01s"), "spit", "idle", SubResource("AnimationNodeStateMachineTransition_g6qan"), "death", "End", SubResource("AnimationNodeStateMachineTransition_lb3fh"), "charge", "blink", SubResource("AnimationNodeStateMachineTransition_icrta"), "spit", "blink", SubResource("AnimationNodeStateMachineTransition_tf8il"), "spit", "death", SubResource("AnimationNodeStateMachineTransition_7yfxn"), "charge", "death", SubResource("AnimationNodeStateMachineTransition_wxth7"), "blink", "charge", SubResource("AnimationNodeStateMachineTransition_abrmq"), "blink", "spit", SubResource("AnimationNodeStateMachineTransition_g3qwj")]
+graph_offset = Vector2(-281, -257)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_of1lc"]
+size = Vector2(48, 12)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ccjrs"]
+radius = 128.0
+height = 256.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4x1l4"]
+radius = 6.0
+height = 16.0
+
+[node name="Lizard" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "orientation_handler", "detection_raycaster", "stats_component", "aggro_state_machine", "movement_attack_state_machine", "velocity_component", "navigation_agent", "object_detect_raycasts", "animation_player") groups=["Enemy"]]
+z_index = 10
+texture_filter = 1
+collision_layer = 8
+collision_mask = 69
+script = ExtResource("1_174pm")
+sprite = NodePath("Sprite2D")
+orientation_handler = NodePath("OrientationHandler2DSimplified")
+detection_raycaster = NodePath("DetectionRaycaster")
+stats_component = NodePath("StatsComponent")
+aggro_state_machine = NodePath("StateMachineParent/AggroStateMachine")
+movement_attack_state_machine = NodePath("StateMachineParent/MovementAttackStateMachine")
+velocity_component = NodePath("VelocityComponent")
+navigation_agent = NodePath("NavigationAgent2D")
+object_detect_raycasts = NodePath("ObjectDetectRaycasts")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1, 0)
+texture = ExtResource("2_pw6jo")
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jniao")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_l4rn2")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_blinking = false
+parameters/conditions/is_charging = false
+parameters/conditions/is_dying = false
+parameters/conditions/is_idling = false
+parameters/conditions/is_spitting = false
+
+[node name="LizardHurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_of1lc")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 16.0
+target_desired_distance = 32.0
+path_max_distance = 128.0
+path_postprocessing = 1
+simplify_path = true
+radius = 20.0
+max_speed = 120.0
+debug_use_custom = true
+
+[node name="NavigationComponent" parent="." node_paths=PackedStringArray("root", "navigation_agent") instance=ExtResource("7_q4r2v")]
+root = NodePath("..")
+navigation_agent = NodePath("../NavigationAgent2D")
+
+[node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_u7sv1")]
+root = NodePath("..")
+nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../ChargeAttackArea"), NodePath("../ObjectDetectRaycasts")])
+start_facing_right = false
+
+[node name="ProjectileOrganizer" parent="." instance=ExtResource("4_ycerx")]
+
+[node name="ObjectDetectRaycasts" parent="." instance=ExtResource("4_jqr2a")]
+
+[node name="Front" parent="ObjectDetectRaycasts" index="0"]
+target_position = Vector2(10, 0)
+
+[node name="FrontDown" parent="ObjectDetectRaycasts" index="1"]
+position = Vector2(24, 10)
+target_position = Vector2(0, 10)
+
+[node name="BackDown" parent="ObjectDetectRaycasts" index="2"]
+position = Vector2(-22, 9)
+target_position = Vector2(0, 10)
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("15_hn17x")]
+script = ExtResource("3_ysfwk")
+root = NodePath("..")
+initial_jump_speed = 96.0
+jump_time = 0.25
+max_health = 2
+
+[node name="GravityComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("8_x2nol")]
+root = NodePath("..")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("root", "stats_component") instance=ExtResource("6_xx5g6")]
+root = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+acceleration_coefficient = Vector2(640, 1)
+
+[node name="DetectionRaycaster" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("4_lvdp3")]
+detection_area = NodePath("../PlayerDetectionArea")
+collision_layers = Array[int]([1, 2])
+raycast_for_tilemap_layers = false
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="FrontView" type="CollisionShape2D" parent="PlayerDetectionArea"]
+scale = Vector2(2, 1)
+shape = SubResource("CapsuleShape2D_ccjrs")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="ChargeAttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="ChargeAttackHitbox" type="CollisionShape2D" parent="ChargeAttackArea"]
+position = Vector2(19, 2)
+shape = SubResource("CapsuleShape2D_4x1l4")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="StateMachineParent" type="Node" parent="."]
+script = ExtResource("9_1lped")
+
+[node name="MovementAttackStateMachine" type="Node" parent="StateMachineParent" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_uld4n")
+initial_state = NodePath("LizardIdleMovement")
+
+[node name="LizardIdleMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "stats_component", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "patrol_points", "animation_player")]
+script = ExtResource("6_miti0")
+root = NodePath("../../..")
+stats_component = NodePath("../../../StatsComponent")
+velocity_component = NodePath("../../../VelocityComponent")
+navigation_agent = NodePath("../../../NavigationAgent2D")
+navigation_component = NodePath("../../../NavigationComponent")
+object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
+patrol_points = NodePath("../../../PatrolPointsContainer")
+animation_player = NodePath("../../../AnimationPlayer")
+
+[node name="LizardChargeMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "lizard_charge_attack_state", "lizard_aggro_state", "closest_target_acquisiton_timer")]
+script = ExtResource("6_qpu2t")
+root = NodePath("../../..")
+velocity_component = NodePath("../../../VelocityComponent")
+navigation_agent = NodePath("../../../NavigationAgent2D")
+navigation_component = NodePath("../../../NavigationComponent")
+object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
+stats_component = NodePath("../../../StatsComponent")
+animation_player = NodePath("../../../AnimationPlayer")
+lizard_charge_attack_state = NodePath("../LizardChargeAttack")
+lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
+closest_target_acquisiton_timer = NodePath("../../AggroStateMachine/LizardAggro/ClosestTargetAcquisitionTimer")
+
+[node name="LizardChargeAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "object_detect_raycasts", "stats_component", "charge_attack_area_2d", "animation_player", "orientation_handler", "charge_timer", "charge_cooldown_timer")]
+script = ExtResource("7_f0vwd")
+root = NodePath("../../..")
+velocity_component = NodePath("../../../VelocityComponent")
+object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
+stats_component = NodePath("../../../StatsComponent")
+charge_attack_area_2d = NodePath("../../../ChargeAttackArea")
+animation_player = NodePath("../../../AnimationPlayer")
+orientation_handler = NodePath("../../../OrientationHandler2DSimplified")
+charge_timer = NodePath("ChargeTimer")
+charge_cooldown_timer = NodePath("ChargeCooldownTimer")
+
+[node name="ChargeTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardChargeAttack"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ChargeCooldownTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardChargeAttack"]
+one_shot = true
+
+[node name="LizardSpitMovement" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "velocity_component", "navigation_agent", "navigation_component", "object_detect_raycasts", "stats_component", "animation_player", "detection_raycaster", "lizard_aggro_state", "lizard_spit_attack_state", "closest_target_acquisiton_timer")]
+script = ExtResource("7_plu44")
+root = NodePath("../../..")
+velocity_component = NodePath("../../../VelocityComponent")
+navigation_agent = NodePath("../../../NavigationAgent2D")
+navigation_component = NodePath("../../../NavigationComponent")
+object_detect_raycasts = NodePath("../../../ObjectDetectRaycasts")
+stats_component = NodePath("../../../StatsComponent")
+animation_player = NodePath("../../../AnimationPlayer")
+detection_raycaster = NodePath("../../../DetectionRaycaster")
+lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
+lizard_spit_attack_state = NodePath("../LizardSpitAttack")
+closest_target_acquisiton_timer = NodePath("../../AggroStateMachine/LizardAggro/ClosestTargetAcquisitionTimer")
+
+[node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "lizard_aggro_state", "projectile_organizer", "animation_player", "spit_cooldown_timer")]
+script = ExtResource("9_w2i3c")
+root = NodePath("../../..")
+lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
+lizard_spit_projectile_scene = ExtResource("19_hperg")
+projectile_organizer = NodePath("../../../ProjectileOrganizer")
+animation_player = NodePath("../../../AnimationPlayer")
+spit_cooldown_timer = NodePath("SpitCooldownTimer")
+
+[node name="SpitCooldownTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardSpitAttack"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AggroStateMachine" type="Node" parent="StateMachineParent" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_uld4n")
+initial_state = NodePath("LizardIdle")
+
+[node name="LizardIdle" type="Node" parent="StateMachineParent/AggroStateMachine" node_paths=PackedStringArray("root", "state_machine_parent", "detection_raycaster")]
+script = ExtResource("4_twjhp")
+root = NodePath("../../..")
+state_machine_parent = NodePath("../..")
+detection_raycaster = NodePath("../../../DetectionRaycaster")
+
+[node name="LizardAggro" type="Node" parent="StateMachineParent/AggroStateMachine" node_paths=PackedStringArray("root", "state_machine_parent", "detection_raycaster", "aggro_timer", "closest_target_acquisiton_timer")]
+script = ExtResource("6_edfj2")
+root = NodePath("../../..")
+state_machine_parent = NodePath("../..")
+detection_raycaster = NodePath("../../../DetectionRaycaster")
+aggro_timer = NodePath("AggroTimer")
+closest_target_acquisiton_timer = NodePath("ClosestTargetAcquisitionTimer")
+
+[node name="AggroTimer" type="Timer" parent="StateMachineParent/AggroStateMachine/LizardAggro"]
+one_shot = true
+
+[node name="ClosestTargetAcquisitionTimer" type="Timer" parent="StateMachineParent/AggroStateMachine/LizardAggro"]
+wait_time = 0.5
+
+[node name="PatrolPointsContainer" parent="." node_paths=PackedStringArray("root", "navigation_component", "patrol_points") instance=ExtResource("20_cvcej")]
+root = NodePath("..")
+navigation_component = NodePath("../NavigationComponent")
+patrol_points = [NodePath("Marker2D"), NodePath("Marker2D2")]
+
+[node name="Marker2D" type="Marker2D" parent="PatrolPointsContainer"]
+position = Vector2(-75, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="PatrolPointsContainer"]
+position = Vector2(75, 0)
+
+[editable path="ObjectDetectRaycasts"]
+[editable path="DetectionRaycaster"]

@@ -28,8 +28,8 @@ DSP/dsp_buffer_size=512
 
 [application]
 
-config/name="Project-flag-man"
-run/main_scene="res://lvl1.tscn"
+config/name="Flag Man"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -39,11 +39,18 @@ aseprite_executable_path="C:/Users/evanm/Desktop/Art/3 - Resources/Aseprite/Asep
 
 [autoload]
 
+InputHelper="*res://addons/input_helper/input_helper.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-SignalBus="*res://prefabs/components/SignalBus/signalbus.gd"
+SignalBus="*res://globals/signal_bus.gd"
+SaveManager="*res://globals/save_manager.gd"
+Focus="*res://globals/focus.gd"
+GameState="*res://globals/game_state.gd"
+Utils="*res://globals/utils.gd"
+InputInterface="*res://globals/input_interface.gd"
 
 [debug]
 
+file_logging/enable_file_logging=true
 shapes/navigation/geometry_edge_color=Color(0.501961, 1, 1, 0.109804)
 shapes/collision/shape_color=Color(0, 0.6, 0.701961, 0.141176)
 
@@ -57,7 +64,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/input_helper/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
@@ -67,6 +74,7 @@ Terrain=""
 Platforms=""
 PlayerBody=""
 PlayerProjectile=""
+Persist="Saving Method"
 
 [importer_defaults]
 
@@ -145,6 +153,12 @@ regenerate_navmeshes={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"location":0,"echo":false,"script":null)
 ]
 }
+escape_menu={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -163,7 +177,7 @@ regenerate_navmeshes={
 [physics]
 
 2d/run_on_separate_thread=true
-2d/default_gravity=680.0
+2d/default_gravity=646.8
 
 [rendering]
 

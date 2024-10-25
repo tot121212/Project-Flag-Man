@@ -4,7 +4,6 @@
 animation = &"attack"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1auco"]
-graph_offset = Vector2(-171.939, -30.0757)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_fjm7u")
 nodes/Animation/position = Vector2(20, 120)
 node_connections = [&"output", 0, &"Animation"]
@@ -13,7 +12,7 @@ node_connections = [&"output", 0, &"Animation"]
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q3wpi"]
-graph_offset = Vector2(-692.688, -45.0415)
+graph_offset = Vector2(-766.688, 7.9585)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_lklw1")
 nodes/Animation/position = Vector2(-280, 80)
 node_connections = [&"output", 0, &"Animation"]
@@ -38,4 +37,4 @@ states/Idle/node = SubResource("AnimationNodeBlendTree_q3wpi")
 states/Idle/position = Vector2(388, 75)
 states/Start/position = Vector2(198, 75)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_0cuui"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_tjb1g"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ble5v")]
-graph_offset = Vector2(-165, -117)
+graph_offset = Vector2(-71, -100)
