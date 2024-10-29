@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d1gk1xypyhjv2"
-path="res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"
+uid="uid://drt7x2duve54g"
+path="res://.godot/imported/Jersey10Charted-Regular.ttf-34663eb9d2b8e3084ae30d947b3868ee.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Daydream.ttf"
-dest_files=["res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"]
+source_file="res://assets/fonts/Jersey10Charted-Regular.ttf"
+dest_files=["res://.godot/imported/Jersey10Charted-Regular.ttf-34663eb9d2b8e3084ae30d947b3868ee.fontdata"]
 
 [params]
 
@@ -32,9 +32,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "New Configuration",
-"size": Vector2i(16, 0),
-"variation_embolden": 0.0,
-"variation_opentype": {}
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}

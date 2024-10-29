@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://buw7l36rrsutl"]
+
+[ext_resource type="StyleBox" uid="uid://bepb8ggxihfhq" path="res://assets/themes/main_menu_style_box_for_tab_bar.tres" id="1_gewds"]
+[ext_resource type="FontFile" uid="uid://d1gk1xypyhjv2" path="res://assets/fonts/Daydream.ttf" id="1_jix3w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsyp2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dly4t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lmmdh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkj1w"]
+bg_color = Color(0.8, 1, 0.976471, 0.372549)
+border_width_right = 12
+border_color = Color(0.411765, 0.415686, 0.415686, 0.215686)
+
+[resource]
+default_font = ExtResource("1_jix3w")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.635294, 0.745098, 0.745098, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_fsyp2")
+Button/styles/hover = SubResource("StyleBoxEmpty_dly4t")
+Button/styles/normal = SubResource("StyleBoxEmpty_lmmdh")
+TabBar/colors/font_hovered_color = Color(1, 0.678431, 0.360784, 1)
+TabBar/colors/font_selected_color = Color(1, 0.678431, 0.360784, 1)
+TabBar/colors/font_unselected_color = Color(0.635294, 0.745098, 0.745098, 1)
+TabBar/styles/tab_focus = SubResource("StyleBoxFlat_hkj1w")
+TabBar/styles/tab_hovered = ExtResource("1_gewds")
+TabBar/styles/tab_selected = ExtResource("1_gewds")
+TabBar/styles/tab_unselected = ExtResource("1_gewds")

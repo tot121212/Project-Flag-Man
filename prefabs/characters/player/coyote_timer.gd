@@ -1,6 +1,8 @@
 extends Timer
 class_name CoyoteTimer
 
+# Timer for detecting jump inputs a short time after the player has left the ground already.
+
 @export var root : Node2D
 @export var stats_component : StatsComponent
 

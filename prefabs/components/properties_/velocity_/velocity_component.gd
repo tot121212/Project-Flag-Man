@@ -8,7 +8,7 @@ class_name VelocityComponent
 @export var friction : float = 256
 
 #For moving via direction
-func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Vector2 = Vector2.ZERO):
+func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Vector2 = Vector2.ZERO, max_speed : Vector2 = stats_component.max_speed):
 	var new_velocity : Vector2 = Vector2.ZERO
 	
 	var direction_normalized = direction.normalized()
@@ -18,8 +18,8 @@ func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Ve
 	new_velocity.y = move_toward(root.velocity.y, direction_normalized.y * speed.y, acceleration_coefficient.y * delta) + speed_variance.y
 	#print("new_velocity: " + str(new_velocity))
 	
-	root.velocity.x = clampf(new_velocity.x, -stats_component.max_speed.x, stats_component.max_speed.x)
-	root.velocity.y = clampf(new_velocity.y, -stats_component.max_speed.y, stats_component.max_speed.y)
+	root.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
+	root.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
 	#print("root.velocity: " + str(root.velocity))
 	
 	return root.velocity
@@ -33,7 +33,7 @@ func jump():
 		jump_elapsed = 0.0
 		root.velocity.y = -stats_component.initial_jump_speed
 
-func apply_jump(delta):
+func apply_jump(delta, max_speed : Vector2 = stats_component.max_speed):
 	if root.is_jumping:
 		jump_elapsed += delta
 		
@@ -42,8 +42,8 @@ func apply_jump(delta):
 		var new_velocity_y = lerp( # calculate new velocity
 			-stats_component.initial_jump_speed,
 			clampf(-stats_component.jump_speed, 
-				-stats_component.max_speed.y, 
-				stats_component.max_speed.y), 
+				-max_speed.y, 
+				max_speed.y), 
 			t) * (1 + acceleration_coefficient.y * delta)
 			
 		root.velocity.y = new_velocity_y # set new velocity
@@ -51,8 +51,8 @@ func apply_jump(delta):
 		if t >= 1: # if jump finished
 			root.velocity.y = clamp(
 				-stats_component.jump_speed, 
-				-stats_component.max_speed.y, 
-				stats_component.max_speed.y)
+				-max_speed.y, 
+				max_speed.y)
 			#print("Root is no longer jumping")
 			root.is_jumping = false
 

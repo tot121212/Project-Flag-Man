@@ -267,6 +267,18 @@ texture = ExtResource("1_igxq1")
 6:1/0 = 0
 7:1/0 = 0
 7:0/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+7:2/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+7:4/0 = 0
+7:5/0 = 0
+6:6/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+7:6/0 = 0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sao55"]
 source_geometry_group_name = &"navigation_polygon_source_group"

@@ -19,6 +19,8 @@ func get_first_player():
 		return
 #endregion
 
-#region Controllers
-
+#region Menus
+signal open_menu(MenuName : StringName) ## Open menu
+signal close_menu(MenuName : StringName) ## Close menu
+signal toggle_menu(MenuName : StringName) ## Open or close menu
 #endregion

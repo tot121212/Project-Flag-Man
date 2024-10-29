@@ -1,8 +1,40 @@
-[gd_scene load_steps=15 format=3 uid="uid://l7j2lgkm4aml"]
+[gd_scene load_steps=17 format=3 uid="uid://l7j2lgkm4aml"]
 
 [ext_resource type="Script" path="res://prefabs/characters/player/ui_control.gd" id="1_0hmew"]
 [ext_resource type="StyleBox" uid="uid://b5e4h6p1k5msb" path="res://assets/themes/stylebox/hp_fading_color.tres" id="2_2kcsu"]
 [ext_resource type="Texture2D" uid="uid://ceow10m1bxx0g" path="res://assets/aseprite/ui_health_bar.png" id="2_kbhl2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hessq"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_vmmd6"]
+Panel/styles/panel = SubResource("StyleBoxFlat_hessq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwmwu"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 6
+expand_margin_left = 6.0
+expand_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_dn0p3"]
+Panel/styles/panel = SubResource("StyleBoxFlat_jwmwu")
 
 [sub_resource type="Theme" id="Theme_tw8c7"]
 Panel/styles/panel = ExtResource("2_2kcsu")
@@ -47,20 +79,6 @@ atlas = ExtResource("2_kbhl2")
 region = Rect2(0, 192, 64, 64)
 margin = Rect2(3, 0, 0, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrg6v"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_detail = 4
-anti_aliasing = false
-
-[sub_resource type="Theme" id="Theme_vmmd6"]
-Panel/styles/panel = SubResource("StyleBoxFlat_yrg6v")
-
 [node name="UIControl" type="Control" node_paths=PackedStringArray("texture_rects")]
 z_index = 4096
 layout_mode = 3
@@ -76,12 +94,25 @@ grow_vertical = 2
 script = ExtResource("1_0hmew")
 texture_rects = [NodePath("Panel/FlagTextureRect"), NodePath("Panel/FlagPoleTextureRect"), NodePath("Panel/PTextureRect"), NodePath("Panel/HTextureRect")]
 
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -70.0
+offset_right = 58.0
+offset_bottom = 64.0
+theme = SubResource("Theme_vmmd6")
+
+[node name="Panel3" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -75.0
+offset_right = 53.0
+offset_bottom = 64.0
+theme = SubResource("Theme_dn0p3")
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -52.0
-offset_right = 76.0
+offset_left = -64.0
+offset_right = 64.0
 offset_bottom = 64.0
-pivot_offset = Vector2(64, 0)
 theme = SubResource("Theme_tw8c7")
 
 [node name="HTextureRect" type="TextureRect" parent="Panel"]
@@ -139,11 +170,3 @@ offset_left = 64.0
 offset_right = 128.0
 offset_bottom = 64.0
 texture = SubResource("AtlasTexture_pvyyh")
-
-[node name="Panel2" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -52.0
-offset_right = 76.0
-offset_bottom = 64.0
-pivot_offset = Vector2(64, 0)
-theme = SubResource("Theme_vmmd6")

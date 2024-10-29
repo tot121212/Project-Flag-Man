@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d1gk1xypyhjv2"
-path="res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"
+uid="uid://c2gw16vhyoujq"
+path="res://.godot/imported/PixelifySans-VariableFont_wght.ttf-e5e1ab46c22d34095a3cee415ea8e3ad.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Daydream.ttf"
-dest_files=["res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"]
+source_file="res://assets/fonts/PixelifySans-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/PixelifySans-VariableFont_wght.ttf-e5e1ab46c22d34095a3cee415ea8e3ad.fontdata"]
 
 [params]
 
@@ -33,8 +33,7 @@ preload=[{
 "glyphs": [],
 "name": "New Configuration",
 "size": Vector2i(16, 0),
-"variation_embolden": 0.0,
-"variation_opentype": {}
+"variation_embolden": 0.0
 }]
 language_support={}
 script_support={}

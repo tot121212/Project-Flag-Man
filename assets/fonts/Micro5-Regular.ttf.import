@@ -2,18 +2,18 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d1gk1xypyhjv2"
-path="res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"
+uid="uid://sb7qq3mqchn3"
+path="res://.godot/imported/Micro5-Regular.ttf-6e6d3d20c5e9bd6348b7d45614acfd71.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Daydream.ttf"
-dest_files=["res://.godot/imported/Daydream.ttf-f9dc98bd002fc381bff3c33fca8fee88.fontdata"]
+source_file="res://assets/fonts/Micro5-Regular.ttf"
+dest_files=["res://.godot/imported/Micro5-Regular.ttf-6e6d3d20c5e9bd6348b7d45614acfd71.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=0
+antialiasing=1
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
@@ -33,8 +33,7 @@ preload=[{
 "glyphs": [],
 "name": "New Configuration",
 "size": Vector2i(16, 0),
-"variation_embolden": 0.0,
-"variation_opentype": {}
+"variation_embolden": 0.0
 }]
 language_support={}
 script_support={}

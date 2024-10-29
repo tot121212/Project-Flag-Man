@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://mh0efwgc7mqf"]
+
+[ext_resource type="Script" path="res://prefabs/characters/player/player_speed_modifier.gd" id="1_tgxbd"]
+
+[node name="PlayerSpeedModifier" type="Node2D" node_paths=PackedStringArray("speed_timer")]
+script = ExtResource("1_tgxbd")
+speed_timer = NodePath("SpeedTimer")
+
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 0.6

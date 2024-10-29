@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d4byvs0xkfytt"]
+
+[ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="1_7wf35"]
+[ext_resource type="StyleBox" uid="uid://bepb8ggxihfhq" path="res://assets/themes/main_menu_style_box_for_tab_bar.tres" id="2_pe4y4"]
+[ext_resource type="FontFile" uid="uid://cygcltjq7l0xw" path="res://assets/fonts/Nunito-Black.ttf" id="3_n37hg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkj1w"]
+bg_color = Color(0.8, 1, 0.976471, 0.372549)
+border_width_right = 12
+border_color = Color(0.411765, 0.415686, 0.415686, 0.215686)
+
+[resource]
+default_font = ExtResource("3_n37hg")
+default_font_size = 16
+Button/colors/font_pressed_color = Color(0.635294, 0.745098, 0.745098, 1)
+Button/styles/disabled = ExtResource("1_7wf35")
+Button/styles/focus = ExtResource("1_7wf35")
+Button/styles/hover = ExtResource("1_7wf35")
+Button/styles/normal = ExtResource("1_7wf35")
+Button/styles/pressed = ExtResource("1_7wf35")
+TabBar/colors/font_hovered_color = Color(1, 0.678431, 0.360784, 1)
+TabBar/colors/font_selected_color = Color(1, 0.678431, 0.360784, 1)
+TabBar/colors/font_unselected_color = Color(0.635294, 0.745098, 0.745098, 1)
+TabBar/styles/tab_focus = SubResource("StyleBoxFlat_hkj1w")
+TabBar/styles/tab_hovered = ExtResource("2_pe4y4")
+TabBar/styles/tab_selected = ExtResource("2_pe4y4")
+TabBar/styles/tab_unselected = ExtResource("2_pe4y4")

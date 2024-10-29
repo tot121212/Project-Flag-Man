@@ -18,29 +18,28 @@ var is_falling_through_platform : bool = false
 
 func state_physics_update(delta):
 	if root.input_direction.x != 0: # if x direction input
-		velocity_component.move(delta, root.input_direction, Vector2(stats_component.max_speed.x, 0))
+		velocity_component.move(delta, root.input_direction, Vector2(root.get_cur_max_speed().x, 0), Vector2.ZERO, root.get_cur_max_speed())
 		if not root.is_attacking:
 			root.change_orientation.emit(root.input_direction)
 	
 	#print("Available Jumps: " + str(root.available_jumps))
 	
-	if root.is_jumping and (root.input_direction.y >= 0 or root.is_on_roof()): # cancel jump if let go of key or if touching a roof
+	if root.is_jumping and (root.input_direction.y >= 0 or root.is_on_ceiling()): # if jumping and not still inputing jump or is on ceiling, cancel jump
 		#print("Player cancelled jump")
 		velocity_component.cancel_jump()
+		root.reset_available_jumps()
 	
-	if Input.is_action_just_pressed("up") or (not jump_buffer_timer.is_stopped() and root.is_on_floor()): # if input up or timer running
+	if Input.is_action_just_pressed("up") or (not jump_buffer_timer.is_stopped() and root.is_on_floor()): # if input up or (our input buffer is running and were on the floor, this option locks us into the is on floor option)
 		if root.is_on_floor(): # if jump from floor
 			#print("Player triggered jump from ground")
 			root.reset_available_jumps()
-			root.set_available_jumps(root.available_jumps - 1) 
-			velocity_component.cancel_jump()
-			velocity_component.jump()
+			execute_jump()
+		
 		elif not coyote_timer.is_stopped() and root.available_jumps > 0: # if jump from air
 			#print("Player triggered jump from air")
-			root.set_available_jumps(root.available_jumps - 1) 
-			velocity_component.cancel_jump()
-			velocity_component.jump()
-		else:
+			execute_jump()
+		
+		else: # start input buffer, it is fine to keep restarting this if up action pressed because we want to store the most recent jump input anyways
 			jump_buffer_timer.start() # start timer
 	
 	elif Input.is_action_pressed("down") and not root.is_on_floor(): # if pressing down
@@ -63,6 +62,12 @@ func state_physics_update(delta):
 		velocity_component.apply_friction(delta)
 	else:
 		velocity_component.apply_friction(delta, 0.8) # 20% less friction if jumping for better mobility in air
-		velocity_component.apply_jump(delta)
+		velocity_component.apply_jump(delta, root.get_cur_max_speed())
 	
 	root.move_and_slide()
+
+func execute_jump():
+	velocity_component.cancel_jump()
+	root.set_available_jumps(root.available_jumps - 1)
+	velocity_component.jump()
+	root.just_jumped.emit()

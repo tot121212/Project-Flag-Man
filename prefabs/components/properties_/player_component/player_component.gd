@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 signal change_orientation
+signal just_jumped
 
 @export var animation_tree : AnimationTree
 @export var stats_component : StatsComponent
@@ -9,12 +10,15 @@ signal change_orientation
 @export var debug_raycasts_parent : Node
 var debug_raycasts : Array[RayCast2D] = []
 @export var platform_detection_area_2d : Area2D
+@export var player_speed_modifier : PlayerSpeedModifier
 
 var last_input_direction : Vector2 = Vector2.RIGHT
 var input_direction : Vector2 = Vector2.ZERO
 
 var secondary_last_input_direction : Vector2 = Vector2.RIGHT
 var secondary_input_direction : Vector2 = Vector2.ZERO
+
+var cur_max_speed : Vector2 ## used at runtime to modify the max speed of the player
 
 var jump_max : int = -1 ## used at runtime to add additonal jumps via gameplay mechanics
 var available_jumps : int = -1 ## current available jumps dependent on whether the player has touched the ground or not
@@ -23,27 +27,22 @@ var available_jumps : int = -1 ## current available jumps dependent on whether t
 var is_attacking : bool = false
 var is_jumping : bool = false
 
-#func _enter_tree() -> void:
-	#if not Utils.first_player:
-		#Utils.set_player_as_first(self)
-	#Utils.players.append(self)
-#
-#func _exit_tree() -> void:
-	#if Utils.first_player and self == Utils.first_player:
-		#Utils.first_player = null
-	#Utils.players.erase(self)
-
 func _ready():
 	for raycast in debug_raycasts_parent.get_children(): # These raycasts show where joysticks and such are pointing
 		if raycast is RayCast2D:
 			debug_raycasts.append(raycast)
 	
-	reset_jump_max()
-	reset_available_jumps()
-	
+	call_deferred("_await_game_state")
 	SignalBus.phantom_camera_follow_target.emit(self)
 	
 	stats_component.health_changed.connect(_on_health_changed)
+
+func _await_game_state():
+	reset_cur_max_speed()
+	print(cur_max_speed)
+	reset_jump_max()
+	print(jump_max)
+	reset_available_jumps()
 
 func _physics_process(_delta):
 	get_input_direction()
@@ -84,11 +83,29 @@ func get_secondary_input_direction():
 	)
 
 
+func set_cur_max_speed(speed : Vector2):
+	cur_max_speed = speed
+	
+func get_cur_max_speed():
+	return cur_max_speed
+
+func reset_cur_max_speed():
+	var new_max_speed_x = stats_component.get_max_speed().x * (1 + GameState.get_speed_upgrades())
+	var new_max_speed_y = stats_component.get_max_speed().y
+	set_cur_max_speed(Vector2(new_max_speed_x, new_max_speed_y))
+
+func update_cur_max_speed():
+	var new_max_speed_x = stats_component.get_max_speed().x * (1 + (player_speed_modifier.stored_jumps * player_speed_modifier.modifier_upon_jumps))
+	var new_max_speed_y = stats_component.get_max_speed().y
+	set_cur_max_speed(Vector2(new_max_speed_x, new_max_speed_y))
+	print(cur_max_speed)
+
 func set_jump_max(jumps : int):
 	jump_max = jumps
 
 func reset_jump_max(): # set stats_component.jump_max to GameState.jump_upgrades + 1
-	set_jump_max(1 + GameState.jump_upgrades) # Player has one jump by default
+	set_jump_max(1 + GameState.get_jump_upgrades()) # Player has one jump by default
+
 
 func set_available_jumps(i : int):
 	available_jumps = clampi(i, 0, jump_max)
