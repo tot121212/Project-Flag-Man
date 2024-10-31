@@ -29,16 +29,27 @@ region = Rect2(102, 170, 17, 17)
 atlas = ExtResource("2_e705h")
 region = Rect2(119, 170, 17, 17)
 
-[node name="ControlsMenu" type="Panel" node_paths=PackedStringArray("continue_button")]
+[node name="ControlsMenu" type="Control" node_paths=PackedStringArray("continue_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -600.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_asg58")
+continue_button = NodePath("Panel/MarginContainer3/ContinueButton")
+menu_name = &"controls_menu"
+hidden_by_default = true
+
+[node name="Panel" type="Panel" parent="."]
 process_mode = 3
 offset_right = 640.0
 offset_bottom = 360.0
 theme_override_styles/panel = ExtResource("1_7w8a5")
-script = ExtResource("1_asg58")
-continue_button = NodePath("MarginContainer3/ContinueButton")
-menu_name = &"controls_menu"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,60 +61,60 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 4
 
-[node name="Images" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="Images" type="VBoxContainer" parent="Panel/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_batoi")
 stretch_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_66uq8")
 stretch_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect3" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_cupo2")
 stretch_mode = 2
 
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect4" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_auw7b")
 stretch_mode = 2
 
-[node name="TextureRect5" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect5" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4clbc")
 stretch_mode = 2
 
-[node name="TextureRect6" type="TextureRect" parent="MarginContainer/MarginContainer/Images"]
+[node name="TextureRect6" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_a2nmc")
 stretch_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 22
 
-[node name="Text" type="VBoxContainer" parent="MarginContainer/MarginContainer2"]
+[node name="Text" type="VBoxContainer" parent="Panel/MarginContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
 text = "to [color=a2bebe]move[/color]"
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
@@ -111,35 +122,35 @@ text = "to [color=a2bebe]aim[/color]
 "
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
 text = "to [color=a2bebe]throw[/color] flags"
 fit_content = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
 text = "to [color=a2bebe]freeze[/color] flags"
 fit_content = true
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel5" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
 text = "to [color=a2bebe]jump[/color]"
 fit_content = true
 
-[node name="RichTextLabel6" type="RichTextLabel" parent="MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel6" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
 text = "to [color=a2bebe]interact[/color]"
 fit_content = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
+[node name="MarginContainer3" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,7 +160,7 @@ grow_vertical = 2
 theme_override_constants/margin_top = 240
 theme_override_constants/margin_bottom = 48
 
-[node name="ContinueButton" type="Button" parent="MarginContainer3"]
+[node name="ContinueButton" type="Button" parent="Panel/MarginContainer3"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
 size_flags_horizontal = 4

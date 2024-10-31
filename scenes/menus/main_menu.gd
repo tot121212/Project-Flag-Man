@@ -10,14 +10,14 @@ extends Menu
 
 @export var player_scene : PackedScene
 
-# Called when the node enters the scene tree for the first time.
+var secret = 0 ## lil secret
+
 func _ready() -> void:
 	flag_man_button.button_up.connect(_on_flag_man_button_clicked)
 	start_button.button_up.connect(_on_start_button_clicked)
 	load_button.button_up.connect(_on_load_button_clicked)
 	quit_button.button_up.connect(_on_quit_button_clicked)
 
-var secret = 0
 func _on_flag_man_button_clicked():
 	secret += 1
 	if secret == 3:

@@ -1,12 +1,13 @@
-extends Control
+extends Menu
 
-@export var root : Node2D
+var root : Node2D
 @export var texture_rects : Array[TextureRect]
 
 func _ready():
-	call_deferred("_setup")
+	call_deferred("_deferred")
 
-func _setup():
+func _deferred():
+	root = Utils.get_first_player()
 	root.stats_component.health_changed.connect(_on_health_changed)
 
 func _on_health_changed(_health):

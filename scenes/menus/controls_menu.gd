@@ -9,6 +9,6 @@ extends Menu
 
 func _ready() -> void:
 	continue_button.button_down.connect(_on_continue_button_down)
-	
+
 func _on_continue_button_down():
 	close_menu()

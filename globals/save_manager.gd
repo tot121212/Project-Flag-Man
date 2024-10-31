@@ -3,7 +3,7 @@ extends Node
 
 signal stage_ready
 
-@export var first_scene_path : String = "res://scenes/stage_1.tscn"
+@export var first_scene_path : String = "res://scenes/stages/stage_1.tscn"
 
 var current_save_name : String
 

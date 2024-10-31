@@ -4,7 +4,7 @@ extends Node
 func _enter_tree():
 	set_process(PROCESS_MODE_ALWAYS)
 
-#region Player
+#region Players
 var players : Array[Player] = []
 var first_player : Player
 
@@ -20,6 +20,8 @@ func get_first_player():
 #endregion
 
 #region Menus
+signal popup_to_open(PopupName : StringName) ## Defines what popup to open for the popup menu
+signal attach_menus_to_node(node : Node2D) ## Attaches menus to node (mostly the camera). Each menu will handle this differently.
 signal open_menu(MenuName : StringName) ## Open menu
 signal close_menu(MenuName : StringName) ## Close menu
 signal toggle_menu(MenuName : StringName) ## Open or close menu

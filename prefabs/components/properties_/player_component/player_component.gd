@@ -11,6 +11,7 @@ signal just_jumped
 var debug_raycasts : Array[RayCast2D] = []
 @export var platform_detection_area_2d : Area2D
 @export var player_speed_modifier : PlayerSpeedModifier
+@export var camera_2d : Camera2D
 
 var last_input_direction : Vector2 = Vector2.RIGHT
 var input_direction : Vector2 = Vector2.ZERO
@@ -28,6 +29,9 @@ var is_attacking : bool = false
 var is_jumping : bool = false
 
 func _ready():
+	Utils.set_player_as_first(self)
+	Utils.attach_menus_to_node.emit(camera_2d) # Attach menus to camera at runtime (to avoid cyclical errors when they are part of player scene)
+	
 	for raycast in debug_raycasts_parent.get_children(): # These raycasts show where joysticks and such are pointing
 		if raycast is RayCast2D:
 			debug_raycasts.append(raycast)

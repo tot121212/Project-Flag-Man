@@ -2,30 +2,43 @@
 
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="1_4swgw"]
 [ext_resource type="Script" path="res://scenes/menus/main_menu.gd" id="1_p7w38"]
+[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="3_0snqw"]
 [ext_resource type="Texture2D" uid="uid://b33cl5d1gnwoo" path="res://scenes/menus/flag_man_icon.tres" id="3_bg0ul"]
-[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="3_hr1l1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5421r"]
 
-[node name="MainMenu" type="Panel" node_paths=PackedStringArray("node_2d", "marker", "flag_man_button", "start_button", "load_button", "quit_button")]
-process_mode = 3
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("node_2d", "marker", "flag_man_button", "start_button", "load_button", "quit_button")]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -600.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p7w38")
+node_2d = NodePath("Panel/Node2D")
+marker = NodePath("Panel/Node2D/Marker2D")
+flag_man_button = NodePath("Panel/HBoxContainer/FlagManButton")
+start_button = NodePath("Panel/HBoxContainer/StartButton")
+load_button = NodePath("Panel/HBoxContainer/LoadButton")
+quit_button = NodePath("Panel/HBoxContainer/QuitButton")
+player_scene = ExtResource("3_0snqw")
+menu_name = &"main_menu"
+
+[node name="Panel" type="Panel" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 600.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_4swgw")
-script = ExtResource("1_p7w38")
-node_2d = NodePath("Node2D")
-marker = NodePath("Node2D/Marker2D")
-flag_man_button = NodePath("HBoxContainer/FlagManButton")
-start_button = NodePath("HBoxContainer/StartButton")
-load_button = NodePath("HBoxContainer/LoadButton")
-quit_button = NodePath("HBoxContainer/QuitButton")
-player_scene = ExtResource("3_hr1l1")
-menu_name = &"main_menu"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,41 +53,41 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="FlagManButton" type="TextureButton" parent="HBoxContainer"]
+[node name="FlagManButton" type="TextureButton" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../QuitButton")
 focus_neighbor_right = NodePath("../StartButton")
 texture_normal = ExtResource("3_bg0ul")
 stretch_mode = 5
 
-[node name="StartButton" type="Button" parent="HBoxContainer"]
+[node name="StartButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../FlagManButton")
 focus_neighbor_right = NodePath("../LoadButton")
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
-[node name="LoadButton" type="Button" parent="HBoxContainer"]
+[node name="LoadButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../StartButton")
 focus_neighbor_right = NodePath("../QuitButton")
 theme_override_font_sizes/font_size = 32
 text = "Load"
 
-[node name="QuitButton" type="Button" parent="HBoxContainer"]
+[node name="QuitButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../LoadButton")
 focus_neighbor_right = NodePath("../FlagManButton")
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="Panel"]
 
-[node name="Marker2D" type="Marker2D" parent="Node2D"]
+[node name="Marker2D" type="Marker2D" parent="Panel/Node2D"]
 position = Vector2(337, 119)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Panel/Node2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Panel/Node2D/StaticBody2D"]
 position = Vector2(336, 165)
 shape = SubResource("WorldBoundaryShape2D_5421r")

@@ -6,25 +6,34 @@
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="3_fhdfn"]
 [ext_resource type="Texture2D" uid="uid://bji0iugbd4xf7" path="res://assets/aseprite/gear_icon.png" id="4_lnctj"]
 
-[node name="EscapeMenu" type="Panel" node_paths=PackedStringArray("flag_man_button", "continue_button", "save_button", "load_button", "quit_button", "controls_button")]
+[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("flag_man_button", "continue_button", "save_button", "load_button", "quit_button", "controls_button")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_hqs55")
+flag_man_button = NodePath("Panel/HBoxContainer/FlagManButton")
+continue_button = NodePath("Panel/HBoxContainer/ContinueButton")
+save_button = NodePath("Panel/HBoxContainer/SaveButton")
+load_button = NodePath("Panel/HBoxContainer/LoadButton")
+quit_button = NodePath("Panel/HBoxContainer/QuitButton")
+controls_button = NodePath("Panel/ControlsButton")
+main_menu_scene = ExtResource("2_du0ey")
+menu_name = &"escape_menu"
+hidden_by_default = true
+
+[node name="Panel" type="Panel" parent="."]
 process_mode = 3
 z_index = 4096
 texture_filter = 1
-offset_right = 640.0
-offset_bottom = 360.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 16.0
+anchor_bottom = 9.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-script = ExtResource("2_hqs55")
-flag_man_button = NodePath("HBoxContainer/FlagManButton")
-continue_button = NodePath("HBoxContainer/ContinueButton")
-save_button = NodePath("HBoxContainer/SaveButton")
-load_button = NodePath("HBoxContainer/LoadButton")
-quit_button = NodePath("HBoxContainer/QuitButton")
-controls_button = NodePath("ControlsButton")
-main_menu_scene = ExtResource("2_du0ey")
-menu_name = &"escape_menu"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,20 +49,20 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="FlagManButton" type="TextureButton" parent="HBoxContainer"]
+[node name="FlagManButton" type="TextureButton" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../QuitButton")
 focus_neighbor_right = NodePath("../SaveButton")
 texture_normal = ExtResource("3_eko5e")
 stretch_mode = 5
 
-[node name="ContinueButton" type="Button" parent="HBoxContainer"]
+[node name="ContinueButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Continue"
 
-[node name="SaveButton" type="Button" parent="HBoxContainer"]
+[node name="SaveButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../FlagManButton")
 focus_neighbor_right = NodePath("../LoadButton")
@@ -61,7 +70,7 @@ theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Save"
 
-[node name="LoadButton" type="Button" parent="HBoxContainer"]
+[node name="LoadButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../SaveButton")
 focus_neighbor_right = NodePath("../QuitButton")
@@ -69,7 +78,7 @@ theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Load"
 
-[node name="QuitButton" type="Button" parent="HBoxContainer"]
+[node name="QuitButton" type="Button" parent="Panel/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../LoadButton")
 focus_neighbor_right = NodePath("../FlagManButton")
@@ -77,7 +86,7 @@ theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
 
-[node name="ControlsButton" type="TextureButton" parent="."]
+[node name="ControlsButton" type="TextureButton" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

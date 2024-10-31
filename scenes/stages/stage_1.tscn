@@ -1,14 +1,18 @@
-[gd_scene load_steps=15 format=4 uid="uid://3hqyfr6y85xy"]
+[gd_scene load_steps=19 format=4 uid="uid://3hqyfr6y85xy"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage_1.gd" id="1_1l2y5"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/navigation_2d/tilemap_navmesh_constructor.gd" id="2_vab3u"]
 [ext_resource type="TileSet" uid="uid://dma76sqrjithb" path="res://prefabs/terrain/Terrain.tres" id="3_j10qd"]
 [ext_resource type="TileSet" uid="uid://dcio12seaf63c" path="res://prefabs/terrain/Platforms.tres" id="4_qnc6h"]
+[ext_resource type="PackedScene" uid="uid://vsvegw8ingqk" path="res://scenes/menus/popup_menu.tscn" id="5_5x2xg"]
 [ext_resource type="PackedScene" uid="uid://dbx0t75esjhgb" path="res://prefabs/terrain/mars_parallax.tscn" id="5_micsk"]
 [ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="6_55lmo"]
 [ext_resource type="PackedScene" uid="uid://bcw66tob22of1" path="res://prefabs/characters/lizard/lizard_.tscn" id="8_2mayt"]
 [ext_resource type="PackedScene" uid="uid://164qfkxciijw" path="res://prefabs/components/phantom_camera_2d.tscn" id="8_7ahrr"]
 [ext_resource type="PackedScene" uid="uid://cjy8uyjr78rbn" path="res://scenes/menus/popup_area.tscn" id="9_e56yd"]
+[ext_resource type="PackedScene" uid="uid://bdckojvbsnwlh" path="res://scenes/menus/controls_menu.tscn" id="10_or2u3"]
+[ext_resource type="PackedScene" uid="uid://c3ngow3j3ep7b" path="res://scenes/menus/escape_menu.tscn" id="11_74ogx"]
+[ext_resource type="PackedScene" uid="uid://l7j2lgkm4aml" path="res://prefabs/characters/player/ui_control.tscn" id="12_2qkvg"]
 
 [sub_resource type="Environment" id="Environment_83ikn"]
 background_mode = 3
@@ -38,6 +42,37 @@ size = Vector2(111, 213)
 [node name="Stage1" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_1l2y5")
+
+[node name="UIControl" parent="." instance=ExtResource("12_2qkvg")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -309.0
+offset_top = -123.0
+offset_right = -309.0
+offset_bottom = -123.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ControlsMenu" parent="." instance=ExtResource("10_or2u3")]
+offset_left = -321.0
+offset_top = -181.0
+offset_right = 319.0
+offset_bottom = 179.0
+
+[node name="EscapeMenu" parent="." instance=ExtResource("11_74ogx")]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+
+[node name="PopupMenu" parent="." instance=ExtResource("5_5x2xg")]
+
+[node name="Player" parent="." instance=ExtResource("6_55lmo")]
+position = Vector2(-883, 85)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_83ikn")
 
 [node name="TilemapLayerContainer" type="Node2D" parent="." node_paths=PackedStringArray("tilemap_layers")]
 script = ExtResource("2_vab3u")
@@ -69,9 +104,6 @@ navigation_enabled = false
 z_index = -10
 position = Vector2(-113, -155)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_83ikn")
-
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-264, 19)
 color = Color(1, 0.858824, 0.462745, 1)
@@ -85,15 +117,19 @@ process_mode = 3
 position = Vector2(-883, 85)
 follow_target = NodePath("../../Player")
 
-[node name="Player" parent="." instance=ExtResource("6_55lmo")]
-position = Vector2(-883, 85)
-
 [node name="WorldBoundaryLeft" type="StaticBody2D" parent="."]
 position = Vector2(-1200, 200)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryLeft"]
 shape = SubResource("WorldBoundaryShape2D_jbe0a")
+
+[node name="PopupArea" parent="." instance=ExtResource("9_e56yd")]
+position = Vector2(-651, 56)
+
+[node name="CollisionShape2D" parent="PopupArea" index="0"]
+position = Vector2(3.5, -77.5)
+shape = SubResource("RectangleShape2D_c0j3l")
 
 [node name="Lizard" parent="." instance=ExtResource("8_2mayt")]
 position = Vector2(287, 84)
@@ -117,18 +153,11 @@ position = Vector2(1456, -54)
 [node name="Marker2D2" parent="Lizard2/PatrolPointsContainer" index="1"]
 position = Vector2(1597, -54)
 
-[node name="PopupArea" parent="." instance=ExtResource("9_e56yd")]
-position = Vector2(-651, 56)
-
-[node name="CollisionShape2D" parent="PopupArea" index="0"]
-position = Vector2(3.5, -77.5)
-shape = SubResource("RectangleShape2D_c0j3l")
-
 [editable path="PhantomCamera2DParent"]
+[editable path="PopupArea"]
 [editable path="Lizard"]
 [editable path="Lizard/ObjectDetectRaycasts"]
 [editable path="Lizard/DetectionRaycaster"]
 [editable path="Lizard2"]
 [editable path="Lizard2/ObjectDetectRaycasts"]
 [editable path="Lizard2/DetectionRaycaster"]
-[editable path="PopupArea"]

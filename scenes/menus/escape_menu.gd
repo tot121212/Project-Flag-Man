@@ -10,18 +10,16 @@ extends Menu
 @export var main_menu_scene : PackedScene
 
 func _ready() -> void:
-	#check_is_menu_open()
-	#if get_is_menu_open():
-		#close_menu(menu_name)
-	flag_man_button.button_up.connect(_on_flag_man_button_clicked)
 	continue_button.button_up.connect(_on_continue_button_clicked)
 	save_button.button_up.connect(_on_save_button_clicked)
 	load_button.button_up.connect(_on_load_button_clicked)
 	quit_button.button_up.connect(_on_quit_button_clicked)
 	controls_button.button_up.connect(_on_controls_button_clicked)
 
-func _on_flag_man_button_clicked():
-	pass
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("escape_menu"):
+		print(str(event) + "was pressed")
+		toggle_menu(menu_name)
 
 func _on_continue_button_clicked():
 	check_is_menu_open()
@@ -38,9 +36,5 @@ func _on_quit_button_clicked():
 	get_tree().change_scene_to_packed(main_menu_scene) # quit game
 
 func _on_controls_button_clicked():
+	Utils.close_menu.emit("escape_menu")
 	Utils.open_menu.emit("controls_menu")
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("escape_menu"):
-		print("input escape")
-		toggle_menu(menu_name)

@@ -79,94 +79,97 @@ atlas = ExtResource("2_kbhl2")
 region = Rect2(0, 192, 64, 64)
 margin = Rect2(3, 0, 0, 0)
 
-[node name="UIControl" type="Control" node_paths=PackedStringArray("texture_rects")]
+[node name="UIMenu" type="Control" node_paths=PackedStringArray("texture_rects")]
 z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 20.0
-offset_right = -10.0
-offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0hmew")
-texture_rects = [NodePath("Panel/FlagTextureRect"), NodePath("Panel/FlagPoleTextureRect"), NodePath("Panel/PTextureRect"), NodePath("Panel/HTextureRect")]
+texture_rects = [NodePath("MarginContainer/Panel/FlagTextureRect"), NodePath("MarginContainer/Panel/FlagPoleTextureRect"), NodePath("MarginContainer/Panel/PTextureRect"), NodePath("MarginContainer/Panel/HTextureRect")]
+menu_name = &"ui_menu"
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = -70.0
-offset_right = 58.0
-offset_bottom = 64.0
+offset_left = -43.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 93.0
+
+[node name="Panel2" type="Panel" parent="MarginContainer"]
+layout_mode = 2
 theme = SubResource("Theme_vmmd6")
 
-[node name="Panel3" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -75.0
-offset_right = 53.0
-offset_bottom = 64.0
+[node name="Panel3" type="Panel" parent="MarginContainer"]
+layout_mode = 2
 theme = SubResource("Theme_dn0p3")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
 theme = SubResource("Theme_tw8c7")
 
-[node name="HTextureRect" type="TextureRect" parent="Panel"]
+[node name="HTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_q55pi")
 
-[node name="PTextureRect" type="TextureRect" parent="Panel"]
+[node name="PTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_a4phn")
 
-[node name="FlagPoleTextureRect" type="TextureRect" parent="Panel"]
+[node name="FlagPoleTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_hklg6")
 
-[node name="FlagTextureRect" type="TextureRect" parent="Panel"]
+[node name="FlagTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_rk7tr")
 
-[node name="HEmptyTextureRect" type="TextureRect" parent="Panel"]
+[node name="HEmptyTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_3177g")
 
-[node name="PEmptyTextureRect" type="TextureRect" parent="Panel"]
+[node name="PEmptyTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_o4tg3")
 
-[node name="FlagPoleEmptyTextureRect" type="TextureRect" parent="Panel"]
+[node name="FlagPoleEmptyTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_eopf7")
 
-[node name="FlagEmptyTextureRect" type="TextureRect" parent="Panel"]
+[node name="FlagEmptyTextureRect" type="TextureRect" parent="MarginContainer/Panel"]
 layout_mode = 2
 offset_left = 64.0
+offset_top = 6.0
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 70.0
 texture = SubResource("AtlasTexture_pvyyh")
