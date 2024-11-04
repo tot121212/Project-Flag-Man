@@ -17,23 +17,40 @@ func save():
 		"speed_upgrades" : speed_upgrades,
 		"jump_upgrades" : jump_upgrades,
 		"health_upgrades" : health_upgrades,
-		
-		"popups_already_triggered" : popups_already_triggered,
 	}
 	return save_dict
 
+
 #region Player Stage
+
 var stage_progress : Dictionary = { # To indicate if the player has finished a stage or not.
-	"Stage1" : false
+	"res://scenes/stages/stage_1.tscn" : false
 }
 
+func set_stage_progress(stage : StringName, is_completed : bool):
+	if stage in stage_progress:
+		stage_progress[stage] = is_completed
+	else:
+		push_error("Stage: %s does not exist" % stage)
+
+func get_stage_progress(stage : StringName):
+	if stage_progress and stage_progress[stage]:
+		return stage_progress[stage]
+	else:
+		push_error("Stage: %s does not exist" % stage)
+		return false
+
+var current_stage : StringName
+func set_current_stage(stage : StringName):
+	current_stage = stage
 func get_current_stage():
-	var path = get_tree().get_current_scene().get_scene_file_path()
-	print("Current stage path: %s" % path)
-	return path
+	return current_stage
+
 #endregion
 
+
 #region Player Unlockables
+
 var jump_upgrades : int = 0 # Amt of upgrades player has will increase max jumps by 1 for each
 func get_jump_upgrades():
 	return jump_upgrades
@@ -44,8 +61,10 @@ var speed_upgrades : int = 0
 var speed_upgrades_modifier : float = 0.02 # the value at which speed upgrades will be multiplied, so as to modify the default max_speed of the statscomponent
 func get_speed_upgrades():
 	return snappedf(speed_upgrades * speed_upgrades_modifier, 0.01)
+	
 #endregion
 
+
 #region Popups
-var popups_already_triggered : Array[StringName] = []
+
 #endregion

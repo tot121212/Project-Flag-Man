@@ -5,6 +5,7 @@ func _enter_tree():
 	set_process(PROCESS_MODE_ALWAYS)
 
 #region Players
+
 var players : Array[Player] = []
 var first_player : Player
 
@@ -17,22 +18,32 @@ func get_first_player():
 	else:
 		push_error("%s: Player Tracker: No first player found" % self.name)
 		return
+		
 #endregion
 
+
 #region Control
+
 signal attach_ui_to_node(node : Node2D) ## Attaches ui elements to node (usually the camera).
 signal attach_menus_to_node(node : Node2D) ## Attaches menus to node (mostly the camera). Each menu will handle this differently.
+
 signal open_menu(menu_resource : MenuResource) ## Open menu
 signal close_menu(menu_resource : MenuResource) ## Close menu
 signal toggle_menu(menu_resource : MenuResource) ## Open or close menu
+
+var current_menu : Control
+func set_current_menu(menu):
+	current_menu = menu
+func get_current_menu():
+	return current_menu
+
 signal open_message(message_resource : MessageResource)
-signal input_message_continue_callable(_callable : Callable)
-#endregion
+signal connect_button_to_callable(button : BaseButton, _callable : Callable)
 
-#region Victory and Loss
-var current_stage : StringName
-func set_current_stage(stage_name : StringName):
-	current_stage = stage_name
+var current_message_resource : MessageResource:
+	set(resource):
+		current_message_resource = resource
+	get:
+		return current_message_resource
 
-signal win_current_stage
 #endregion

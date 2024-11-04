@@ -6,7 +6,7 @@
 script = ExtResource("1_2i0rd")
 message_name = "tutorial_freeze_flags"
 message = "You wield [color=a2bebe]innate magic[/color] that allows you control over the powers of [color=a2bebe]frost[/color].
+By harnessing this magic, you can create [color=a2bebe]icy platforms[/color] in [color=a2bebe]mid-air[/color]!
 To [color=a2bebe]freeze[/color] your flags, press [img]res://scenes/menus/message_resources/images/controls_icon_left_trigger.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_x_key.tres[/img].
-By harnessing this magic, you can create [color=a2bebe]icy platforms[/color] in seemingly [color=a2bebe]mid-air[/color]!
-Watch your step, [color=a2bebe]martian[/color]!
+Watch your step, [color=a2bebe]martian[/color]! 
 That [color=cc8b49]cliff[/color] looks dangerous."

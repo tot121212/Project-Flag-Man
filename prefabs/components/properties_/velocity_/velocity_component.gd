@@ -20,7 +20,7 @@ func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Ve
 	
 	root.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
 	root.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
-	#print("root.velocity: " + str(root.velocity))
+	print("root.velocity: " + str(root.velocity))
 	
 	return root.velocity
 
@@ -38,21 +38,16 @@ func apply_jump(delta, max_speed : Vector2 = stats_component.max_speed):
 		jump_elapsed += delta
 		
 		var t = clamp(jump_elapsed / stats_component.jump_time, 0 , 1) # time factor on elapsed time vs jump time
+		var eased_t = ease(t, -4.0)
 		
 		var new_velocity_y = lerp( # calculate new velocity
 			-stats_component.initial_jump_speed,
-			clampf(-stats_component.jump_speed, 
-				-max_speed.y, 
-				max_speed.y), 
-			t) * (1 + acceleration_coefficient.y * delta)
+			clampf(-stats_component.jump_speed, -max_speed.y, max_speed.y), eased_t) * (1 + acceleration_coefficient.y * delta)
 			
 		root.velocity.y = new_velocity_y # set new velocity
 		
-		if t >= 1: # if jump finished
-			root.velocity.y = clamp(
-				-stats_component.jump_speed, 
-				-max_speed.y, 
-				max_speed.y)
+		if eased_t >= 1: # if jump finished
+			root.velocity.y = clamp(-stats_component.jump_speed, -max_speed.y, max_speed.y)
 			#print("Root is no longer jumping")
 			root.is_jumping = false
 

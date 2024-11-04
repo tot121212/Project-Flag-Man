@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://scenes/menus/message_menu.gd" id="1_cyjxf"]
 [ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="1_gajwo"]
-[ext_resource type="Resource" uid="uid://btgxkelfth1nk" path="res://scenes/menus/message_resources/tutorial_press_esc_for_controls.tres" id="2_64dtu"]
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="2_bplgd"]
+[ext_resource type="Resource" uid="uid://dqsi0s0fbhh8l" path="res://scenes/menus/message_resources/tutorial_freeze_flags.tres" id="2_fsskq"]
 [ext_resource type="Resource" uid="uid://de748gh32sok2" path="res://scenes/menus/menu_resources/message_menu.tres" id="5_wpis7"]
 
 [node name="MessageMenu" type="Control" node_paths=PackedStringArray("rich_text_label", "continue_button", "default_focus")]
 process_mode = 3
-visible = false
 z_index = 100
 layout_mode = 3
 anchors_preset = 0
@@ -18,7 +17,7 @@ pivot_offset = Vector2(320, 180)
 script = ExtResource("1_cyjxf")
 rich_text_label = NodePath("MarginContainer2/Panel/MarginContainer/Text/RichTextLabel")
 continue_button = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")
-test_message_resource = ExtResource("2_64dtu")
+test_message_resource = ExtResource("2_fsskq")
 menu_resource = ExtResource("5_wpis7")
 hidden_by_default = true
 default_focus = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")

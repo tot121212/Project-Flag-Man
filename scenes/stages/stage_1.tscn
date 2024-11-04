@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://3hqyfr6y85xy"]
+[gd_scene load_steps=32 format=4 uid="uid://3hqyfr6y85xy"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage_1.gd" id="1_1l2y5"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/navigation_2d/tilemap_navmesh_constructor.gd" id="2_vab3u"]
@@ -36,10 +36,7 @@ fog_light_energy = 1.42
 size = Vector2(118, 262)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aques"]
-size = Vector2(164, 162)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhnqu"]
-size = Vector2(71, 61)
+size = Vector2(130, 179)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wmly2"]
 size = Vector2(38, 159)
@@ -70,7 +67,7 @@ _data = {
 }
 point_count = 46
 
-[node name="Stage1" type="Node2D"]
+[node name="StageDemo" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_1l2y5")
 
@@ -83,6 +80,7 @@ offset_right = -320.0
 offset_bottom = -180.0
 
 [node name="MessageMenu" parent="CanvasLayer" instance=ExtResource("5_5x2xg")]
+visible = false
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
@@ -123,12 +121,8 @@ position = Vector2(-263, 85)
 message_to_open_resource = ExtResource("8_6dxs0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldAssets/PopupMessageArea2"]
-position = Vector2(13, -59)
+position = Vector2(0, -67.5)
 shape = SubResource("RectangleShape2D_aques")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldAssets/PopupMessageArea2"]
-position = Vector2(94.5, -129.5)
-shape = SubResource("RectangleShape2D_qhnqu")
 
 [node name="PopupMessageArea3" parent="WorldAssets" instance=ExtResource("9_e56yd")]
 position = Vector2(-95, -114)

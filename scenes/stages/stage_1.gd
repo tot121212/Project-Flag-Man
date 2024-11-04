@@ -1,6 +1,6 @@
-extends Node2D
+extends GameStage
+class_name StageDemo
 
 func _ready():
-	Utils.set_current_stage("res://scenes/stages/stage_1.tscn")
+	GameState.set_current_stage("res://scenes/stages/stage_1.tscn")
 	SaveManager.stage_ready.emit()
-	

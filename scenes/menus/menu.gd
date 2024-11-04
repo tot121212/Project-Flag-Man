@@ -62,8 +62,13 @@ func disconnect_menu_signals():
 func set_is_menu_open(open: bool):
 	is_menu_open = open
 
-func get_is_menu_open() -> bool:
-	return is_menu_open
+func get_is_menu_open(i: Callable = self.is_visible): 
+	if i is Callable:
+		var result = i.call()
+		if result is bool: # Callable should return a boolean
+			set_is_menu_open(result)
+	else:
+		print("Did not input valid callable for %s" % self.name)
 
 func _on_attach_menus_to_node(node : Node2D):
 	self.get_parent().call_deferred("remove_child", self)
@@ -75,6 +80,7 @@ func open_menu(input_menu_resource : MenuResource = menu_resource):
 		get_tree().set_pause(true)
 		self.show()
 		set_is_menu_open(true)
+		Utils.set_current_menu(self)
 		if default_focus:
 			default_focus.grab_focus()
 		else:
@@ -96,11 +102,3 @@ func toggle_menu(input_menu_resource: MenuResource = menu_resource):
 			open_menu(input_menu_resource)
 		else:
 			close_menu(input_menu_resource)
-
-func check_is_menu_open(i: Callable = self.is_visible): 
-	if i is Callable:
-		var result = i.call()
-		if result is bool: # Callable should return a boolean
-			set_is_menu_open(result)
-	else:
-		print("Did not input valid callable for %s" % self.name)
