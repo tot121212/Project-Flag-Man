@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MessageResource" load_steps=2 format=3 uid="uid://btgxkelfth1nk"]
+
+[ext_resource type="Script" path="res://scenes/menus/message_resources/message_resource.gd" id="1_2m4bm"]
+
+[resource]
+script = ExtResource("1_2m4bm")
+message_name = "tutorial_press_esc_for_controls"
+message = "Welcome back, [color=a2bebe]martian[/color]!
+To view the [color=a2bebe]Controls Menu[/color],
+press [img]res://scenes/menus/message_resources/images/controls_icon_start_button.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_escape_key.tres[/img]."

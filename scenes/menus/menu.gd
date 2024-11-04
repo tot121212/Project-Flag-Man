@@ -1,26 +1,55 @@
 extends Control
 class_name Menu
+# Make sure to super all necessary functions
 
-@export var menu_name: StringName
-@export var hidden_by_default : bool = false
+@export var menu_resource : MenuResource
+@export var hidden_by_default : bool = false ## Is this node hidden by default
+@export var default_focus: Control ## The control with which focus will be automatically set to upon the menus opening
 
 var is_menu_open: bool = false
+@export var is_menu_attachable : bool = true ## Used to make menu not be connected to attach signal
+
 
 func _enter_tree():
-	if not Utils.attach_menus_to_node.is_connected(_on_attach_menus_to_node):
-		Utils.attach_menus_to_node.connect(_on_attach_menus_to_node)
-	if not Utils.open_menu.is_connected(open_menu):
-		Utils.open_menu.connect(open_menu)
-	if not Utils.close_menu.is_connected(close_menu):
-		Utils.close_menu.connect(close_menu)
-	if not Utils.toggle_menu.is_connected(toggle_menu):
-		Utils.toggle_menu.connect(toggle_menu)
+	set_process_mode(Node.PROCESS_MODE_ALWAYS)
+	if is_menu_attachable:
+		connect_menu_signals()
 
 func _ready():
-	if hidden_by_default:
-		close_menu()
+	init_hidden_by_default()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("accept") and get_is_menu_open():
+		var focus_owner = get_viewport().gui_get_focus_owner()
+		if focus_owner:
+			print("Focused control pressed: %s" % focus_owner)
+			focus_owner.pressed.emit()
+			focus_owner.button_up.emit()
 
 func _exit_tree():
+	disconnect_menu_signals()
+
+
+func init_hidden_by_default():
+	if hidden_by_default:
+		close_menu()
+	else:
+		open_menu()
+
+func connect_menu_signals():
+	if menu_resource:
+		if not Utils.attach_menus_to_node.is_connected(_on_attach_menus_to_node):
+			Utils.attach_menus_to_node.connect(_on_attach_menus_to_node)
+		if not Utils.open_menu.is_connected(open_menu):
+			Utils.open_menu.connect(open_menu)
+		if not Utils.close_menu.is_connected(close_menu):
+			Utils.close_menu.connect(close_menu)
+		if not Utils.toggle_menu.is_connected(toggle_menu):
+			Utils.toggle_menu.connect(toggle_menu)
+	else:
+		push_error("No menu resource defined")
+
+func disconnect_menu_signals():
 	if Utils.attach_menus_to_node.is_connected(_on_attach_menus_to_node):
 		Utils.attach_menus_to_node.disconnect(_on_attach_menus_to_node)
 	if Utils.open_menu.is_connected(open_menu):
@@ -37,31 +66,41 @@ func get_is_menu_open() -> bool:
 	return is_menu_open
 
 func _on_attach_menus_to_node(node : Node2D):
-	print("Attaching UI element to %s" % node)
 	self.get_parent().call_deferred("remove_child", self)
-	node.call_deferred("add_child", self)
+	node.call_deferred("add_child", self); print("Attaching Menu %s to %s" % [menu_resource.menu_name, node])
 
-func open_menu(input_menu_name: StringName = menu_name): 
-	if input_menu_name == menu_name:
+func open_menu(input_menu_resource : MenuResource = menu_resource):
+	if input_menu_resource == menu_resource:
+		print("Opening menu: %s" % input_menu_resource.menu_name)
 		get_tree().set_pause(true)
 		self.show()
 		set_is_menu_open(true)
+		if default_focus:
+			default_focus.grab_focus()
+		else:
+			print("No default Focus Control Node set for Menu")
+		return true
+	return false
 
-func close_menu(input_menu_name: StringName = menu_name):
-	if input_menu_name == menu_name:
+func close_menu(input_menu_resource: MenuResource = menu_resource):
+	if input_menu_resource == menu_resource:
+		print("Closing menu: %s" % input_menu_resource.menu_name)
 		get_tree().set_pause(false)
 		self.hide()
 		set_is_menu_open(false)
 
-func toggle_menu(input_menu_name: StringName = menu_name):
-	if input_menu_name == menu_name:
+func toggle_menu(input_menu_resource: MenuResource = menu_resource):
+	if input_menu_resource == menu_resource:
+		print("Toggling menu: %s" % input_menu_resource.menu_name)
 		if not get_is_menu_open():
-			open_menu(input_menu_name)
+			open_menu(input_menu_resource)
 		else:
-			close_menu(input_menu_name)
+			close_menu(input_menu_resource)
 
 func check_is_menu_open(i: Callable = self.is_visible): 
 	if i is Callable:
-		set_is_menu_open(i.call())
+		var result = i.call()
+		if result is bool: # Callable should return a boolean
+			set_is_menu_open(result)
 	else:
-		print("Did not input callable for %s" % self.name)
+		print("Did not input valid callable for %s" % self.name)

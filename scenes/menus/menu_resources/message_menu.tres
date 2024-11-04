@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MenuResource" load_steps=2 format=3 uid="uid://de748gh32sok2"]
+
+[ext_resource type="Script" path="res://scenes/menus/menu_resources/menu_resource.gd" id="1_k4h6p"]
+
+[resource]
+script = ExtResource("1_k4h6p")
+menu_name = "message_menu"

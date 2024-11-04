@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MessageResource" load_steps=2 format=3 uid="uid://dr4qs8ghvvqf5"]
+
+[ext_resource type="Script" path="res://scenes/menus/message_resources/message_resource.gd" id="1_l0afc"]
+
+[resource]
+script = ExtResource("1_l0afc")
+message_name = "tutorial_throw_flags"
+message = "To [color=a2bebe]throw[/color] flags, press [img]res://scenes/menus/message_resources/images/controls_icon_right_trigger.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_c_key.tres[/img].
+Use [img]res://scenes/menus/message_resources/images/controls_icon_right_joystick.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_w_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_a_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_s_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_d_key.tres[/img] to [color=a2bebe]aim[/color] more precisely.
+This is your main method of attack against the [color=cc8b49]reptilian[/color] threat, [color=a2bebe]martian[/color]!"

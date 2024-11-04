@@ -16,7 +16,8 @@ phantom_camera_2d = NodePath("PhantomCamera2D")
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 script = ExtResource("1_bu7wd")
-follow_mode = 5
+follow_mode = 2
 snap_to_pixel = true
 tween_resource = SubResource("Resource_em5eh")
 tween_on_load = false
+follow_damping = true

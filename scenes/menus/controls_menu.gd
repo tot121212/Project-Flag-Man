@@ -1,14 +1,17 @@
 extends Menu
 
-#func _ready() -> void:
-	#check_is_menu_open()
-	#if get_is_menu_open():
-		#close_menu()
-
 @export var continue_button : Button
 
+func _exit_tree():
+	super._exit_tree()
+
+func _enter_tree():
+	super._enter_tree()
+	hidden_by_default = true
+
 func _ready() -> void:
-	continue_button.button_down.connect(_on_continue_button_down)
+	super._ready()
+	continue_button.button_up.connect(_on_continue_button_down)
 
 func _on_continue_button_down():
-	close_menu()
+	Utils.close_menu.emit(menu_resource)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cyttnqyfe62h7"]
+
+[ext_resource type="Texture2D" uid="uid://baycd11cxmc0w" path="res://assets/asset_packs/kenney_inputPromptsPixel16×/Tilemap/tilemap.png" id="1_cymum"]
+
+[resource]
+atlas = ExtResource("1_cymum")
+region = Rect2(102, 153, 17, 17)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MessageResource" load_steps=2 format=3 uid="uid://ccgdjomffeuvg"]
+
+[ext_resource type="Script" path="res://scenes/menus/message_resources/message_resource.gd" id="1_jeg46"]
+
+[resource]
+script = ExtResource("1_jeg46")
+message_name = "tutorial_build_momentum_by_jumping"
+message = "Jumping builds [color=a2bebe]momentum[/color]. 
+The more [color=a2bebe]momentum[/color] you have, 
+the [color=a2bebe]faster[/color] you can move [color=a2bebe]horizontally[/color]. 
+Momentum [color=cc8b49]dissipates[/color] after you stop jumping for a bit."

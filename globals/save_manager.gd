@@ -43,6 +43,9 @@ func ensure_save_directories_exist():
 func new_game(save_name : String):
 	print("SaveManager: Starting new game")
 	set_current_save_name(save_name)
+	open_first_scene()
+
+func open_first_scene():
 	get_tree().change_scene_to_file(first_scene_path)
 
 # TODO: Adapt save method to similar standards as the load method, fix broken saving/loading, possibly due to Utils.first_player code
@@ -185,8 +188,11 @@ func load_nodes(node_data : Array[Dictionary]): # load persistents
 				node = load(dict["filename"]).instantiate(); print("SaveManager: Save file node instantiated: %s" % node) # load object from save data
 		
 		if node and dict.has("parent"):
-			get_node(dict["parent"]).add_child(node) # add to scene tree as child of its parent
-		
+			var _parent = get_node(dict["parent"])
+			if _parent:
+				_parent.add_child(node) # add to scene tree as child of its parent
+			else:
+				print("SaveManager: No parent found for %s" % node)
 		if node is Node2D and dict.has("pos_x") and dict.has("pos_y"):
 			node.position = Vector2(dict["pos_x"], dict["pos_y"]) # change its pos to original pos
 		

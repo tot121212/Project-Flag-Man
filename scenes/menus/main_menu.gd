@@ -1,4 +1,5 @@
 extends Menu
+class_name MainMenu
 
 @export var node_2d : Node2D
 @export var marker : Marker2D
@@ -13,10 +14,12 @@ extends Menu
 var secret = 0 ## lil secret
 
 func _ready() -> void:
+	super._ready()
 	flag_man_button.button_up.connect(_on_flag_man_button_clicked)
 	start_button.button_up.connect(_on_start_button_clicked)
 	load_button.button_up.connect(_on_load_button_clicked)
 	quit_button.button_up.connect(_on_quit_button_clicked)
+	load_button.grab_focus()
 
 func _on_flag_man_button_clicked():
 	secret += 1

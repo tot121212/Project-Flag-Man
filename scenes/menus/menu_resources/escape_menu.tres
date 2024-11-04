@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MenuResource" load_steps=2 format=3 uid="uid://cnp5gum3uvhju"]
+
+[ext_resource type="Script" path="res://scenes/menus/menu_resources/menu_resource.gd" id="1_jdamm"]
+
+[resource]
+script = ExtResource("1_jdamm")
+menu_name = "escape_menu"

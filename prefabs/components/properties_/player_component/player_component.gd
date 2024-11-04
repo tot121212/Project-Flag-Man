@@ -30,6 +30,8 @@ var is_jumping : bool = false
 
 func _ready():
 	Utils.set_player_as_first(self)
+	
+	Utils.attach_ui_to_node.emit(camera_2d)
 	Utils.attach_menus_to_node.emit(camera_2d) # Attach menus to camera at runtime (to avoid cyclical errors when they are part of player scene)
 	
 	for raycast in debug_raycasts_parent.get_children(): # These raycasts show where joysticks and such are pointing

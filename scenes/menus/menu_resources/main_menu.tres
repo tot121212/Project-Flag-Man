@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MenuResource" load_steps=2 format=3 uid="uid://dyvwuatyqlh0a"]
+
+[ext_resource type="Script" path="res://scenes/menus/menu_resources/menu_resource.gd" id="1_an5eq"]
+
+[resource]
+script = ExtResource("1_an5eq")
+menu_name = "main_menu"

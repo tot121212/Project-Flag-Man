@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://skdgrr04be4h"]
+
+[ext_resource type="Script" path="res://prefabs/components/properties_/interactable/victory_flag.gd" id="1_04qgd"]
+[ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="1_n18vi"]
+[ext_resource type="Resource" uid="uid://o5vaqmw2uc4i" path="res://scenes/menus/message_resources/tutorial_victory.tres" id="2_fb4xc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i6gs"]
+atlas = ExtResource("1_n18vi")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="Animation" id="Animation_431i0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flag:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xp6bn"]
+resource_name = "play"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flag:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfwmo"]
+_data = {
+"RESET": SubResource("Animation_431i0"),
+"play": SubResource("Animation_xp6bn")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u7jc4"]
+radius = 20.0
+
+[node name="VictoryFlag" type="Node2D" node_paths=PackedStringArray("animation_player", "flag_sprite")]
+script = ExtResource("1_04qgd")
+animation_player = NodePath("AnimationPlayer")
+flag_sprite = NodePath("Flag")
+victory_message_resource = ExtResource("2_fb4xc")
+
+[node name="Flag" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(20, -19)
+texture = ExtResource("1_n18vi")
+hframes = 10
+vframes = 7
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(20, -19)
+texture = SubResource("AtlasTexture_4i6gs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jfwmo")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(20, -19)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-20, 19)
+shape = SubResource("CircleShape2D_u7jc4")

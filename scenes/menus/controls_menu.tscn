@@ -1,55 +1,40 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdckojvbsnwlh"]
+[gd_scene load_steps=5 format=3 uid="uid://bdckojvbsnwlh"]
 
 [ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="1_7w8a5"]
 [ext_resource type="Script" path="res://scenes/menus/controls_menu.gd" id="1_asg58"]
-[ext_resource type="Texture2D" uid="uid://baycd11cxmc0w" path="res://assets/asset_packs/kenney_inputPromptsPixel16×/Tilemap/tilemap.png" id="2_e705h"]
+[ext_resource type="Resource" uid="uid://dt6bnnsd57gb6" path="res://scenes/menus/menu_resources/controls_menu.tres" id="3_8hukt"]
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="3_338ak"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_batoi"]
-atlas = ExtResource("2_e705h")
-region = Rect2(221, 102, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_66uq8"]
-atlas = ExtResource("2_e705h")
-region = Rect2(221, 136, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cupo2"]
-atlas = ExtResource("2_e705h")
-region = Rect2(170, 323, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_auw7b"]
-atlas = ExtResource("2_e705h")
-region = Rect2(153, 323, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4clbc"]
-atlas = ExtResource("2_e705h")
-region = Rect2(102, 170, 17, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a2nmc"]
-atlas = ExtResource("2_e705h")
-region = Rect2(119, 170, 17, 17)
-
-[node name="ControlsMenu" type="Control" node_paths=PackedStringArray("continue_button")]
+[node name="ControlsMenu" type="Control" node_paths=PackedStringArray("continue_button", "default_focus")]
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -600.0
-offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(320, 180)
 script = ExtResource("1_asg58")
-continue_button = NodePath("Panel/MarginContainer3/ContinueButton")
-menu_name = &"controls_menu"
+continue_button = NodePath("MarginContainer/Panel/MarginContainer3/ContinueButton")
+menu_resource = ExtResource("3_8hukt")
 hidden_by_default = true
+default_focus = NodePath("MarginContainer/Panel/MarginContainer3/ContinueButton")
 
-[node name="Panel" type="Panel" parent="."]
-process_mode = 3
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+process_mode = 3
+layout_mode = 2
 theme_override_styles/panel = ExtResource("1_7w8a5")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,96 +46,58 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 4
 
-[node name="Images" type="VBoxContainer" parent="Panel/MarginContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_batoi")
-stretch_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_66uq8")
-stretch_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_cupo2")
-stretch_mode = 2
-
-[node name="TextureRect4" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_auw7b")
-stretch_mode = 2
-
-[node name="TextureRect5" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_4clbc")
-stretch_mode = 2
-
-[node name="TextureRect6" type="TextureRect" parent="Panel/MarginContainer/MarginContainer/Images"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_a2nmc")
-stretch_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 22
-
-[node name="Text" type="VBoxContainer" parent="Panel/MarginContainer/MarginContainer2"]
+[node name="Text" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]move[/color]"
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_left_joystick.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_w_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_a_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_s_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_d_key.tres[/img] to [color=a2bebe]move[/color]"
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]aim[/color]
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_right_joystick.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_arrow_up_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_arrow_left_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_arrow_down_key.tres[/img] [img]res://scenes/menus/message_resources/images/controls_icon_arrow_right_key.tres[/img] to [color=a2bebe]aim[/color]
 "
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]throw[/color] flags"
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_right_trigger.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_c_key.tres[/img] to [color=a2bebe]throw[/color] flags"
 fit_content = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]freeze[/color] flags"
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_left_trigger.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_x_key.tres[/img] to [color=a2bebe]freeze[/color] flags"
 fit_content = true
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel5" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]jump[/color]"
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_bottom_action.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_space_key.tres[/img] to [color=a2bebe]jump[/color]"
 fit_content = true
 
-[node name="RichTextLabel6" type="RichTextLabel" parent="Panel/MarginContainer/MarginContainer2/Text"]
+[node name="RichTextLabel6" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/Text"]
 layout_mode = 2
 theme = ExtResource("3_338ak")
 bbcode_enabled = true
-text = "to [color=a2bebe]interact[/color]"
+text = "[img]res://scenes/menus/message_resources/images/controls_icon_left_action.tres[/img] or [img]res://scenes/menus/message_resources/images/controls_icon_e_key.tres[/img] to [color=a2bebe]interact[/color]"
 fit_content = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -160,7 +107,7 @@ grow_vertical = 2
 theme_override_constants/margin_top = 240
 theme_override_constants/margin_bottom = 48
 
-[node name="ContinueButton" type="Button" parent="Panel/MarginContainer3"]
+[node name="ContinueButton" type="Button" parent="MarginContainer/Panel/MarginContainer3"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
 size_flags_horizontal = 4

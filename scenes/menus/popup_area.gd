@@ -1,7 +1,7 @@
 extends Area2D
-class_name PopupArea
+class_name PopupMessageArea
 
-@export var popup_to_open : StringName
+@export var message_to_open_resource : MessageResource
 
 # if player has entered area for the first time:
 	#trigger a specific popup menu to open
@@ -11,5 +11,5 @@ func _ready() -> void:
 
 func _on_body_entered(body : Node2D):
 	if body.is_in_group("Player"):
-		Utils.popup_to_open.emit(popup_to_open)
-		Utils.open_menu.emit("PopupMenu")
+		print("Player has entered %s" % self.name)
+		Utils.open_message.emit(message_to_open_resource)

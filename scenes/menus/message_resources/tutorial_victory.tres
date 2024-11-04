@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MessageResource" load_steps=2 format=3 uid="uid://o5vaqmw2uc4i"]
+
+[ext_resource type="Script" path="res://scenes/menus/message_resources/message_resource.gd" id="1_ktcwc"]
+
+[resource]
+script = ExtResource("1_ktcwc")
+message_name = "tutorial_victory"
+message = "Well done, [color=a2bebe]martian[/color]! 
+We have taken this sector of [color=cc8b49]Mars[/color].
+But, there is still much to be done to [color=a2bebe]reclaim[/color] our home!
+
+This is the end of the [color=a2bebe]demo[/color].
+Thank you so much for playing!"

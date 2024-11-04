@@ -1,6 +1,6 @@
 extends Node2D
-class_name Stage1
 
 func _ready():
+	Utils.set_current_stage("res://scenes/stages/stage_1.tscn")
 	SaveManager.stage_ready.emit()
 	

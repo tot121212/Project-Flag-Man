@@ -1,93 +1,108 @@
-[gd_scene load_steps=6 format=3 uid="uid://66gngf4ex7ln"]
+[gd_scene load_steps=8 format=3 uid="uid://66gngf4ex7ln"]
 
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="1_4swgw"]
 [ext_resource type="Script" path="res://scenes/menus/main_menu.gd" id="1_p7w38"]
 [ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="3_0snqw"]
 [ext_resource type="Texture2D" uid="uid://b33cl5d1gnwoo" path="res://scenes/menus/flag_man_icon.tres" id="3_bg0ul"]
+[ext_resource type="Resource" uid="uid://dyvwuatyqlh0a" path="res://scenes/menus/menu_resources/main_menu.tres" id="4_o6uce"]
+[ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="5_x8gmm"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5421r"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("node_2d", "marker", "flag_man_button", "start_button", "load_button", "quit_button")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("node_2d", "marker", "flag_man_button", "start_button", "load_button", "quit_button", "default_focus")]
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -600.0
-offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(320, 180)
 script = ExtResource("1_p7w38")
-node_2d = NodePath("Panel/Node2D")
-marker = NodePath("Panel/Node2D/Marker2D")
-flag_man_button = NodePath("Panel/HBoxContainer/FlagManButton")
-start_button = NodePath("Panel/HBoxContainer/StartButton")
-load_button = NodePath("Panel/HBoxContainer/LoadButton")
-quit_button = NodePath("Panel/HBoxContainer/QuitButton")
+node_2d = NodePath("MarginContainer/Panel/Node2D")
+marker = NodePath("MarginContainer/Panel/Node2D/Marker2D")
+flag_man_button = NodePath("MarginContainer/Panel/MarginContainer/HBoxContainer/FlagManButton")
+start_button = NodePath("MarginContainer/Panel/MarginContainer/HBoxContainer/StartButton")
+load_button = NodePath("MarginContainer/Panel/MarginContainer/HBoxContainer/LoadButton")
+quit_button = NodePath("MarginContainer/Panel/MarginContainer/HBoxContainer/QuitButton")
 player_scene = ExtResource("3_0snqw")
-menu_name = &"main_menu"
+menu_resource = ExtResource("4_o6uce")
+default_focus = NodePath("MarginContainer/Panel/MarginContainer/HBoxContainer/LoadButton")
+is_menu_attachable = false
 
-[node name="Panel" type="Panel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
 process_mode = 3
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 600.0
-offset_bottom = 320.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("1_4swgw")
+theme_override_styles/panel = ExtResource("5_x8gmm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -179.5
-offset_top = -23.5
-offset_right = 179.5
-offset_bottom = 23.5
+offset_left = -182.5
+offset_top = -24.5
+offset_right = 182.5
+offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/margin_left = -16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="FlagManButton" type="TextureButton" parent="Panel/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="FlagManButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../QuitButton")
 focus_neighbor_right = NodePath("../StartButton")
 texture_normal = ExtResource("3_bg0ul")
 stretch_mode = 5
 
-[node name="StartButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../FlagManButton")
 focus_neighbor_right = NodePath("../LoadButton")
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
-[node name="LoadButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="LoadButton" type="Button" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../StartButton")
 focus_neighbor_right = NodePath("../QuitButton")
 theme_override_font_sizes/font_size = 32
 text = "Load"
 
-[node name="QuitButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../LoadButton")
 focus_neighbor_right = NodePath("../FlagManButton")
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
-[node name="Node2D" type="Node2D" parent="Panel"]
+[node name="Node2D" type="Node2D" parent="MarginContainer/Panel"]
 
-[node name="Marker2D" type="Marker2D" parent="Panel/Node2D"]
+[node name="Marker2D" type="Marker2D" parent="MarginContainer/Panel/Node2D"]
 position = Vector2(337, 119)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Panel/Node2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="MarginContainer/Panel/Node2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Panel/Node2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/Panel/Node2D/StaticBody2D"]
 position = Vector2(336, 165)
 shape = SubResource("WorldBoundaryShape2D_5421r")

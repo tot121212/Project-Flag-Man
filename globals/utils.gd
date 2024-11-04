@@ -19,10 +19,20 @@ func get_first_player():
 		return
 #endregion
 
-#region Menus
-signal popup_to_open(PopupName : StringName) ## Defines what popup to open for the popup menu
+#region Control
+signal attach_ui_to_node(node : Node2D) ## Attaches ui elements to node (usually the camera).
 signal attach_menus_to_node(node : Node2D) ## Attaches menus to node (mostly the camera). Each menu will handle this differently.
-signal open_menu(MenuName : StringName) ## Open menu
-signal close_menu(MenuName : StringName) ## Close menu
-signal toggle_menu(MenuName : StringName) ## Open or close menu
+signal open_menu(menu_resource : MenuResource) ## Open menu
+signal close_menu(menu_resource : MenuResource) ## Close menu
+signal toggle_menu(menu_resource : MenuResource) ## Open or close menu
+signal open_message(message_resource : MessageResource)
+signal input_message_continue_callable(_callable : Callable)
+#endregion
+
+#region Victory and Loss
+var current_stage : StringName
+func set_current_stage(stage_name : StringName):
+	current_stage = stage_name
+
+signal win_current_stage
 #endregion

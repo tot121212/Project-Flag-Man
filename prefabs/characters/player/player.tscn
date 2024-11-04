@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=22 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/properties_/player_component/player_component.gd" id="1_2gyab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://ct33u6w1jg7eu" path="res://prefabs/characters/player/player.tres" id="2_8blmv"]
@@ -185,6 +185,10 @@ _data = {
 "idle": SubResource("Animation_dgh7k")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8tcb"]
+random_pitch = 2.0
+random_volume_offset_db = 1.0
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree", "stats_component", "orientation_handler", "debug_raycasts_parent", "platform_detection_area_2d", "player_speed_modifier", "camera_2d") groups=["Persist", "Player"]]
 z_index = 10
 texture_filter = 1
@@ -202,12 +206,7 @@ camera_2d = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
-process_callback = 0
 position_smoothing_speed = 20.0
-drag_left_margin = 0.05
-drag_top_margin = 0.05
-drag_right_margin = 0.05
-drag_bottom_margin = 0.05
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 process_priority = 300
@@ -221,7 +220,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 23
+frame = 21
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -230,7 +229,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 33
+frame = 31
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -239,7 +238,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 43
+frame = 41
 
 [node name="Eyes" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -248,7 +247,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 53
+frame = 51
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -296,13 +295,13 @@ gravity_coefficient = 0.8
 root = NodePath("..")
 stats_component = NodePath("../StatsComponent")
 acceleration_coefficient = Vector2(576, 12)
-friction = 198.0
 
 [node name="StatsComponent" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("4_hpxyj")
 root = NodePath("..")
 max_speed = Vector2(80, 128)
-jump_time = 0.33
+initial_jump_speed = 96.0
+jump_speed = 48.0
 max_health = 4
 
 [node name="OrientationHandler2DSimplified" parent="." node_paths=PackedStringArray("root") instance=ExtResource("2_08w8m")]
@@ -311,6 +310,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Body"), NodePath("../FlagLeft"), N
 
 [node name="PlayerSpeedModifier" parent="." node_paths=PackedStringArray("root") instance=ExtResource("17_mf460")]
 root = NodePath("..")
+max_stored_jumps = 2
 
 [node name="ProjectileOrganizer" parent="." instance=ExtResource("6_2ytui")]
 
@@ -367,3 +367,11 @@ throw_flag_cooldown = NodePath("Throw Flag Cooldown")
 [node name="Throw Flag Cooldown" type="Timer" parent="CombatStateMachine/PlayerCombatAttack"]
 wait_time = 0.1
 one_shot = true
+
+[node name="Sounds" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_n8tcb")
+
+[node name="Area2D" type="Area2D" parent="."]

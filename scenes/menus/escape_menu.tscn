@@ -1,76 +1,98 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3ngow3j3ep7b"]
+[gd_scene load_steps=9 format=3 uid="uid://c3ngow3j3ep7b"]
 
 [ext_resource type="PackedScene" uid="uid://66gngf4ex7ln" path="res://scenes/menus/main_menu.tscn" id="2_du0ey"]
 [ext_resource type="Script" path="res://scenes/menus/escape_menu.gd" id="2_hqs55"]
 [ext_resource type="Texture2D" uid="uid://b33cl5d1gnwoo" path="res://scenes/menus/flag_man_icon.tres" id="3_eko5e"]
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="3_fhdfn"]
+[ext_resource type="Resource" uid="uid://dt6bnnsd57gb6" path="res://scenes/menus/menu_resources/controls_menu.tres" id="3_xavsc"]
 [ext_resource type="Texture2D" uid="uid://bji0iugbd4xf7" path="res://assets/aseprite/gear_icon.png" id="4_lnctj"]
+[ext_resource type="Resource" uid="uid://cnp5gum3uvhju" path="res://scenes/menus/menu_resources/escape_menu.tres" id="4_sf7fo"]
+[ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="5_pjt0f"]
 
-[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("flag_man_button", "continue_button", "save_button", "load_button", "quit_button", "controls_button")]
+[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("flag_man_button", "continue_button", "save_button", "load_button", "quit_button", "controls_button", "default_focus")]
+z_index = 100
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 640.0
+offset_bottom = 360.0
+pivot_offset = Vector2(320, 180)
 script = ExtResource("2_hqs55")
-flag_man_button = NodePath("Panel/HBoxContainer/FlagManButton")
-continue_button = NodePath("Panel/HBoxContainer/ContinueButton")
-save_button = NodePath("Panel/HBoxContainer/SaveButton")
-load_button = NodePath("Panel/HBoxContainer/LoadButton")
-quit_button = NodePath("Panel/HBoxContainer/QuitButton")
-controls_button = NodePath("Panel/ControlsButton")
+flag_man_button = NodePath("MarginContainer/Panel/MarginContainer/FlagManButton")
+continue_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/ContinueButton")
+save_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/SaveButton")
+load_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/LoadButton")
+quit_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/QuitButton")
+controls_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/ControlsButton")
 main_menu_scene = ExtResource("2_du0ey")
-menu_name = &"escape_menu"
+controls_menu_resource = ExtResource("3_xavsc")
+menu_resource = ExtResource("4_sf7fo")
 hidden_by_default = true
+default_focus = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/ContinueButton")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
 process_mode = 3
 z_index = 4096
 texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 16.0
-anchor_bottom = 9.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_pjt0f")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -197.5
-offset_top = -21.0
-offset_right = 197.5
-offset_bottom = 21.0
+offset_left = -221.5
+offset_top = -35.0
+offset_right = 221.5
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/margin_left = -16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="FlagManButton" type="TextureButton" parent="Panel/HBoxContainer"]
+[node name="ControlsButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../QuitButton")
-focus_neighbor_right = NodePath("../SaveButton")
-texture_normal = ExtResource("3_eko5e")
+focus_neighbor_right = NodePath("../ContinueButton")
+texture_normal = ExtResource("4_lnctj")
 stretch_mode = 5
 
-[node name="ContinueButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="ContinueButton" type="Button" parent="MarginContainer/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath("../ControlsButton")
+focus_neighbor_right = NodePath("../SaveButton")
 theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Continue"
 
-[node name="SaveButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="SaveButton" type="Button" parent="MarginContainer/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../FlagManButton")
+focus_neighbor_left = NodePath("../ControlsButton")
 focus_neighbor_right = NodePath("../LoadButton")
 theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Save"
 
-[node name="LoadButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="LoadButton" type="Button" parent="MarginContainer/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../SaveButton")
 focus_neighbor_right = NodePath("../QuitButton")
@@ -78,23 +100,30 @@ theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Load"
 
-[node name="QuitButton" type="Button" parent="Panel/HBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../LoadButton")
-focus_neighbor_right = NodePath("../FlagManButton")
+focus_neighbor_right = NodePath("../ControlsButton")
 theme = ExtResource("3_fhdfn")
 theme_override_font_sizes/font_size = 24
 text = "Quit"
 
-[node name="ControlsButton" type="TextureButton" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+visible = false
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_bottom = -128.0
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 40.0
 grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(2, 2)
-texture_normal = ExtResource("4_lnctj")
+theme_override_constants/margin_top = 64
+
+[node name="FlagManButton" type="TextureButton" parent="MarginContainer/Panel/MarginContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer2/HBoxContainer/QuitButton")
+focus_neighbor_right = NodePath("../../MarginContainer2/HBoxContainer/ControlsButton")
+texture_normal = ExtResource("3_eko5e")
+stretch_mode = 5

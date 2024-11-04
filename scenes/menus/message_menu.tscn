@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://vsvegw8ingqk"]
+
+[ext_resource type="Script" path="res://scenes/menus/message_menu.gd" id="1_cyjxf"]
+[ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="1_gajwo"]
+[ext_resource type="Resource" uid="uid://btgxkelfth1nk" path="res://scenes/menus/message_resources/tutorial_press_esc_for_controls.tres" id="2_64dtu"]
+[ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="2_bplgd"]
+[ext_resource type="Resource" uid="uid://de748gh32sok2" path="res://scenes/menus/menu_resources/message_menu.tres" id="5_wpis7"]
+
+[node name="MessageMenu" type="Control" node_paths=PackedStringArray("rich_text_label", "continue_button", "default_focus")]
+process_mode = 3
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+pivot_offset = Vector2(320, 180)
+script = ExtResource("1_cyjxf")
+rich_text_label = NodePath("MarginContainer2/Panel/MarginContainer/Text/RichTextLabel")
+continue_button = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")
+test_message_resource = ExtResource("2_64dtu")
+menu_resource = ExtResource("5_wpis7")
+hidden_by_default = true
+default_focus = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="Panel" parent="MarginContainer2"]
+process_mode = 3
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_gajwo")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Text" type="VBoxContainer" parent="MarginContainer2/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/Panel/MarginContainer/Text"]
+layout_mode = 2
+theme = ExtResource("2_bplgd")
+bbcode_enabled = true
+fit_content = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 240
+
+[node name="ContinueButton" type="Button" parent="MarginContainer2/Panel/MarginContainer3"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_bplgd")
+theme_override_font_sizes/font_size = 24
+text = "Continue"
+icon_alignment = 1
