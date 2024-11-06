@@ -6,7 +6,7 @@ extends State
 @export var navigation_component : NavigationComponent
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var stats_component : StatsComponent
-@export var animation_player : AnimationPlayer
+@export var animation_tree : AnimationTree
 
 @export var lizard_charge_attack_state : State
 @export var lizard_aggro_state : LizardAggroState
@@ -14,18 +14,19 @@ extends State
 @export var closest_target_acquisiton_timer : Timer
 
 func state_enter():
-	animation_player.set_current_animation("idle")
+	animation_tree["parameters/conditions/is_idling"] = true
 	
 	lizard_aggro_state.find_closest_target() # find closest target
 	lizard_aggro_state.current_target = lizard_aggro_state.closest_target
 	navigation_component.set_target_position_safely(lizard_aggro_state.current_target.global_position)
-	
 	if not closest_target_acquisiton_timer.timeout.is_connected(_on_closest_target_acquisition_timer_timeout):
 		closest_target_acquisiton_timer.timeout.connect(_on_closest_target_acquisition_timer_timeout)
 
 func state_exit():
 	if closest_target_acquisiton_timer.timeout.is_connected(_on_closest_target_acquisition_timer_timeout):
 		closest_target_acquisiton_timer.timeout.disconnect(_on_closest_target_acquisition_timer_timeout)
+		
+	animation_tree["parameters/conditions/is_idling"] = false
 
 func state_physics_update(delta: float):
 	if lizard_aggro_state.closest_target: # attack if able first

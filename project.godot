@@ -17,7 +17,7 @@ General/is_memory_tracking_enabled=false
 "Software Format/sample_rate"=48000
 "Software Format/speaker_mode"=3
 General/default_listener_count=1
-General/banks_path="res://sound/banks"
+General/banks_path="res://sound/banks/"
 General/should_load_by_name=true
 DSP/dsp_buffer_count=4
 "3D Settings/doppler_scale"=1.0
@@ -37,6 +37,15 @@ config/icon="res://icon.svg"
 
 aseprite_executable_path="C:/Users/evanm/Desktop/Art/3 - Resources/Aseprite/Aseprite v1.3-rc2/aseprite.exe"
 
+[audio]
+
+manager/sound/bus="Sound"
+manager/sound/pool_1D_size=16
+manager/sound/pool_2D_size=16
+manager/sound/pool_3D_size=16
+manager/sound/max_polyphony=32
+manager/music/bus="Music"
+
 [autoload]
 
 InputHelper="*res://addons/input_helper/input_helper.gd"
@@ -46,6 +55,7 @@ SaveManager="*res://globals/save_manager.gd"
 Focus="*res://globals/focus.gd"
 GameState="*res://globals/game_state.gd"
 Utils="*res://globals/utils.gd"
+FmodManager="*res://addons/fmod/FmodManager.gd"
 
 [debug]
 
@@ -63,7 +73,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/input_helper/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 

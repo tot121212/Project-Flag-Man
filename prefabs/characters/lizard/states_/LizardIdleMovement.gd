@@ -9,7 +9,7 @@ extends State
 
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var patrol_points : PatrolPointsContainer
-@export var animation_player : AnimationPlayer
+@export var animation_tree : AnimationTree
 
 @export var wander_distance : int = 200
 var wander_timer : Timer
@@ -20,7 +20,8 @@ func _ready():
 	patrol_points.get_amt_of_patrol_points()
 
 func state_enter():
-	animation_player.set_current_animation("idle")
+	animation_tree["parameters/conditions/is_idling"] = true
+	
 	if not wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.connect(idle_logic)
 	idle_logic()
@@ -29,6 +30,9 @@ func state_exit():
 	wander_timer.stop()
 	if wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.disconnect(idle_logic)
+		
+	animation_tree["parameters/conditions/is_idling"] = false
+	
 	patrol_points.should_return_to_patrol_point = false
 
 func state_physics_update(delta : float):

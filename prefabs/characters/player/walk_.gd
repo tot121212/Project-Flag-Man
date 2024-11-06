@@ -11,9 +11,6 @@ class_name PlayerMovementWalk
 
 var holding_down_coefficient = 2
 
-func state_update(_delta):
-	root.update_animation_parameters()
-
 var is_falling_through_platform : bool = false
 
 func state_physics_update(delta):

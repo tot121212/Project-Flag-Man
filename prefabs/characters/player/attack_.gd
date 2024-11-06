@@ -9,16 +9,22 @@ var most_recent_flags : Array[Projectile] = [] # keeps track of most recent flag
 
 @export var throw_flag_cooldown : Timer
 
+@export var animation_tree : AnimationTree
+
 func state_update(_delta):
 	if Input.is_action_just_pressed("shoot"):
 		if throw_flag_cooldown.is_stopped():
 			throw_flag_cooldown.start()
 			root.is_attacking = true
-			root.update_animation_parameters()
+			
+			animation_tree["parameters/conditions/is_attacking"] = true
+			
 			# throw_flag() is triggered with animation
 			#print("player attack input")
 	
 	elif root.is_attacking:
+		animation_tree["parameters/conditions/is_attacking"] = false
+		
 		root.is_attacking = false
 	
 	if Input.is_action_just_pressed("use"):

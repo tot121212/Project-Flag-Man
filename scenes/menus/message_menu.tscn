@@ -8,6 +8,7 @@
 
 [node name="MessageMenu" type="Control" node_paths=PackedStringArray("rich_text_label", "continue_button", "default_focus")]
 process_mode = 3
+visible = false
 z_index = 100
 layout_mode = 3
 anchors_preset = 0

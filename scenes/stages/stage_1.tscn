@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://3hqyfr6y85xy"]
+[gd_scene load_steps=31 format=4 uid="uid://3hqyfr6y85xy"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage_1.gd" id="1_1l2y5"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/navigation_2d/tilemap_navmesh_constructor.gd" id="2_vab3u"]
@@ -18,7 +18,6 @@
 [ext_resource type="Resource" uid="uid://dqsi0s0fbhh8l" path="res://scenes/menus/message_resources/tutorial_freeze_flags.tres" id="11_cit54"]
 [ext_resource type="PackedScene" uid="uid://l7j2lgkm4aml" path="res://prefabs/characters/player/ui_healthbar.tscn" id="12_2qkvg"]
 [ext_resource type="PackedScene" uid="uid://bedrqedra17cr" path="res://prefabs/out_of_bounds_area_2d/out_of_bounds_area_2d.tscn" id="15_sunlm"]
-[ext_resource type="AudioStream" uid="uid://d3mb3141p0x2n" path="res://sound/ambience/desert_ambience.ogg" id="17_7vh0d"]
 [ext_resource type="PackedScene" uid="uid://skdgrr04be4h" path="res://prefabs/components/properties_/interactable/victory_flag.tscn" id="17_b8c5d"]
 
 [sub_resource type="Environment" id="Environment_83ikn"]
@@ -71,6 +70,9 @@ point_count = 46
 texture_filter = 1
 script = ExtResource("1_1l2y5")
 
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://sound/banks//Master.strings.bank", "res://sound/banks//Master.bank", "res://sound/banks//Ambience.bank", "res://sound/banks//Music.bank", "res://sound/banks//MusicAdaptive.bank", "res://sound/banks//SFX.bank"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UIHealthbar" parent="CanvasLayer" instance=ExtResource("12_2qkvg")]
@@ -80,7 +82,6 @@ offset_right = -320.0
 offset_bottom = -180.0
 
 [node name="MessageMenu" parent="CanvasLayer" instance=ExtResource("5_5x2xg")]
-visible = false
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
@@ -250,10 +251,18 @@ position = Vector2(2760, -204)
 [node name="Marker2D2" parent="Lizard3/PatrolPointsContainer" index="1"]
 position = Vector2(3006, -204)
 
-[node name="Ambience" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_7vh0d")
+[node name="AdaptiveSong1" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/AdaptiveSong1"
+event_guid = "{1b71637a-4619-43dd-bb88-710a85593306}"
 autoplay = true
-bus = &"Ambience"
+volume = 0.75
+process_mode = 3
+
+[node name="AmbienceDesert" type="FmodEventEmitter2D" parent="."]
+event_name = "event:/AmbienceDesert"
+event_guid = "{22405bbe-d47f-4e2c-9416-e56a1e069fbd}"
+autoplay = true
+volume = 0.75
 
 [editable path="WorldAssets/PopupMessageArea"]
 [editable path="WorldAssets/PopupMessageArea2"]

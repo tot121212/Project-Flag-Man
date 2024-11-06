@@ -119,13 +119,6 @@ func set_available_jumps(i : int):
 func reset_available_jumps():
 	set_available_jumps(jump_max)
 
-
-func update_animation_parameters():
-	if is_attacking:
-		animation_tree["parameters/conditions/is_attacking"] = true
-	else:
-		animation_tree["parameters/conditions/is_attacking"] = false
-
 func is_on_platform() -> bool:
 	for idx in get_slide_collision_count():
 		var collision = get_slide_collision(idx)

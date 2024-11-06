@@ -20,7 +20,7 @@ func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Ve
 	
 	root.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
 	root.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
-	print("root.velocity: " + str(root.velocity))
+	#print("root.velocity: " + str(root.velocity))
 	
 	return root.velocity
 
