@@ -105,7 +105,7 @@ offset_bottom = -180.0
 environment = SubResource("Environment_83ikn")
 
 [node name="Player" parent="." instance=ExtResource("6_55lmo")]
-position = Vector2(-883, 85)
+position = Vector2(389, 30)
 
 [node name="WorldAssets" type="Node2D" parent="."]
 
@@ -212,7 +212,7 @@ position = Vector2(3078, -194)
 process_mode = 3
 
 [node name="PhantomCamera2D" parent="PhantomCamera2DParent" index="0" node_paths=PackedStringArray("follow_target")]
-position = Vector2(-883, 85)
+position = Vector2(389, 30)
 follow_target = NodePath("../../Player")
 
 [node name="Path2D" type="Path2D" parent="PhantomCamera2DParent"]

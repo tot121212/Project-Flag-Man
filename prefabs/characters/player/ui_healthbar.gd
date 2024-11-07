@@ -5,7 +5,7 @@ var root : Node2D
 
 func _ready():
 	super._ready()
-	set_visible(true)
+	show()
 	call_deferred("_deferred")
 
 func _deferred():
@@ -15,10 +15,10 @@ func _deferred():
 func _on_health_changed(_health):
 	print("Changing UI health display")
 	for texture_rect in texture_rects:
-		texture_rect.visible = true
+		texture_rect.show()
 	
 	var health_diff = root.stats_component.max_health - root.stats_component.cur_health
 	
 	for i in range(health_diff):
 		if i < texture_rects.size():
-			texture_rects[i].visible = false
+			texture_rects[i].hide()

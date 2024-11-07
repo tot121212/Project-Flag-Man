@@ -17,7 +17,6 @@ func get_max_speed():
 @export var jump_time : float = 0.5 ## maximum time of jump
 @onready var max_jump_height = calculate_max_jump_height()
 
-@export var has_health : bool = true ## enables or disables signal that is emitted when health is changed
 @export var max_health : int = 1
 var cur_health : int
 
@@ -41,9 +40,8 @@ func calculate_max_jump_height():
 
 func set_cur_health(new_health : int) -> void:
 	cur_health = clamp(new_health, 0, max_health)
-	if has_health:
-		health_changed.emit(cur_health)
-		print("Health changed on %s" % root.name)
+	health_changed.emit(cur_health)
+	print("Health changed on %s" % root.name)
 		
 func take_damage(damage):
 	print(root.name + " took " + str(damage) + " damage ")

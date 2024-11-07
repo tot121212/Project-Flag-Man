@@ -54,6 +54,11 @@ var can_save : bool = true # to stop people from saving over and over again whil
 func save_game(save_name : String = current_save_name): # input save name and get save file with name
 	if can_save:
 		can_save = false; print("SaveManager: Saving game")
+		
+		var tree = get_tree()
+		if not tree.is_paused():
+			tree.set_pause(true)
+			
 		set_current_save_name(save_name); print("SaveManager: Current save file name: %s" % save_name)
 		
 		var save_path = get_save_path(save_name); print("SaveManager: Save file path: %s" % str(save_path))
@@ -93,6 +98,10 @@ func save_game(save_name : String = current_save_name): # input save name and ge
 var default_load_order = 0
 func load_game(save_name : String): 
 	print("SaveManager: Loading game")
+	
+	var tree = get_tree()
+	if not tree.is_paused():
+		tree.set_pause(true)
 	
 	set_current_save_name(save_name); print("SaveManager: Current save file name: %s" % save_name)
 	

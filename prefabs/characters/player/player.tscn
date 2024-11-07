@@ -219,7 +219,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 24
+frame = 26
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -228,7 +228,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 34
+frame = 36
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -237,7 +237,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 44
+frame = 46
 
 [node name="Eyes" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -246,7 +246,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 54
+frame = 56
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false

@@ -48,11 +48,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_u7jc4"]
 radius = 20.0
 
-[node name="VictoryFlag" type="Node2D" node_paths=PackedStringArray("animation_player", "flag_sprite")]
+[node name="VictoryFlag" type="Node2D" node_paths=PackedStringArray("animation_player", "flag_sprite", "area_2d")]
 script = ExtResource("1_04qgd")
 animation_player = NodePath("AnimationPlayer")
 flag_sprite = NodePath("Flag")
 victory_message_resource = ExtResource("2_fb4xc")
+area_2d = NodePath("Area2D")
 
 [node name="Flag" type="Sprite2D" parent="."]
 visible = false

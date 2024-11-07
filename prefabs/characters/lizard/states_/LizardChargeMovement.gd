@@ -32,14 +32,15 @@ func state_physics_update(delta: float):
 	if lizard_aggro_state.closest_target: # attack if able first
 		if lizard_aggro_state.current_target != lizard_aggro_state.closest_target:
 			lizard_aggro_state.current_target = lizard_aggro_state.closest_target  
-			
-		var root_to_local_of_current_target : Vector2 = root.to_local(lizard_aggro_state.current_target.global_position)
-		if (abs(root_to_local_of_current_target.x) < 128.0
-		and abs(root_to_local_of_current_target.y) < 32.0
-		#and abs(root.get_global_position().direction_to(lizard_aggro_state.current_target.get_global_position()).y) <= 1
-		and lizard_charge_attack_state.charge_cooldown_timer.is_stopped()
-		):
-			transition.emit(self, "LizardChargeAttack")
+		
+		if lizard_aggro_state.current_target:
+			var root_to_local_of_current_target : Vector2 = root.to_local(lizard_aggro_state.current_target.global_position)
+			if (abs(root_to_local_of_current_target.x) < 128.0
+			and abs(root_to_local_of_current_target.y) < 32.0
+			#and abs(root.get_global_position().direction_to(lizard_aggro_state.current_target.get_global_position()).y) <= 1
+			and lizard_charge_attack_state.charge_cooldown_timer.is_stopped()
+			):
+				transition.emit(self, "LizardChargeAttack")
 	
 	if not navigation_agent.is_navigation_finished():
 		var next_pos = navigation_agent.get_next_path_position() # get next point

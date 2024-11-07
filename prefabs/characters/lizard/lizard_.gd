@@ -30,8 +30,6 @@ var is_dying : bool = false
 
 func _ready():
 	stats_component.health_changed.connect(_on_health_changed)
-	if !animation_player.animation_changed.is_connected(_on_animation_finished):
-		animation_player.animation_changed.connect(_on_animation_finished)
 
 func _physics_process(delta):
 	if not is_jumping:
@@ -39,22 +37,26 @@ func _physics_process(delta):
 	else:
 		velocity_component.apply_friction(delta, 0.8)
 		velocity_component.apply_jump(delta)
-	move_and_slide()
+	
+		move_and_slide()
 	
 func _on_health_changed(new_health):
 	animation_tree["parameters/conditions/is_blinking"] = true
 	if new_health <= 0:
 		_on_death()
-
-func _on_animation_finished(old_anim_name : StringName, _anim_name : StringName):
-	if old_anim_name == "blink":
-		animation_tree["parameters/conditions/is_blinking"] = false
 	
-	if old_anim_name == "death":
-		animation_tree["parameters/conditions/is_dying"] = false # just for accuracy sake
+func _after_blink():
+	animation_tree["parameters/conditions/is_blinking"] = false
+
+func _after_death():
+	print("after death trigger")
+	animation_tree["parameters/conditions/is_dying"] = false # just for accuracy sake
+	if !is_queued_for_deletion():
 		queue_free()
+		print("%s is queued for deletion" % self.name)
 
 func _on_death():
+	print("on death trigger")
 	animation_tree["parameters/conditions/is_dying"] = true
-	state_machine_parent.set_process(false)
-	state_machine_parent.set_physics_process(false)
+	#self.set_process(false)
+	#self.set_physics_process(false)

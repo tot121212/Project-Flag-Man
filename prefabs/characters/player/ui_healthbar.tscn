@@ -61,7 +61,7 @@ atlas = ExtResource("2_kbhl2")
 region = Rect2(0, 192, 64, 64)
 margin = Rect2(3, 0, 0, 0)
 
-[node name="UIHealthbar" type="Control"]
+[node name="UIHealthbar" type="Control" node_paths=PackedStringArray("texture_rects")]
 z_index = 4096
 layout_mode = 3
 anchors_preset = 15
@@ -71,6 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(320, 180)
 script = ExtResource("1_0hmew")
+texture_rects = [NodePath("MarginContainer/Panel/HTextureRect"), NodePath("MarginContainer/Panel/PTextureRect"), NodePath("MarginContainer/Panel/FlagPoleTextureRect"), NodePath("MarginContainer/Panel/FlagTextureRect")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

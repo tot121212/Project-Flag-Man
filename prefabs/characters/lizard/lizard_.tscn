@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bcw66tob22of1"]
+[gd_scene load_steps=55 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard/lizard_.gd" id="1_174pm"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
@@ -101,6 +101,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0.607843), Color(1, 1, 1, 1)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_after_blink"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_14cy7"]
 resource_name = "charge"
@@ -167,6 +181,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 6.28319]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_after_death"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_htxtq"]
@@ -297,11 +325,15 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_spitting"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tem7s"]
+advance_mode = 2
+advance_condition = &"is_dying"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_l4rn2"]
 states/End/position = Vector2(700, 17)
 states/Start/position = Vector2(-161, 17)
 states/blink/node = SubResource("AnimationNodeAnimation_myobl")
-states/blink/position = Vector2(111, -64)
+states/blink/position = Vector2(78, -65)
 states/charge/node = SubResource("AnimationNodeAnimation_qmhdr")
 states/charge/position = Vector2(-36, -182)
 states/death/node = SubResource("AnimationNodeAnimation_51bi7")
@@ -310,7 +342,7 @@ states/idle/node = SubResource("AnimationNodeAnimation_1xw0k")
 states/idle/position = Vector2(-36, 17)
 states/spit/node = SubResource("AnimationNodeAnimation_figjo")
 states/spit/position = Vector2(-36, 193)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ciavj"), "idle", "blink", SubResource("AnimationNodeStateMachineTransition_ogllc"), "blink", "idle", SubResource("AnimationNodeStateMachineTransition_18l3i"), "idle", "charge", SubResource("AnimationNodeStateMachineTransition_ts0b7"), "charge", "idle", SubResource("AnimationNodeStateMachineTransition_rosq4"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_chcix"), "idle", "spit", SubResource("AnimationNodeStateMachineTransition_cu01s"), "spit", "idle", SubResource("AnimationNodeStateMachineTransition_g6qan"), "death", "End", SubResource("AnimationNodeStateMachineTransition_lb3fh"), "charge", "blink", SubResource("AnimationNodeStateMachineTransition_icrta"), "spit", "blink", SubResource("AnimationNodeStateMachineTransition_tf8il"), "spit", "death", SubResource("AnimationNodeStateMachineTransition_7yfxn"), "charge", "death", SubResource("AnimationNodeStateMachineTransition_wxth7"), "blink", "charge", SubResource("AnimationNodeStateMachineTransition_abrmq"), "blink", "spit", SubResource("AnimationNodeStateMachineTransition_g3qwj")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ciavj"), "idle", "blink", SubResource("AnimationNodeStateMachineTransition_ogllc"), "blink", "idle", SubResource("AnimationNodeStateMachineTransition_18l3i"), "idle", "charge", SubResource("AnimationNodeStateMachineTransition_ts0b7"), "charge", "idle", SubResource("AnimationNodeStateMachineTransition_rosq4"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_chcix"), "idle", "spit", SubResource("AnimationNodeStateMachineTransition_cu01s"), "spit", "idle", SubResource("AnimationNodeStateMachineTransition_g6qan"), "death", "End", SubResource("AnimationNodeStateMachineTransition_lb3fh"), "charge", "blink", SubResource("AnimationNodeStateMachineTransition_icrta"), "spit", "blink", SubResource("AnimationNodeStateMachineTransition_tf8il"), "spit", "death", SubResource("AnimationNodeStateMachineTransition_7yfxn"), "charge", "death", SubResource("AnimationNodeStateMachineTransition_wxth7"), "blink", "charge", SubResource("AnimationNodeStateMachineTransition_abrmq"), "blink", "spit", SubResource("AnimationNodeStateMachineTransition_g3qwj"), "blink", "death", SubResource("AnimationNodeStateMachineTransition_tem7s")]
 graph_offset = Vector2(-335, -237)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of1lc"]
@@ -351,11 +383,13 @@ texture = ExtResource("2_pw6jo")
 vframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_jniao")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+process_mode = 3
 tree_root = SubResource("AnimationNodeStateMachine_l4rn2")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_blinking = false
