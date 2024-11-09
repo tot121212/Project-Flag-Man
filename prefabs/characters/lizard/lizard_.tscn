@@ -349,7 +349,7 @@ graph_offset = Vector2(-335, -237)
 size = Vector2(48, 12)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ccjrs"]
-radius = 128.0
+radius = 86.0
 height = 256.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4x1l4"]
@@ -383,13 +383,11 @@ texture = ExtResource("2_pw6jo")
 vframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_jniao")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-process_mode = 3
 tree_root = SubResource("AnimationNodeStateMachine_l4rn2")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_blinking = false

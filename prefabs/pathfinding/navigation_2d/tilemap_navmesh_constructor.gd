@@ -1,5 +1,7 @@
 extends Node2D
 
+# This node constructs a navmesh for enemies, it also constructs light occluders
+
 @export var tilemap_layers : Array[Node2D] ## array of tilemap layers
 
 var navigation_layer_index : int = 0

@@ -7,25 +7,26 @@
 atlas = ExtResource("2_52jpw")
 region = Rect2(0, 320, 320, 144)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r64sn"]
-atlas = ExtResource("2_52jpw")
-region = Rect2(0, 464, 320, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1hefu"]
 atlas = ExtResource("2_52jpw")
 region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r64sn"]
+atlas = ExtResource("2_52jpw")
+region = Rect2(0, 464, 320, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_roiyo"]
 atlas = ExtResource("2_52jpw")
 region = Rect2(0, 592, 320, 144)
 
 [node name="MarsParallax" type="Node2D"]
+z_index = -100
 
 [node name="Sky" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.1, 0.6)
-scroll_offset = Vector2(640, 0)
-repeat_size = Vector2(320, 0)
-autoscroll = Vector2(1, 0)
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(320, 244)
+autoscroll = Vector2(3, 3)
+repeat_times = 8
 script = ExtResource("1_jjf2c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
@@ -33,57 +34,56 @@ texture = SubResource("AtlasTexture_y0gbo")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sky"]
-position = Vector2(320, 0)
 texture = SubResource("AtlasTexture_y0gbo")
+centered = false
+offset = Vector2(0, -144)
+flip_h = true
+flip_v = true
+
+[node name="Underground" type="Parallax2D" parent="."]
+z_index = 2
+scroll_scale = Vector2(0.3, 0.3)
+scroll_offset = Vector2(0, 145)
+repeat_size = Vector2(320, 0)
+repeat_times = 8
+
+[node name="Sprite2D3" type="Sprite2D" parent="Underground"]
+z_index = -1
+texture = SubResource("AtlasTexture_1hefu")
 centered = false
 
 [node name="Background" type="Parallax2D" parent="."]
 z_index = 1
-scroll_scale = Vector2(0.1, 0.8)
-scroll_offset = Vector2(640, 0)
+scroll_scale = Vector2(0.3, 0.3)
+scroll_offset = Vector2(0, 120)
 repeat_size = Vector2(320, 0)
+repeat_times = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
-position = Vector2(0, 80)
+z_index = 1
 texture = SubResource("AtlasTexture_r64sn")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="Background"]
-position = Vector2(0, 80)
-texture = SubResource("AtlasTexture_r64sn")
-centered = false
-offset = Vector2(320, 0)
-
-[node name="Underground" type="Parallax2D" parent="."]
+[node name="Underground2" type="Parallax2D" parent="."]
 z_index = 2
-scroll_scale = Vector2(0.8, 1)
-scroll_offset = Vector2(640, 0)
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(2, 260)
 repeat_size = Vector2(320, 0)
+repeat_times = 8
 
-[node name="Sprite2D3" type="Sprite2D" parent="Underground"]
-position = Vector2(0, 214)
+[node name="Sprite2D3" type="Sprite2D" parent="Underground2"]
+z_index = -1
 texture = SubResource("AtlasTexture_1hefu")
 centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="Underground"]
-position = Vector2(0, 214)
-texture = SubResource("AtlasTexture_1hefu")
-centered = false
-offset = Vector2(320, 0)
 
 [node name="Middleground" type="Parallax2D" parent="."]
 z_index = 3
-scroll_scale = Vector2(0.2, 1)
-scroll_offset = Vector2(640, 0)
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(0, 120)
 repeat_size = Vector2(320, 0)
+repeat_times = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="Middleground"]
-position = Vector2(0, 102)
+z_index = 2
 texture = SubResource("AtlasTexture_roiyo")
 centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="Middleground"]
-position = Vector2(0, 102)
-texture = SubResource("AtlasTexture_roiyo")
-centered = false
-offset = Vector2(320, 0)

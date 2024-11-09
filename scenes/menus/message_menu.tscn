@@ -22,6 +22,8 @@ test_message_resource = ExtResource("2_fsskq")
 menu_resource = ExtResource("5_wpis7")
 hidden_by_default = true
 default_focus = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")
+should_start_fmod_menu_lowpass = true
+should_stop_fmod_menu_lowpass = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0

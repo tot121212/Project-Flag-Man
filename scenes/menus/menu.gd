@@ -9,6 +9,9 @@ class_name Menu
 var is_menu_open: bool = false
 @export var is_menu_attachable : bool = true ## Used to make menu not be connected to attach signal
 
+@export_category("Fmod")
+@export var should_start_fmod_menu_lowpass : bool = false ## if the menu should start the fmod menu lowpass when you open and close it
+@export var should_stop_fmod_menu_lowpass : bool = false ## if the menu should stop the fmod menu lowpass when you open and close it
 
 func _enter_tree():
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
@@ -67,6 +70,7 @@ func get_is_menu_open(i: Callable = self.is_visible):
 		var result = i.call()
 		if result is bool: # Callable should return a boolean
 			set_is_menu_open(result)
+			return result
 	else:
 		print("Did not input valid callable for %s" % self.name)
 
@@ -77,14 +81,18 @@ func _on_attach_menus_to_node(node : Node2D):
 func open_menu(input_menu_resource : MenuResource = menu_resource):
 	if input_menu_resource == menu_resource:
 		print("Opening menu: %s" % input_menu_resource.menu_name)
-		get_tree().set_pause(true)
-		self.show()
-		set_is_menu_open(true)
-		Utils.set_current_menu(self)
+		get_tree().set_pause(true) # pause game
+		self.show() # show menu
+		set_is_menu_open(true) # menu is open
+		Utils.set_current_menu(self) # current menu is self
 		if default_focus:
-			default_focus.grab_focus()
+			default_focus.grab_focus() # grab focus
 		else:
 			print("No default Focus Control Node set for Menu")
+		
+		if should_start_fmod_menu_lowpass:
+			GameState.fmod_menu_lowpass_event.start()
+		
 		return true
 	return false
 
@@ -94,6 +102,9 @@ func close_menu(input_menu_resource: MenuResource = menu_resource):
 		get_tree().set_pause(false)
 		self.hide()
 		set_is_menu_open(false)
+		
+		if should_stop_fmod_menu_lowpass:
+			GameState.fmod_menu_lowpass_event.stop(0)
 
 func toggle_menu(input_menu_resource: MenuResource = menu_resource):
 	if input_menu_resource == menu_resource:

@@ -68,3 +68,11 @@ func get_speed_upgrades():
 #region Popups
 
 #endregion
+
+#region Fmod
+var fmod_reverb_event_guid : StringName = '{d4add041-7991-4e9a-8ef6-bc79f8a42eb6}'
+@onready var fmod_cave_reverb_event : FmodEvent = FmodServer.create_event_instance_with_guid(fmod_reverb_event_guid as String)
+
+var fmod_menu_lowpass_guid : StringName = '{71350541-382d-4bfa-b55d-60061c3f710b}'
+@onready var fmod_menu_lowpass_event : FmodEvent = FmodServer.create_event_instance_with_guid(fmod_menu_lowpass_guid as String)
+#endregion

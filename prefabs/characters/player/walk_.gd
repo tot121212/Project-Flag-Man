@@ -8,6 +8,8 @@ class_name PlayerMovementWalk
 @export var coyote_timer : Timer
 @export var jump_buffer_timer : Timer
 @export var player_collision_shape : CollisionObject2D
+@export var fmod_event_emitter_2d_jump : FmodEventEmitter2D
+@export var player_speed_modifier : PlayerSpeedModifier
 
 var holding_down_coefficient = 2
 
@@ -64,7 +66,10 @@ func state_physics_update(delta):
 	root.move_and_slide()
 
 func execute_jump():
-	velocity_component.cancel_jump()
+	velocity_component.cancel_jump() # cancel a jump if any
 	root.set_available_jumps(root.available_jumps - 1)
+	var ratio = snappedf((player_speed_modifier.stored_jumps / player_speed_modifier.max_stored_jumps), 0.01) # ratio between stored jumps and maximum
+	fmod_event_emitter_2d_jump.set_parameter("Pitch", ratio)
+	fmod_event_emitter_2d_jump.play()
 	velocity_component.jump()
 	root.just_jumped.emit()

@@ -19,6 +19,8 @@ continue_button = NodePath("MarginContainer/Panel/MarginContainer3/ContinueButto
 menu_resource = ExtResource("3_8hukt")
 hidden_by_default = true
 default_focus = NodePath("MarginContainer/Panel/MarginContainer3/ContinueButton")
+should_start_fmod_menu_lowpass = true
+should_stop_fmod_menu_lowpass = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

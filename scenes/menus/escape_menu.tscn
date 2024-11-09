@@ -28,6 +28,8 @@ controls_menu_resource = ExtResource("3_xavsc")
 menu_resource = ExtResource("4_sf7fo")
 hidden_by_default = true
 default_focus = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/ContinueButton")
+should_start_fmod_menu_lowpass = true
+should_stop_fmod_menu_lowpass = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
