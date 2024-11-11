@@ -41,8 +41,6 @@ func init_hidden_by_default():
 
 func connect_menu_signals():
 	if menu_resource:
-		if not Utils.attach_menus_to_node.is_connected(_on_attach_menus_to_node):
-			Utils.attach_menus_to_node.connect(_on_attach_menus_to_node)
 		if not Utils.open_menu.is_connected(open_menu):
 			Utils.open_menu.connect(open_menu)
 		if not Utils.close_menu.is_connected(close_menu):
@@ -53,8 +51,6 @@ func connect_menu_signals():
 		push_error("No menu resource defined")
 
 func disconnect_menu_signals():
-	if Utils.attach_menus_to_node.is_connected(_on_attach_menus_to_node):
-		Utils.attach_menus_to_node.disconnect(_on_attach_menus_to_node)
 	if Utils.open_menu.is_connected(open_menu):
 		Utils.open_menu.disconnect(open_menu)
 	if Utils.close_menu.is_connected(close_menu):

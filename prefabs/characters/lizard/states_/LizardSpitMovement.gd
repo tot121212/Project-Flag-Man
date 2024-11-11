@@ -17,8 +17,10 @@ extends State
 
 @export var closest_target_acquisiton_timer : Timer
 
+@onready var spit_movement_speed : float = snappedf(stats_component.max_speed.x * 0.2, 0.01)
+
 func state_enter():
-	animation_tree["parameters/conditions/is_idling"] = true
+	animation_tree.set("parameters/conditions/is_idling", true)
 	
 	lizard_aggro_state.find_closest_target() # find closest target
 	lizard_aggro_state.current_target = lizard_aggro_state.closest_target
@@ -30,7 +32,6 @@ func state_enter():
 	
 	if not detection_raycaster.is_colliding_with_target.is_connected(_on_detection_raycaster_is_colliding_with_target):
 		detection_raycaster.is_colliding_with_target.connect(_on_detection_raycaster_is_colliding_with_target)
-	
 
 func state_exit():
 	if detection_raycaster.is_colliding_with_target.is_connected(_on_detection_raycaster_is_colliding_with_target):
@@ -39,7 +40,7 @@ func state_exit():
 	if closest_target_acquisiton_timer.timeout.is_connected(_on_closest_target_acquisition_timer_timeout):
 		closest_target_acquisiton_timer.timeout.disconnect(_on_closest_target_acquisition_timer_timeout)
 	
-	animation_tree["parameters/conditions/is_idling"] = false
+	animation_tree.set("parameters/conditions/is_idling", false)
 
 func state_physics_update(delta: float):
 	if lizard_aggro_state.current_target != lizard_aggro_state.closest_target:
@@ -53,7 +54,7 @@ func state_physics_update(delta: float):
 			if object_detect_raycasts.is_surface_front and root.is_on_floor() and not root.is_jumping:
 				velocity_component.jump()
 			root.change_orientation.emit(root.direction_of_next_nav_point)
-			velocity_component.move(delta, root.direction_of_next_nav_point, Vector2(stats_component.max_speed.x * 0.75, 0), Vector2(randf_range(-2,2), 0) )
+			velocity_component.move(delta, root.direction_of_next_nav_point, Vector2(spit_movement_speed, 0), Vector2(randf_range(-2,2), 0) )
 	else:
 		root.change_orientation.emit(root.global_position.direction_to(lizard_aggro_state.current_target.global_position).normalized())
 	

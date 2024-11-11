@@ -14,7 +14,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
 offset_bottom = 360.0
-pivot_offset = Vector2(320, 180)
 script = ExtResource("1_cyjxf")
 rich_text_label = NodePath("MarginContainer2/Panel/MarginContainer/Text/RichTextLabel")
 continue_button = NodePath("MarginContainer2/Panel/MarginContainer3/ContinueButton")

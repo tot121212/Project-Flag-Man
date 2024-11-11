@@ -18,12 +18,11 @@ func get_max_speed():
 @onready var max_jump_height = calculate_max_jump_height()
 
 @export var max_health : int = 1
-var cur_health : int
-
+var cur_health : int = -1
+var prev_health : int = -1
 
 func _ready():
 	set_cur_health(max_health)
-
 
 func calculate_max_jump_height():
 	# height during initial jump phase
@@ -39,13 +38,14 @@ func calculate_max_jump_height():
 
 
 func set_cur_health(new_health : int) -> void:
+	prev_health = clamp(cur_health, 0, max_health)
 	cur_health = clamp(new_health, 0, max_health)
-	health_changed.emit(cur_health)
+	health_changed.emit(cur_health, prev_health)
 	print("Health changed on %s" % root.name)
-		
+
 func take_damage(damage):
 	print(root.name + " took " + str(damage) + " damage ")
 	set_cur_health(cur_health - abs(damage))
-	
+
 func heal(amount):
 	set_cur_health(cur_health + abs(amount))

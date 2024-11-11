@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://cm1yepcu507b8"]
 
-[ext_resource type="Script" path="res://scenes/stages/test_stage.gd" id="1_5ey5a"]
+[ext_resource type="Script" path="res://test/test_stage.gd" id="1_5ey5a"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/navigation_2d/tilemap_navmesh_constructor.gd" id="2_rdia4"]
 [ext_resource type="TileSet" uid="uid://dma76sqrjithb" path="res://prefabs/terrain/Terrain.tres" id="3_m6548"]
 [ext_resource type="TileSet" uid="uid://dcio12seaf63c" path="res://prefabs/terrain/Platforms.tres" id="4_xtvs5"]

@@ -10,12 +10,12 @@
 [ext_resource type="StyleBox" uid="uid://cy31exe6enj25" path="res://assets/themes/stylebox/side_menu_theme_button_normal.tres" id="5_pjt0f"]
 
 [node name="EscapeMenu" type="Control" node_paths=PackedStringArray("flag_man_button", "continue_button", "save_button", "load_button", "quit_button", "controls_button", "default_focus")]
+process_mode = 3
 z_index = 100
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
 offset_bottom = 360.0
-pivot_offset = Vector2(320, 180)
 script = ExtResource("2_hqs55")
 flag_man_button = NodePath("MarginContainer/Panel/MarginContainer/FlagManButton")
 continue_button = NodePath("MarginContainer/Panel/MarginContainer2/HBoxContainer/ContinueButton")

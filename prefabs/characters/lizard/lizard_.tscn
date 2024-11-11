@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bcw66tob22of1"]
+[gd_scene load_steps=56 format=3 uid="uid://bcw66tob22of1"]
 
 [ext_resource type="Script" path="res://prefabs/characters/lizard/lizard_.gd" id="1_174pm"]
 [ext_resource type="Texture2D" uid="uid://3j11nmxco3g4" path="res://assets/aseprite/lizard.png" id="2_pw6jo"]
@@ -101,20 +101,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 0.607843), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_after_blink"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_14cy7"]
 resource_name = "charge"
@@ -182,20 +168,6 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0, 6.28319]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_after_death"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_htxtq"]
 resource_name = "idle"
@@ -226,6 +198,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_04f5n"]
 resource_name = "spit"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -281,10 +254,12 @@ advance_mode = 2
 advance_condition = &"is_charging"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rosq4"]
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_idling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_chcix"]
+priority = 0
 advance_mode = 2
 advance_condition = &"is_dying"
 
@@ -293,10 +268,12 @@ advance_mode = 2
 advance_condition = &"is_spitting"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g6qan"]
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_idling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lb3fh"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_icrta"]
@@ -308,10 +285,12 @@ advance_mode = 2
 advance_condition = &"is_blinking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7yfxn"]
+priority = 0
 advance_mode = 2
 advance_condition = &"is_dying"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wxth7"]
+priority = 0
 advance_mode = 2
 advance_condition = &"is_dying"
 
@@ -326,6 +305,7 @@ advance_mode = 2
 advance_condition = &"is_spitting"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tem7s"]
+priority = 0
 advance_mode = 2
 advance_condition = &"is_dying"
 
@@ -333,20 +313,23 @@ advance_condition = &"is_dying"
 states/End/position = Vector2(700, 17)
 states/Start/position = Vector2(-161, 17)
 states/blink/node = SubResource("AnimationNodeAnimation_myobl")
-states/blink/position = Vector2(78, -65)
+states/blink/position = Vector2(117, -45)
 states/charge/node = SubResource("AnimationNodeAnimation_qmhdr")
 states/charge/position = Vector2(-36, -182)
 states/death/node = SubResource("AnimationNodeAnimation_51bi7")
-states/death/position = Vector2(534, 17)
+states/death/position = Vector2(535, 17)
 states/idle/node = SubResource("AnimationNodeAnimation_1xw0k")
 states/idle/position = Vector2(-36, 17)
 states/spit/node = SubResource("AnimationNodeAnimation_figjo")
 states/spit/position = Vector2(-36, 193)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ciavj"), "idle", "blink", SubResource("AnimationNodeStateMachineTransition_ogllc"), "blink", "idle", SubResource("AnimationNodeStateMachineTransition_18l3i"), "idle", "charge", SubResource("AnimationNodeStateMachineTransition_ts0b7"), "charge", "idle", SubResource("AnimationNodeStateMachineTransition_rosq4"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_chcix"), "idle", "spit", SubResource("AnimationNodeStateMachineTransition_cu01s"), "spit", "idle", SubResource("AnimationNodeStateMachineTransition_g6qan"), "death", "End", SubResource("AnimationNodeStateMachineTransition_lb3fh"), "charge", "blink", SubResource("AnimationNodeStateMachineTransition_icrta"), "spit", "blink", SubResource("AnimationNodeStateMachineTransition_tf8il"), "spit", "death", SubResource("AnimationNodeStateMachineTransition_7yfxn"), "charge", "death", SubResource("AnimationNodeStateMachineTransition_wxth7"), "blink", "charge", SubResource("AnimationNodeStateMachineTransition_abrmq"), "blink", "spit", SubResource("AnimationNodeStateMachineTransition_g3qwj"), "blink", "death", SubResource("AnimationNodeStateMachineTransition_tem7s")]
-graph_offset = Vector2(-335, -237)
+graph_offset = Vector2(-396.357, -268.594)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of1lc"]
-size = Vector2(48, 12)
+size = Vector2(40, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7qky7"]
+polygon = PackedVector2Array(-17, 1, 3, 1, 23, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ccjrs"]
 radius = 86.0
@@ -356,7 +339,7 @@ height = 256.0
 radius = 6.0
 height = 16.0
 
-[node name="Lizard" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "orientation_handler", "detection_raycaster", "stats_component", "state_machine_parent", "aggro_state_machine", "movement_attack_state_machine", "velocity_component", "navigation_agent", "object_detect_raycasts", "animation_tree", "animation_player") groups=["Enemy"]]
+[node name="Lizard" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "orientation_handler", "detection_raycaster", "stats_component", "state_machine_parent", "aggro_state_machine", "movement_attack_state_machine", "velocity_component", "navigation_agent", "object_detect_raycasts", "animation_tree") groups=["Enemy"]]
 z_index = 10
 texture_filter = 1
 collision_layer = 8
@@ -373,7 +356,6 @@ velocity_component = NodePath("VelocityComponent")
 navigation_agent = NodePath("NavigationAgent2D")
 object_detect_raycasts = NodePath("ObjectDetectRaycasts")
 animation_tree = NodePath("AnimationTree")
-animation_player = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 process_mode = 3
@@ -393,13 +375,18 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_blinking = false
 parameters/conditions/is_charging = false
 parameters/conditions/is_dying = false
-parameters/conditions/is_idling = false
+parameters/conditions/is_idling = true
 parameters/conditions/is_spitting = false
 
 [node name="LizardHurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 4)
 shape = SubResource("RectangleShape2D_of1lc")
 debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+z_index = -1
+position = Vector2(-3, 7)
+occluder = SubResource("OccluderPolygon2D_7qky7")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 16.0
@@ -420,24 +407,26 @@ root = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../LizardHurtbox"), NodePath("../PlayerDetectionArea"), NodePath("../ChargeAttackArea"), NodePath("../ObjectDetectRaycasts")])
 start_facing_right = false
 
-[node name="ProjectileOrganizer" parent="." instance=ExtResource("4_ycerx")]
+[node name="ProjectileContainer" parent="." instance=ExtResource("4_ycerx")]
 
 [node name="ObjectDetectRaycasts" parent="." instance=ExtResource("4_jqr2a")]
 
 [node name="Front" parent="ObjectDetectRaycasts" index="0"]
+position = Vector2(20, 8)
 target_position = Vector2(10, 0)
 
 [node name="FrontDown" parent="ObjectDetectRaycasts" index="1"]
-position = Vector2(24, 10)
+position = Vector2(20, 8)
 target_position = Vector2(0, 10)
 
 [node name="BackDown" parent="ObjectDetectRaycasts" index="2"]
-position = Vector2(-22, 9)
+position = Vector2(-20, 8)
 target_position = Vector2(0, 10)
 
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("15_hn17x")]
 script = ExtResource("3_ysfwk")
 root = NodePath("..")
+max_speed = Vector2(480, 128)
 initial_jump_speed = 96.0
 jump_time = 0.25
 max_health = 2
@@ -537,14 +526,13 @@ lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
 lizard_spit_attack_state = NodePath("../LizardSpitAttack")
 closest_target_acquisiton_timer = NodePath("../../AggroStateMachine/LizardAggro/ClosestTargetAcquisitionTimer")
 
-[node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "lizard_aggro_state", "projectile_organizer", "animation_tree", "animation_player", "spit_cooldown_timer")]
+[node name="LizardSpitAttack" type="Node" parent="StateMachineParent/MovementAttackStateMachine" node_paths=PackedStringArray("root", "lizard_aggro_state", "projectile_container", "animation_tree", "spit_cooldown_timer")]
 script = ExtResource("9_w2i3c")
 root = NodePath("../../..")
 lizard_aggro_state = NodePath("../../AggroStateMachine/LizardAggro")
 lizard_spit_projectile_scene = ExtResource("19_hperg")
-projectile_organizer = NodePath("../../../ProjectileOrganizer")
+projectile_container = NodePath("../../../ProjectileContainer")
 animation_tree = NodePath("../../../AnimationTree")
-animation_player = NodePath("../../../AnimationPlayer")
 spit_cooldown_timer = NodePath("SpitCooldownTimer")
 
 [node name="SpitCooldownTimer" type="Timer" parent="StateMachineParent/MovementAttackStateMachine/LizardSpitAttack"]

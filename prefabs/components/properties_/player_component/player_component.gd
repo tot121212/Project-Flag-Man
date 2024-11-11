@@ -31,8 +31,7 @@ var is_jumping : bool = false
 func _ready():
 	Utils.set_player_as_first(self)
 	
-	Utils.attach_ui_to_node.emit(camera_2d)
-	Utils.attach_menus_to_node.emit(camera_2d) # Attach menus to camera at runtime (to avoid cyclical errors when they are part of player scene)
+	#attach_ui_and_menus_to_camera()
 	
 	for raycast in debug_raycasts_parent.get_children(): # These raycasts show where joysticks and such are pointing
 		if raycast is RayCast2D:
@@ -42,6 +41,10 @@ func _ready():
 	SignalBus.phantom_camera_follow_target.emit(self)
 	
 	stats_component.health_changed.connect(_on_health_changed)
+
+#func attach_ui_and_menus_to_camera():
+	#Utils.attach_ui_to_node.emit(camera_2d)
+	#Utils.attach_menus_to_node.emit(camera_2d) # Attach menus to camera at runtime (to avoid cyclical errors when they are part of player scene)
 
 func _await_game_state():
 	reset_cur_max_speed()
@@ -140,10 +143,6 @@ func is_on_roof():
 		return true
 	return false
 
-func _on_health_changed(current_health):
-	if current_health <= 0:
-		get_tree().set_pause(true)
-		if SaveManager.current_save_name:
-			SaveManager.load_game(SaveManager.current_save_name)
-		else:
-			SaveManager.new_game("0")
+func _on_health_changed(cur_health, _prev_health):
+	if cur_health <= 0:
+		SaveManager.trigger_death()

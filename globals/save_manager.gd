@@ -48,7 +48,7 @@ func new_game(save_name : String):
 func open_first_scene():
 	get_tree().change_scene_to_file(first_scene_path)
 
-# TODO: Adapt save method to similar standards as the load method, fix broken saving/loading, possibly due to Utils.first_player code
+# TODO: fix broken saving/loading in certain circumstances, possibly due to Utils.first_player code
 
 var can_save : bool = true # to stop people from saving over and over again while another save is still processing
 func save_game(save_name : String = current_save_name): # input save name and get save file with name
@@ -66,6 +66,7 @@ func save_game(save_name : String = current_save_name): # input save name and ge
 		if not save_file:
 			push_error("SaveManager: Error during save file open and/or creation at path: %s" % save_path)
 			return
+		
 		var save_nodes : Array = get_tree().get_nodes_in_group("Persist"); print("SaveManager: Saved nodes: %s" % str(save_nodes)) # get persistent nodes
 		save_nodes.append_array(get_tree().get_nodes_in_group("Global")) # add global nodes as well
 		
@@ -116,7 +117,7 @@ func load_game(save_name : String):
 	
 	var node_data : Array[Dictionary] = []
 	parse_save_file(save_file, node_data)
-	save_file.close() # after parsing, close file
+	save_file.close() # after parsing, close file as it is not needed in memory
 	sort_node_data(node_data) # sort parsed data
 	
 	load_current_stage(node_data)
@@ -218,3 +219,15 @@ func set_current_save_name(save_name : String):
 
 func get_save_path(save_name : String) -> String: 
 	return "user://saves/" + save_name + ".save"
+
+func trigger_death():
+	var tree : SceneTree = get_tree()
+	var scene : Node = tree.get_current_scene()
+	
+	scene.set_process(false)
+	scene.set_physics_process(false)
+	
+	if SaveManager.current_save_name:
+		SaveManager.load_game(SaveManager.current_save_name)
+	else:
+		SaveManager.new_game("0")

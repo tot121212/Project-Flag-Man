@@ -68,7 +68,10 @@ shapes/collision/shape_color=Color(0, 0.6, 0.701961, 0.141176)
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/initial_position_type=3
 window/size/transparent=true
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 
@@ -85,6 +88,7 @@ Platforms=""
 PlayerBody=""
 PlayerProjectile=""
 Persist="Saving Method"
+OrphanProjectileContainer=""
 
 [importer_defaults]
 

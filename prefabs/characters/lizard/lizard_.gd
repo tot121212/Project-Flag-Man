@@ -6,7 +6,7 @@ signal change_orientation
 @export var sprite : Sprite2D
 @export var orientation_handler : Node2D
 @export var detection_raycaster : Node
-@export var stats_component : Node2D
+@export var stats_component : StatsComponent
 @export var state_machine_parent : StateMachineParent
 @export var aggro_state_machine : StateMachine
 @export var movement_attack_state_machine : StateMachine
@@ -14,7 +14,6 @@ signal change_orientation
 @export var navigation_agent : NavigationAgent2D
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var animation_tree : AnimationTree
-@export var animation_player : AnimationPlayer
 
 @export var target_group : String = "Player"
 
@@ -30,6 +29,7 @@ var is_dying : bool = false
 
 func _ready():
 	stats_component.health_changed.connect(_on_health_changed)
+	animation_tree.animation_finished.connect(_on_animation_finished)
 
 func _physics_process(delta):
 	if not is_jumping:
@@ -39,24 +39,34 @@ func _physics_process(delta):
 		velocity_component.apply_jump(delta)
 	
 		move_and_slide()
-	
-func _on_health_changed(new_health):
-	animation_tree["parameters/conditions/is_blinking"] = true
+
+func _on_health_changed(new_health : int, prev_health : int):
+	print("%s: On health change" % self.name)
 	if new_health <= 0:
 		_on_death()
-	
+	elif prev_health > new_health:
+		animation_tree.set("parameters/conditions/is_blinking", true)
+
+func _on_death():
+	print("%s: On death" % self.name)
+	animation_tree.set("parameters/conditions/is_dying", true)
+	#self.set_process(false)
+	#self.set_physics_process(false)
+
+func _on_animation_finished(anim_name : String):
+	match anim_name:
+		"blink":
+			_after_blink()
+		"death":
+			_after_death()
+
 func _after_blink():
-	animation_tree["parameters/conditions/is_blinking"] = false
+	print("%s: After blink" % self.name)
+	animation_tree.set("parameters/conditions/is_blinking", false)
 
 func _after_death():
-	print("after death trigger")
-	animation_tree["parameters/conditions/is_dying"] = false # just for accuracy sake
+	print("%s: After death" % self.name)
+	animation_tree.set("parameters/conditions/is_dying", false) # just for accuracy sake
 	if !is_queued_for_deletion():
 		queue_free()
 		print("%s is queued for deletion" % self.name)
-
-func _on_death():
-	print("on death trigger")
-	animation_tree["parameters/conditions/is_dying"] = true
-	#self.set_process(false)
-	#self.set_physics_process(false)

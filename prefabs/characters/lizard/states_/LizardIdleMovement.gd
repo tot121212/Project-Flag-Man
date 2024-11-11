@@ -14,13 +14,15 @@ extends State
 @export var wander_distance : int = 200
 var wander_timer : Timer
 
+@onready var idle_movement_speed : float = snappedf(stats_component.max_speed.x * 0.1, 0.01)
+
 func _ready():
 	wander_timer = Timer.new()
 	add_child(wander_timer)
 	patrol_points.get_amt_of_patrol_points()
 
 func state_enter():
-	animation_tree["parameters/conditions/is_idling"] = true
+	animation_tree.set("parameters/conditions/is_idling", true)
 	
 	if not wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.connect(idle_logic)
@@ -31,7 +33,7 @@ func state_exit():
 	if wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.disconnect(idle_logic)
 		
-	animation_tree["parameters/conditions/is_idling"] = false
+	animation_tree.set("parameters/conditions/is_idling", false)
 	
 	patrol_points.should_return_to_patrol_point = false
 
@@ -48,9 +50,11 @@ func get_next_pos_and_move_jump(delta):
 			#      otherwise, navigate the other direction
 			if root.is_on_floor() and not root.is_jumping and object_detect_raycasts.is_surface_front:
 				velocity_component.jump()
+			
 			if root.is_on_floor():# and object_detect_raycasts.is_surface_front_down: # only move if there is a surface to walk on
-				velocity_component.move(delta, root.direction_of_next_nav_point, Vector2(stats_component.max_speed.x * 0.3, 0), Vector2(randf_range(-2,2), 0) )
+				velocity_component.move(delta, root.direction_of_next_nav_point, Vector2(idle_movement_speed, 0), Vector2(randf_range(-2,2), 0) )
 				root.change_orientation.emit(root.direction_of_next_nav_point)
+			
 	elif patrol_points.should_return_to_patrol_point: # else nav is finished, check if should return to patrol point is true
 		patrol_points.should_return_to_patrol_point = false
 

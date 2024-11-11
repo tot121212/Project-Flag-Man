@@ -10,6 +10,7 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5421r"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("node_2d", "marker", "flag_man_button", "start_button", "load_button", "quit_button", "default_focus")]
+process_mode = 3
 z_index = 100
 layout_mode = 3
 anchors_preset = 15
@@ -17,7 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(320, 180)
 script = ExtResource("1_p7w38")
 node_2d = NodePath("MarginContainer/Panel/Node2D")
 marker = NodePath("MarginContainer/Panel/Node2D/Marker2D")

@@ -3,7 +3,7 @@ class_name PlayerCombatAttack
 
 @export var root : Node2D
 @export var sparkles_sprite : Sprite2D
-@export var projectile_organizer : ProjectileOrganizer
+@export var projectile_container : ProjectileContainer
 @export var proj_player_flag_scene : PackedScene
 var most_recent_flags : Array[Projectile] = [] # keeps track of most recent flags for use with freeze ability
 
@@ -12,16 +12,12 @@ var most_recent_flags : Array[Projectile] = [] # keeps track of most recent flag
 @export var animation_tree : AnimationTree
 
 func state_update(_delta):
-	if Input.is_action_just_pressed("shoot"):
-		if throw_flag_cooldown.is_stopped():
-			throw_flag_cooldown.start()
-			root.is_attacking = true
-			
-			animation_tree["parameters/conditions/is_attacking"] = true
-			
-			# throw_flag() is triggered with animation
-			#print("player attack input")
-	
+	if Input.is_action_pressed("shoot") and throw_flag_cooldown.is_stopped():
+		throw_flag_cooldown.start()
+		root.is_attacking = true
+		
+		animation_tree["parameters/conditions/is_attacking"] = true
+
 	elif root.is_attacking:
 		animation_tree["parameters/conditions/is_attacking"] = false
 		
@@ -53,7 +49,7 @@ func throw_flag():
 			most_recent_flags.clear()
 			most_recent_flags.append(new_flag)
 			
-			projectile_organizer.add_child(new_flag)
+			projectile_container.add_child(new_flag)
 		else:
 			push_warning("new flag was not instantiated properly")
 	else:

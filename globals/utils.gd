@@ -23,10 +23,6 @@ func get_first_player():
 
 
 #region Control
-
-signal attach_ui_to_node(node : Node2D) ## Attaches ui elements to node (usually the camera).
-signal attach_menus_to_node(node : Node2D) ## Attaches menus to node (mostly the camera). Each menu will handle this differently.
-
 signal open_menu(menu_resource : MenuResource) ## Open menu
 signal close_menu(menu_resource : MenuResource) ## Close menu
 signal toggle_menu(menu_resource : MenuResource) ## Open or close menu

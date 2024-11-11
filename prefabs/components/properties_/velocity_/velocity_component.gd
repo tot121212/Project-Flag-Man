@@ -14,8 +14,8 @@ func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Ve
 	var direction_normalized = direction.normalized()
 	#print("direction_normalized: " + str(direction_normalized))
 	
-	new_velocity.x = move_toward(root.velocity.x, direction_normalized.x * speed.x, acceleration_coefficient.x * delta) + speed_variance.x
-	new_velocity.y = move_toward(root.velocity.y, direction_normalized.y * speed.y, acceleration_coefficient.y * delta) + speed_variance.y
+	new_velocity.x = move_toward(root.velocity.x, direction_normalized.x * speed.x + speed_variance.x, acceleration_coefficient.x * delta) 
+	new_velocity.y = move_toward(root.velocity.y, direction_normalized.y * speed.y + speed_variance.y, acceleration_coefficient.y * delta) 
 	#print("new_velocity: " + str(new_velocity))
 	
 	root.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)

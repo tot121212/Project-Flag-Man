@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://d4byvs0xkfytt" path="res://assets/themes/side_menu_theme.tres" id="3_338ak"]
 
 [node name="ControlsMenu" type="Control" node_paths=PackedStringArray("continue_button", "default_focus")]
+process_mode = 3
 z_index = 100
 layout_mode = 3
 anchors_preset = 15
@@ -13,7 +14,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(320, 180)
 script = ExtResource("1_asg58")
 continue_button = NodePath("MarginContainer/Panel/MarginContainer3/ContinueButton")
 menu_resource = ExtResource("3_8hukt")

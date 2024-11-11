@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=25 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/properties_/player_component/player_component.gd" id="1_2gyab"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://ct33u6w1jg7eu" path="res://prefabs/characters/player/player.tres" id="2_8blmv"]
@@ -14,14 +14,31 @@
 [ext_resource type="Script" path="res://prefabs/characters/player/coyote_timer.gd" id="14_pjbqf"]
 [ext_resource type="Script" path="res://prefabs/characters/player/attack_.gd" id="14_w5hej"]
 [ext_resource type="PackedScene" uid="uid://c75lcu6etujpf" path="res://prefabs/characters/player/player_flag/player_flag.tscn" id="15_duie8"]
+[ext_resource type="Texture2D" uid="uid://cinxd4e5bvvdq" path="res://scenes/menus/message_resources/images/controls_icon_start_button.tres" id="16_wa4og"]
 [ext_resource type="PackedScene" uid="uid://mh0efwgc7mqf" path="res://prefabs/characters/player/player_speed_modifier.tscn" id="17_mf460"]
 
+[sub_resource type="GDScript" id="GDScript_512wr"]
+script/source = "extends Button
+
+@export var root : Node2D
+
+func _ready() -> void:
+	pressed.connect(_on_pressed)
+	
+func _on_pressed():
+	root.attach_ui_and_menus_to_camera()
+"
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4loyv"]
-polygon = PackedVector2Array(-6, -4, 0, -12, 6, -4, 0, 4)
+polygon = PackedVector2Array(0, 0, 2, 0, -2, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p41l2"]
-radius = 8.0
-height = 16.0
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kwsd5"]
+radius = 6.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_m1nxg"]
 length = 0.001
@@ -33,7 +50,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Body:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -45,7 +62,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("FlagLeft:frame")
-tracks/1/interp = 0
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -57,7 +74,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("FlagRight:frame")
-tracks/2/interp = 0
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -69,7 +86,7 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Eyes:frame")
-tracks/3/interp = 0
+tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -81,7 +98,7 @@ tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/path = NodePath("Sparkles:frame")
-tracks/4/interp = 0
+tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -93,7 +110,7 @@ tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("Sparkles:visible")
-tracks/5/interp = 0
+tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
@@ -124,7 +141,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Body:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.449551, 0.549551, 0.649551, 0.749551),
@@ -136,7 +153,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("FlagLeft:frame")
-tracks/1/interp = 0
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.0001, 0.1, 0.1001, 0.2, 0.3, 0.449551, 0.549551, 0.649551, 0.749551),
@@ -148,7 +165,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("FlagRight:frame")
-tracks/2/interp = 0
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.449551, 0.549551, 0.649551, 0.749551),
@@ -160,7 +177,7 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Eyes:frame")
-tracks/3/interp = 0
+tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.449551, 0.549551, 0.649551, 0.749551),
@@ -215,7 +232,19 @@ script = ExtResource("2_br8i3")
 
 [node name="FmodListener2D" type="FmodListener2D" parent="Camera2D"]
 
+[node name="AttachUIandMenusButton" type="Button" parent="Camera2D" node_paths=PackedStringArray("root")]
+visible = false
+offset_left = 117.0
+offset_top = -156.0
+offset_right = 291.0
+offset_bottom = -125.0
+text = "Attach UI to Player"
+icon = ExtResource("16_wa4og")
+script = SubResource("GDScript_512wr")
+root = NodePath("../..")
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+z_index = -1
 occluder = SubResource("OccluderPolygon2D_4loyv")
 
 [node name="Body" type="Sprite2D" parent="."]
@@ -225,7 +254,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 22
+frame = 21
 
 [node name="FlagLeft" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -234,7 +263,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 32
+frame = 31
 
 [node name="FlagRight" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -243,7 +272,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 42
+frame = 41
 
 [node name="Eyes" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -252,7 +281,7 @@ texture = ExtResource("8_dsusd")
 offset = Vector2(0, -11)
 hframes = 10
 vframes = 7
-frame = 52
+frame = 51
 
 [node name="Sparkles" type="Sprite2D" parent="."]
 visible = false
@@ -278,17 +307,18 @@ event_name = "event:/JumpLanding"
 event_guid = "{f206a6e1-5e65-481e-99f6-498f86edfc84}"
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_p41l2")
 one_way_collision_margin = 0.0
 
 [node name="PlatformDetectionArea2D" type="Area2D" parent="."]
+position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformDetectionArea2D"]
-position = Vector2(0, -4)
-shape = SubResource("CapsuleShape2D_p41l2")
+position = Vector2(-1, -5)
+shape = SubResource("CapsuleShape2D_kwsd5")
 one_way_collision_margin = 0.0
 
 [node name="DebugRaycasts" type="Node2D" parent="."]
@@ -331,7 +361,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Body"), NodePath("../FlagLeft"), N
 root = NodePath("..")
 max_stored_jumps = 2
 
-[node name="ProjectileOrganizer" parent="." instance=ExtResource("6_2ytui")]
+[node name="ProjectileContainer" parent="." instance=ExtResource("6_2ytui")]
 
 [node name="CoyoteTimer" type="Timer" parent="." node_paths=PackedStringArray("root", "stats_component")]
 process_callback = 0
@@ -377,11 +407,11 @@ player_speed_modifier = NodePath("../../PlayerSpeedModifier")
 script = ExtResource("11_b00kn")
 initial_state = NodePath("PlayerCombatAttack")
 
-[node name="PlayerCombatAttack" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("root", "sparkles_sprite", "projectile_organizer", "throw_flag_cooldown", "animation_tree")]
+[node name="PlayerCombatAttack" type="Node" parent="CombatStateMachine" node_paths=PackedStringArray("root", "sparkles_sprite", "projectile_container", "throw_flag_cooldown", "animation_tree")]
 script = ExtResource("14_w5hej")
 root = NodePath("../..")
 sparkles_sprite = NodePath("../../Sparkles")
-projectile_organizer = NodePath("../../ProjectileOrganizer")
+projectile_container = NodePath("../../ProjectileContainer")
 proj_player_flag_scene = ExtResource("15_duie8")
 throw_flag_cooldown = NodePath("Throw Flag Cooldown")
 animation_tree = NodePath("../../AnimationTree")

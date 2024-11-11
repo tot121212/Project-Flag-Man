@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwtk344nyl3pq"]
+
+[ext_resource type="Script" path="res://prefabs/orphan_projectile_container/orphan_projectile_container.gd" id="1_0s8ck"]
+
+[node name="OrphanProjectileContainer" type="Node2D" groups=["OrphanProjectileContainer"]]
+script = ExtResource("1_0s8ck")

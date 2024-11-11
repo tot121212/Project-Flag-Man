@@ -19,6 +19,5 @@ script = ExtResource("1_bu7wd")
 follow_mode = 2
 snap_to_pixel = true
 tween_resource = SubResource("Resource_em5eh")
-tween_on_load = false
 follow_damping = true
 draw_limits = true

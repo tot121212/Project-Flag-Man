@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://bb4hrl03r2ub2"]
+
+[ext_resource type="Shader" path="res://test/shaders/test_shader.gdshader" id="1_dkyjq"]
+[ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="1_owxko"]
+[ext_resource type="Texture2D" uid="uid://bsiw0funhfice" path="res://test/shaders/balatro_esque_noise_2.tres" id="2_dhxtt"]
+[ext_resource type="Texture2D" uid="uid://bwa84wr6kc7h5" path="res://test/shaders/balatro_esque_noise.tres" id="3_11ps7"]
+
+[sub_resource type="Gradient" id="Gradient_1vhao"]
+offsets = PackedFloat32Array(0, 0.995935)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wk84o"]
+gradient = SubResource("Gradient_1vhao")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhs13"]
+shader = ExtResource("1_dkyjq")
+shader_parameter/scroll1 = Vector2(0, 0)
+shader_parameter/scroll2 = Vector2(-0.2, -0.2)
+shader_parameter/texture2 = ExtResource("2_dhxtt")
+shader_parameter/colorTexture = SubResource("GradientTexture2D_wk84o")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lct2q"]
+diffuse_texture = ExtResource("3_11ps7")
+texture_repeat = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p8o6"]
+atlas = ExtResource("1_owxko")
+region = Rect2(192, 96, 48, 48)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(480, -33)
+scale = Vector2(10, 10)
+
+[node name="Node2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhs13")
+position = Vector2(0, 4)
+texture = SubResource("CanvasTexture_lct2q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(607.1, -19.4)
+scale = Vector2(10, 10)
+texture = SubResource("AtlasTexture_2p8o6")
