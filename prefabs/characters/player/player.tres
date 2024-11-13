@@ -12,7 +12,6 @@ node_connections = [&"output", 0, &"Animation"]
 animation = &"idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q3wpi"]
-graph_offset = Vector2(-766.688, 7.9585)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_lklw1")
 nodes/Animation/position = Vector2(-280, 80)
 node_connections = [&"output", 0, &"Animation"]
@@ -21,7 +20,6 @@ node_connections = [&"output", 0, &"Animation"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tjb1g"]
-switch_mode = 1
 advance_mode = 2
 advance_condition = &"is_attacking"
 
@@ -31,10 +29,10 @@ advance_mode = 2
 
 [resource]
 states/Attack/node = SubResource("AnimationNodeBlendTree_1auco")
-states/Attack/position = Vector2(388, -39)
+states/Attack/position = Vector2(619, -39)
 states/End/position = Vector2(942, 75)
 states/Idle/node = SubResource("AnimationNodeBlendTree_q3wpi")
-states/Idle/position = Vector2(388, 75)
-states/Start/position = Vector2(198, 75)
+states/Idle/position = Vector2(619, 75)
+states/Start/position = Vector2(429, 75)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_0cuui"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_tjb1g"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ble5v")]
-graph_offset = Vector2(-71, -100)
+graph_offset = Vector2(-224.007, -107)

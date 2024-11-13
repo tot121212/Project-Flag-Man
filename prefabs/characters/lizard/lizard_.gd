@@ -13,11 +13,11 @@ signal change_orientation
 @export var velocity_component : Node2D
 @export var navigation_agent : NavigationAgent2D
 @export var object_detect_raycasts : ObjectDetectRaycasts
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
+@export var animation_player_2 : AnimationPlayer
 
 @export var target_group : String = "Player"
 
-var is_jumping : bool = false
 var direction_of_next_nav_point : Vector2 = Vector2.ZERO # direction of next point of navigation agent
 
 var is_idling : bool = true
@@ -29,10 +29,9 @@ var is_dying : bool = false
 
 func _ready():
 	stats_component.health_changed.connect(_on_health_changed)
-	animation_tree.animation_finished.connect(_on_animation_finished)
 
 func _physics_process(delta):
-	if not is_jumping:
+	if not velocity_component.is_jumping:
 		velocity_component.apply_friction(delta)
 	else:
 		velocity_component.apply_friction(delta, 0.8)
@@ -45,28 +44,22 @@ func _on_health_changed(new_health : int, prev_health : int):
 	if new_health <= 0:
 		_on_death()
 	elif prev_health > new_health:
-		animation_tree.set("parameters/conditions/is_blinking", true)
+		match animation_player_2.current_animation:
+			"death":
+				pass
+			_:
+				animation_player_2.current_animation = "blink"
 
 func _on_death():
 	print("%s: On death" % self.name)
-	animation_tree.set("parameters/conditions/is_dying", true)
-	#self.set_process(false)
-	#self.set_physics_process(false)
-
-func _on_animation_finished(anim_name : String):
-	match anim_name:
-		"blink":
-			_after_blink()
-		"death":
-			_after_death()
-
-func _after_blink():
-	print("%s: After blink" % self.name)
-	animation_tree.set("parameters/conditions/is_blinking", false)
+	
+	set_process(false)
+	set_physics_process(false)
+	
+	animation_player_2.current_animation = "death"
 
 func _after_death():
 	print("%s: After death" % self.name)
-	animation_tree.set("parameters/conditions/is_dying", false) # just for accuracy sake
 	if !is_queued_for_deletion():
 		queue_free()
 		print("%s is queued for deletion" % self.name)

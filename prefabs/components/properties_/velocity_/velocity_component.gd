@@ -7,6 +7,11 @@ class_name VelocityComponent
 @export var acceleration_coefficient : Vector2 = Vector2(640.0, 64.0)
 @export var friction : float = 256
 
+var jump_elapsed : float = 0.0
+var is_jumping : bool = false
+
+signal just_jumped
+
 #For moving via direction
 func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Vector2 = Vector2.ZERO, max_speed : Vector2 = stats_component.max_speed):
 	var new_velocity : Vector2 = Vector2.ZERO
@@ -24,17 +29,17 @@ func move(delta: float, direction: Vector2, speed : Vector2, speed_variance : Ve
 	
 	return root.velocity
 
-var jump_elapsed : float = 0.0
 
 func jump():
-	if not root.is_jumping:
+	if not is_jumping:
 		#print("Root is now jumping")
-		root.is_jumping = true
+		is_jumping = true
 		jump_elapsed = 0.0
 		root.velocity.y = -stats_component.initial_jump_speed
+		just_jumped.emit()
 
 func apply_jump(delta, max_speed : Vector2 = stats_component.max_speed):
-	if root.is_jumping:
+	if is_jumping:
 		jump_elapsed += delta
 		
 		var t = clamp(jump_elapsed / stats_component.jump_time, 0 , 1) # time factor on elapsed time vs jump time
@@ -49,11 +54,11 @@ func apply_jump(delta, max_speed : Vector2 = stats_component.max_speed):
 		if eased_t >= 1: # if jump finished
 			root.velocity.y = clamp(-stats_component.jump_speed, -max_speed.y, max_speed.y)
 			#print("Root is no longer jumping")
-			root.is_jumping = false
+			is_jumping = false
 
 func cancel_jump(): # jump must cancel before triggering new one
-	if root.is_jumping:
-		root.is_jumping = false
+	if is_jumping:
+		is_jumping = false
 
 # for moving x via friction
 func apply_friction(delta: float, friction_coefficient : float = 1):

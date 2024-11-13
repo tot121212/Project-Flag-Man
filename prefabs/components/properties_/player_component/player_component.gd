@@ -2,9 +2,9 @@ extends CharacterBody2D
 class_name Player
 
 signal change_orientation
-signal just_jumped
 
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
+@export var animation_player_2 : AnimationPlayer
 @export var stats_component : StatsComponent
 @export var orientation_handler : OrientationHandler2DSimplified
 @export var debug_raycasts_parent : Node
@@ -24,9 +24,7 @@ var cur_max_speed : Vector2 ## used at runtime to modify the max speed of the pl
 var jump_max : int = -1 ## used at runtime to add additonal jumps via gameplay mechanics
 var available_jumps : int = -1 ## current available jumps dependent on whether the player has touched the ground or not
 
-#var is_idling : bool = true
-var is_attacking : bool = false
-var is_jumping : bool = false
+var was_on_floor : bool = true
 
 func _ready():
 	Utils.set_player_as_first(self)
@@ -41,6 +39,7 @@ func _ready():
 	SignalBus.phantom_camera_follow_target.emit(self)
 	
 	stats_component.health_changed.connect(_on_health_changed)
+	#animation_tree_2.animation_finished.connect(_animation_tree_2_on_animation_finished)
 
 #func attach_ui_and_menus_to_camera():
 	#Utils.attach_ui_to_node.emit(camera_2d)
@@ -48,9 +47,7 @@ func _ready():
 
 func _await_game_state():
 	reset_cur_max_speed()
-	print(cur_max_speed)
 	reset_jump_max()
-	print(jump_max)
 	reset_available_jumps()
 
 func _physics_process(_delta):
@@ -143,6 +140,8 @@ func is_on_roof():
 		return true
 	return false
 
-func _on_health_changed(cur_health, _prev_health):
+func _on_health_changed(cur_health, prev_health):
+	if cur_health < prev_health:
+		animation_player_2.current_animation = "blink"
 	if cur_health <= 0:
-		SaveManager.trigger_death()
+		Utils.trigger_player_death()

@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://dnbla71ni7cil"]
+[gd_scene load_steps=2 format=3 uid="uid://dnbla71ni7cil"]
+
+[sub_resource type="GDScript" id="GDScript_fuk4c"]
+script/source = "extends FmodBankLoader
+"
 
 [node name="InitFmodBankLoader" type="FmodBankLoader"]
 bank_paths = ["res://sound/banks//Master.strings.bank", "res://sound/banks//Master.bank", "res://sound/banks//Ambience.bank", "res://sound/banks//Music.bank", "res://sound/banks//MusicAdaptive.bank", "res://sound/banks//SFX.bank"]
+script = SubResource("GDScript_fuk4c")

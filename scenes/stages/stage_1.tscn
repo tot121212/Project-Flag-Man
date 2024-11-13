@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://3hqyfr6y85xy"]
+[gd_scene load_steps=35 format=4 uid="uid://3hqyfr6y85xy"]
 
 [ext_resource type="Script" path="res://scenes/stages/stage_1.gd" id="1_1l2y5"]
 [ext_resource type="Script" path="res://prefabs/pathfinding/navigation_2d/tilemap_navmesh_constructor.gd" id="2_vab3u"]
@@ -21,6 +21,18 @@
 [ext_resource type="PackedScene" uid="uid://skdgrr04be4h" path="res://prefabs/components/properties_/interactable/victory_flag.tscn" id="17_b8c5d"]
 [ext_resource type="PackedScene" uid="uid://b7jx5funs5h86" path="res://prefabs/fmod/fmod_reverb_area.tscn" id="18_basas"]
 [ext_resource type="PackedScene" uid="uid://bwtk344nyl3pq" path="res://prefabs/orphan_projectile_container/orphan_projectile_container.tscn" id="21_p8u6f"]
+
+[sub_resource type="GDScript" id="GDScript_64ae6"]
+script/source = "extends FmodEventEmitter2D
+
+func _ready():
+	# possibly could cause crashes
+	for i in range(randi_range(0, 99)):
+		print(\"Play song randomizer\")
+		play()
+		stop()
+	play()
+"
 
 [sub_resource type="Curve2D" id="Curve2D_pmo4q"]
 _data = {
@@ -95,15 +107,13 @@ offset_bottom = 0.0
 [node name="AdaptiveSong1" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/AdaptiveSong1"
 event_guid = "{1b71637a-4619-43dd-bb88-710a85593306}"
-autoplay = true
-volume = 0.75
 process_mode = 3
+script = SubResource("GDScript_64ae6")
 
 [node name="AmbienceDesert" type="FmodEventEmitter2D" parent="."]
 event_name = "event:/AmbienceDesert"
 event_guid = "{22405bbe-d47f-4e2c-9416-e56a1e069fbd}"
 autoplay = true
-volume = 0.75
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 position = Vector2(-890, -1531)
@@ -144,7 +154,7 @@ navigation_enabled = false
 process_mode = 3
 
 [node name="PhantomCamera2D" parent="PhantomCamera2DParent" index="0" node_paths=PackedStringArray("follow_target")]
-position = Vector2(202, 81)
+position = Vector2(-900, 110)
 follow_target = NodePath("../../Player")
 tween_on_load = false
 
@@ -221,7 +231,7 @@ shape = SubResource("WorldBoundaryShape2D_w8eyn")
 position = Vector2(2279, 63)
 
 [node name="TeleportationPoint" parent="WorldAssets/OutOfBoundsArea2D" index="0"]
-position = Vector2(-305, -158)
+position = Vector2(-457, -193)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldAssets/OutOfBoundsArea2D"]
 position = Vector2(-173.5, 223)
@@ -231,20 +241,24 @@ shape = SubResource("RectangleShape2D_pprvt")
 position = Vector2(3325, -191)
 
 [node name="TeleportationPoint" parent="WorldAssets/OutOfBoundsArea2D2" index="0"]
-position = Vector2(-305, -158)
+position = Vector2(-344, -71)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldAssets/OutOfBoundsArea2D2"]
 position = Vector2(-190.5, 187.5)
 shape = SubResource("RectangleShape2D_c3umh")
 
 [node name="VictoryFlag" parent="WorldAssets" instance=ExtResource("17_b8c5d")]
-position = Vector2(3379, -258)
+position = Vector2(3371, -258)
 
 [node name="Player" parent="." instance=ExtResource("6_55lmo")]
-position = Vector2(202, 81)
+position = Vector2(-900, 110)
 
 [node name="Lizard" parent="." instance=ExtResource("8_2mayt")]
 position = Vector2(287, 84)
+
+[node name="LizardAggro" parent="Lizard/StateMachineParent/AggroStateMachine" index="1"]
+start_in_charge = true
+lock_to_charge = true
 
 [node name="Marker2D" parent="Lizard/PatrolPointsContainer" index="0"]
 position = Vector2(166, 87)
@@ -268,11 +282,28 @@ position = Vector2(1597, -54)
 [node name="Lizard3" parent="." instance=ExtResource("8_2mayt")]
 position = Vector2(2152, -203)
 
+[node name="LizardAggro" parent="Lizard3/StateMachineParent/AggroStateMachine" index="1"]
+start_in_spit = true
+lock_to_spit = true
+
 [node name="Marker2D" parent="Lizard3/PatrolPointsContainer" index="0"]
-position = Vector2(2103, -202)
+position = Vector2(2099, -199)
 
 [node name="Marker2D2" parent="Lizard3/PatrolPointsContainer" index="1"]
-position = Vector2(2202, -202)
+position = Vector2(2196, -199)
+
+[node name="Lizard4" parent="." instance=ExtResource("8_2mayt")]
+position = Vector2(2388, -56)
+
+[node name="LizardAggro" parent="Lizard4/StateMachineParent/AggroStateMachine" index="1"]
+start_in_charge = true
+lock_to_charge = true
+
+[node name="Marker2D" parent="Lizard4/PatrolPointsContainer" index="0"]
+position = Vector2(2316, -53)
+
+[node name="Marker2D2" parent="Lizard4/PatrolPointsContainer" index="1"]
+position = Vector2(2466, -53)
 
 [editable path="PhantomCamera2DParent"]
 [editable path="WorldAssets/PopupMessageArea"]
@@ -288,3 +319,6 @@ position = Vector2(2202, -202)
 [editable path="Lizard3"]
 [editable path="Lizard3/ObjectDetectRaycasts"]
 [editable path="Lizard3/DetectionRaycaster"]
+[editable path="Lizard4"]
+[editable path="Lizard4/ObjectDetectRaycasts"]
+[editable path="Lizard4/DetectionRaycaster"]

@@ -219,15 +219,3 @@ func set_current_save_name(save_name : String):
 
 func get_save_path(save_name : String) -> String: 
 	return "user://saves/" + save_name + ".save"
-
-func trigger_death():
-	var tree : SceneTree = get_tree()
-	var scene : Node = tree.get_current_scene()
-	
-	scene.set_process(false)
-	scene.set_physics_process(false)
-	
-	if SaveManager.current_save_name:
-		SaveManager.load_game(SaveManager.current_save_name)
-	else:
-		SaveManager.new_game("0")

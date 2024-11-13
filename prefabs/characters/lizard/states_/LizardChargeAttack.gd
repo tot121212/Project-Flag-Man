@@ -7,7 +7,7 @@ extends State
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var stats_component : StatsComponent
 @export var charge_attack_area_2d : Area2D
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
 @export var orientation_handler : OrientationHandler2DSimplified
 
 @export var charge_timer : Timer # charge in direction for certain amount of time, then stop
@@ -37,11 +37,9 @@ func state_enter():
 	root.change_orientation.emit(direction)
 	orientation_handler.ignore_orientation_changes = true
 	
-	animation_tree.set("parameters/conditions/is_charging", true)
+	animation_player.current_animation = "charge"
 
 func state_exit():
-	animation_tree.set("parameters/conditions/is_charging", false)
-	
 	orientation_handler.ignore_orientation_changes = false
 	
 	if not charge_timer.is_stopped():

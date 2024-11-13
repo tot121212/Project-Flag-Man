@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://skdgrr04be4h"]
+[gd_scene load_steps=11 format=3 uid="uid://skdgrr04be4h"]
 
 [ext_resource type="Script" path="res://prefabs/components/properties_/interactable/victory_flag.gd" id="1_04qgd"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="1_n18vi"]
@@ -48,6 +48,17 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_u7jc4"]
 radius = 20.0
 
+[sub_resource type="Gradient" id="Gradient_peiah"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wa6kl"]
+gradient = SubResource("Gradient_peiah")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.880342, 0.179487)
+
 [node name="VictoryFlag" type="Node2D" node_paths=PackedStringArray("animation_player", "flag_sprite", "area_2d")]
 script = ExtResource("1_04qgd")
 animation_player = NodePath("AnimationPlayer")
@@ -79,3 +90,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-20, 19)
 shape = SubResource("CircleShape2D_u7jc4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.509804, 0.682353, 0.886275, 0.607843)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_wa6kl")

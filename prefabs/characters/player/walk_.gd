@@ -9,21 +9,31 @@ class_name PlayerMovementWalk
 @export var jump_buffer_timer : Timer
 @export var player_collision_shape : CollisionObject2D
 @export var fmod_event_emitter_2d_jump : FmodEventEmitter2D
+@export var fmod_event_emitter_2d_jump_landing : FmodEventEmitter2D
 @export var player_speed_modifier : PlayerSpeedModifier
+@export var animation_player : AnimationPlayer
 
 var holding_down_coefficient = 2
 
 var is_falling_through_platform : bool = false
 
 func state_physics_update(delta):
+	match animation_player.current_animation:
+		"":
+			animation_player.current_animation = "idle"
+	
 	if root.input_direction.x != 0: # if x direction input
-		velocity_component.move(delta, root.input_direction, Vector2(root.get_cur_max_speed().x, 0), Vector2.ZERO, root.get_cur_max_speed())
-		if not root.is_attacking:
+		if not animation_player.current_animation == "attack":
 			root.change_orientation.emit(root.input_direction)
+		velocity_component.move(delta, root.input_direction, Vector2(root.get_cur_max_speed().x, 0), Vector2.ZERO, root.get_cur_max_speed())
+		
 	
 	#print("Available Jumps: " + str(root.available_jumps))
 	
-	if root.is_jumping and (root.input_direction.y >= 0 or root.is_on_ceiling()): # if jumping and not still inputing jump or is on ceiling, cancel jump
+	if not root.was_on_floor and root.is_on_floor(): # play sound if wasnt on floor but is on floor now
+		fmod_event_emitter_2d_jump_landing.play()
+	
+	if velocity_component.is_jumping and (root.input_direction.y >= 0 or root.is_on_ceiling()): # if jumping and not still inputing jump or is on ceiling, cancel jump
 		#print("Player cancelled jump")
 		velocity_component.cancel_jump()
 		root.reset_available_jumps()
@@ -57,11 +67,16 @@ func state_physics_update(delta):
 		is_falling_through_platform = true
 		player_collision_shape.set_collision_mask_value(7, false)
 	
-	if not root.is_jumping:
+	if not velocity_component.is_jumping:
 		velocity_component.apply_friction(delta)
 	else:
 		velocity_component.apply_friction(delta, 0.8) # 20% less friction if jumping for better mobility in air
 		velocity_component.apply_jump(delta, root.get_cur_max_speed())
+	
+	if root.is_on_floor():
+		root.was_on_floor = true
+	else:
+		root.was_on_floor = false
 	
 	root.move_and_slide()
 
@@ -72,4 +87,3 @@ func execute_jump():
 	fmod_event_emitter_2d_jump.set_parameter("Pitch", ratio)
 	fmod_event_emitter_2d_jump.play()
 	velocity_component.jump()
-	root.just_jumped.emit()

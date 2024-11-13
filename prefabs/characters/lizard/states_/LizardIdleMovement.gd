@@ -9,7 +9,7 @@ extends State
 
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var patrol_points : PatrolPointsContainer
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
 
 @export var wander_distance : int = 200
 var wander_timer : Timer
@@ -22,7 +22,7 @@ func _ready():
 	patrol_points.get_amt_of_patrol_points()
 
 func state_enter():
-	animation_tree.set("parameters/conditions/is_idling", true)
+	animation_player.current_animation = "idle"
 	
 	if not wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.connect(idle_logic)
@@ -32,9 +32,6 @@ func state_exit():
 	wander_timer.stop()
 	if wander_timer.timeout.is_connected(idle_logic):
 		wander_timer.timeout.disconnect(idle_logic)
-		
-	animation_tree.set("parameters/conditions/is_idling", false)
-	
 	patrol_points.should_return_to_patrol_point = false
 
 func state_physics_update(delta : float):
@@ -48,7 +45,7 @@ func get_next_pos_and_move_jump(delta):
 			#TODO: Need to determine if able to jump to an eligable point in next_pos' direction
 			#      then, if its valid jump and jump arc needs to be calculated
 			#      otherwise, navigate the other direction
-			if root.is_on_floor() and not root.is_jumping and object_detect_raycasts.is_surface_front:
+			if root.is_on_floor() and not velocity_component.is_jumping and object_detect_raycasts.is_surface_front:
 				velocity_component.jump()
 			
 			if root.is_on_floor():# and object_detect_raycasts.is_surface_front_down: # only move if there is a surface to walk on

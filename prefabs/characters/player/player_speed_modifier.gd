@@ -2,6 +2,8 @@ extends Node2D
 class_name PlayerSpeedModifier
 
 @export var root : Node2D
+@export var velocity_component : VelocityComponent
+
 @export var speed_timer : Timer # Timer that starts upon you not jumping and when it ends, it reduces speed back to default
 
 # modify player speed based on amount of jumps performed consecutively
@@ -15,7 +17,7 @@ var last_stored_jumps : int = 0
 @export var modifier_upon_jumps : float = 0.1
 
 func _ready() -> void:
-	root.just_jumped.connect(_on_root_jump)
+	velocity_component.just_jumped.connect(_on_root_jump)
 	speed_timer.timeout.connect(_on_speed_timer_timeout)
 
 func _physics_process(delta: float) -> void:

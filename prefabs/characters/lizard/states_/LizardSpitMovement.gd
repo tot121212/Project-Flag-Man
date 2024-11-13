@@ -9,7 +9,7 @@ extends State
 @export var navigation_component : NavigationComponent
 @export var object_detect_raycasts : ObjectDetectRaycasts
 @export var stats_component : StatsComponent
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
 @export var detection_raycaster : DetectionRaycaster
 
 @export var lizard_aggro_state : LizardAggroState
@@ -20,7 +20,7 @@ extends State
 @onready var spit_movement_speed : float = snappedf(stats_component.max_speed.x * 0.2, 0.01)
 
 func state_enter():
-	animation_tree.set("parameters/conditions/is_idling", true)
+	animation_player.current_animation = "idle"
 	
 	lizard_aggro_state.find_closest_target() # find closest target
 	lizard_aggro_state.current_target = lizard_aggro_state.closest_target
@@ -39,8 +39,6 @@ func state_exit():
 	
 	if closest_target_acquisiton_timer.timeout.is_connected(_on_closest_target_acquisition_timer_timeout):
 		closest_target_acquisiton_timer.timeout.disconnect(_on_closest_target_acquisition_timer_timeout)
-	
-	animation_tree.set("parameters/conditions/is_idling", false)
 
 func state_physics_update(delta: float):
 	if lizard_aggro_state.current_target != lizard_aggro_state.closest_target:
@@ -51,7 +49,7 @@ func state_physics_update(delta: float):
 		if next_pos: # only change direction and move if wanting to move
 			root.direction_of_next_nav_point = root.global_position.direction_to(next_pos).normalized()
 			
-			if object_detect_raycasts.is_surface_front and root.is_on_floor() and not root.is_jumping:
+			if object_detect_raycasts.is_surface_front and root.is_on_floor() and not velocity_component.is_jumping:
 				velocity_component.jump()
 			root.change_orientation.emit(root.direction_of_next_nav_point)
 			velocity_component.move(delta, root.direction_of_next_nav_point, Vector2(spit_movement_speed, 0), Vector2(randf_range(-2,2), 0) )

@@ -20,7 +20,6 @@ func save():
 	}
 	return save_dict
 
-
 #region Player Stage
 
 var stage_progress : Dictionary = { # To indicate if the player has finished a stage or not.

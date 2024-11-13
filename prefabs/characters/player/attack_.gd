@@ -9,19 +9,13 @@ var most_recent_flags : Array[Projectile] = [] # keeps track of most recent flag
 
 @export var throw_flag_cooldown : Timer
 
-@export var animation_tree : AnimationTree
+@export var animation_player : AnimationPlayer
 
 func state_update(_delta):
 	if Input.is_action_pressed("shoot") and throw_flag_cooldown.is_stopped():
 		throw_flag_cooldown.start()
-		root.is_attacking = true
 		
-		animation_tree["parameters/conditions/is_attacking"] = true
-
-	elif root.is_attacking:
-		animation_tree["parameters/conditions/is_attacking"] = false
-		
-		root.is_attacking = false
+		animation_player.current_animation = "attack"
 	
 	if Input.is_action_just_pressed("use"):
 		freeze_flags()
@@ -55,8 +49,10 @@ func throw_flag():
 	else:
 		push_warning("cant spawn projectile")
 
+
 var flags_currently_frozen : Array[Projectile] = []
 var flags_just_unfrozen : Array[Projectile] = []
+
 func freeze_flags():
 	for flag in flags_currently_frozen:
 		if is_instance_valid(flag):
