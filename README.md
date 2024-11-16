@@ -59,6 +59,7 @@ When I first started the project I had a plethora of ideas considered for the ma
 One of the first things I had trouble with was learning the editor, all of the little quirks. Once I got over the hurdle of tutorial hell, things were actually a lot easier once I sat and actually picked apart problems, reading the proper wiki's when needed.
 AI and Navigation are still some things that need work but I just couldn't get them the way I wanted within the timespan I am afforded currently.
 Animations still need polish.
+Git messages are horrible lol
 
 ## Programming
 Let's get down to the nitty gritty.
