@@ -93,9 +93,9 @@ So we have to come up with a different solution...
 Hmm, whats good at storing data and relatively safe.
 Oh, i know! JSON
 So we just use the [built-in json support](https://docs.godotengine.org/en/stable/classes/class_json.html) to save whatever data we need via...
-    Dictionaries inside each node that needs to be saved that lists what data needs to be saved
-    A global SaveHandler, which does just as the name implies
-    Inside the SaveHandler, some helpful [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) which tell each node with save data to run their co-responding save functions and use the returned dictionaries from said functions to store the save data.
+    - Dictionaries inside each node that needs to be saved that lists what data needs to be saved,
+    - A global SaveHandler, which does just as the name implies,
+    - Inside the SaveHandler, some helpful [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) which tell each node with save data to run their co-responding save functions and use the returned dictionaries from said functions to store the save data,
 
 And there we go!
 (This took WAY longer than I thought it would.)
