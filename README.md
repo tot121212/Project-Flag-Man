@@ -83,7 +83,7 @@ Godot handles this nicely with its node-based structure, ensuring maximum modula
 
 ## Vectors and Normals
 Vector math was a doozy, I suck at it. I even had to watch like 3 or 4 videos to even get a grasp on it. But it's just magnitude from a direction, it kinda just clicked after awhile.
-In a similar vein, normals were equally confusing but they are just vectors pointing perpendicular to a plane. They help to orient things like lighting in the proper direction and ensures that on what needs to be rendered, is.
+In a similar vein, normals were equally confusing but they are just vectors pointing perpendicular to a plane. They help to orient things like lighting in the proper direction and ensures that what needs to be rendered, is.
 [This video really helped](https://www.youtube.com/watch?v=wgrKs6ItJUs)
 
 ## Save Systems
