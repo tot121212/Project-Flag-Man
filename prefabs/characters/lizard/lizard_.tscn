@@ -338,6 +338,7 @@ max_speed = 120.0
 debug_use_custom = true
 
 [node name="NavigationComponent" parent="." node_paths=PackedStringArray("root", "navigation_agent") instance=ExtResource("7_q4r2v")]
+visible = false
 root = NodePath("..")
 navigation_agent = NodePath("../NavigationAgent2D")
 

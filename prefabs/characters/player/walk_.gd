@@ -38,18 +38,19 @@ func state_physics_update(delta):
 		velocity_component.cancel_jump()
 		root.reset_available_jumps()
 	
-	if Input.is_action_just_pressed("up") or (not jump_buffer_timer.is_stopped() and root.is_on_floor()): # if input up or (our input buffer is running and were on the floor, this option locks us into the is on floor option)
-		if root.is_on_floor(): # if jump from floor
-			#print("Player triggered jump from ground")
+	if Input.is_action_just_pressed("up"):
+		if root.is_on_floor():
 			root.reset_available_jumps()
 			execute_jump()
-		
-		elif not coyote_timer.is_stopped() and root.available_jumps > 0: # if jump from air
-			#print("Player triggered jump from air")
-			execute_jump()
-		
-		else: # start input buffer, it is fine to keep restarting this if up action pressed because we want to store the most recent jump input anyways
-			jump_buffer_timer.start() # start timer
+		else:
+			if not coyote_timer.is_stopped() and root.available_jumps > 0:
+				execute_jump()
+			
+			else: # jump input is stored if we are not on floor or we have no available jumps/the coyote timer is not active
+				jump_buffer_timer.start() # start timer
+	elif not jump_buffer_timer.is_stopped() and root.is_on_floor(): # if buffer has jump stored and we hit ground
+		root.reset_available_jumps()
+		execute_jump()
 	
 	elif Input.is_action_pressed("down") and not root.is_on_floor(): # if pressing down
 		#print("Player inputting down while falling")

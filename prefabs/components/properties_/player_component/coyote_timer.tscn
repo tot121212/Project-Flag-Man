@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://di7kfq82yu81d"]
+
+[ext_resource type="Script" path="res://prefabs/characters/player/coyote_timer.gd" id="1_gtsh7"]
+
+[node name="CoyoteTimer" type="Timer"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+script = ExtResource("1_gtsh7")

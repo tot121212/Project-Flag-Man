@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmgtu0lwsfh3c"]
+[gd_scene load_steps=26 format=3 uid="uid://bmgtu0lwsfh3c"]
 
 [ext_resource type="Script" path="res://prefabs/components/properties_/player_component/player_component.gd" id="1_2gyab"]
 [ext_resource type="PackedScene" uid="uid://dd5fpvwuwrhgx" path="res://prefabs/components/properties_/orientation_handler_2d_simplified/orientation_handler_2d_simplified.tscn" id="2_08w8m"]
@@ -7,10 +7,11 @@
 [ext_resource type="Script" path="res://prefabs/components/properties_/stats_/stats_component.gd" id="4_hpxyj"]
 [ext_resource type="PackedScene" uid="uid://ccvduv36cygqj" path="res://prefabs/components/properties_/projectile_/projectile_instantiator.tscn" id="6_2ytui"]
 [ext_resource type="Texture2D" uid="uid://qiy1fw8om25r" path="res://assets/aseprite/flagman.png" id="8_dsusd"]
+[ext_resource type="PackedScene" uid="uid://di7kfq82yu81d" path="res://prefabs/components/properties_/player_component/coyote_timer.tscn" id="10_j1fyg"]
 [ext_resource type="Script" path="res://prefabs/components/state_machine/state_machine.gd" id="11_b00kn"]
+[ext_resource type="PackedScene" uid="uid://2ie66o7j0hh" path="res://prefabs/components/properties_/player_component/jump_buffer_timer.tscn" id="11_p08so"]
 [ext_resource type="Script" path="res://prefabs/components/properties_/gravity_component/gravity_component.gd" id="12_5m2gb"]
 [ext_resource type="Script" path="res://prefabs/characters/player/walk_.gd" id="13_77jqb"]
-[ext_resource type="Script" path="res://prefabs/characters/player/coyote_timer.gd" id="14_pjbqf"]
 [ext_resource type="Script" path="res://prefabs/characters/player/attack_.gd" id="14_w5hej"]
 [ext_resource type="PackedScene" uid="uid://c75lcu6etujpf" path="res://prefabs/characters/player/player_flag/player_flag.tscn" id="15_duie8"]
 [ext_resource type="PackedScene" uid="uid://mh0efwgc7mqf" path="res://prefabs/characters/player/player_speed_modifier.tscn" id="17_mf460"]
@@ -491,18 +492,9 @@ max_stored_jumps = 2
 
 [node name="ProjectileContainer" parent="." instance=ExtResource("6_2ytui")]
 
-[node name="CoyoteTimer" type="Timer" parent="." node_paths=PackedStringArray("root", "stats_component")]
-process_callback = 0
-wait_time = 0.2
-one_shot = true
-script = ExtResource("14_pjbqf")
-root = NodePath("..")
-stats_component = NodePath("../StatsComponent")
+[node name="CoyoteTimer" parent="." instance=ExtResource("10_j1fyg")]
 
-[node name="JumpBufferTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.1
-one_shot = true
+[node name="JumpBufferTimer" parent="." instance=ExtResource("11_p08so")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -519,14 +511,12 @@ libraries = {
 script = ExtResource("11_b00kn")
 initial_state = NodePath("PlayerMovementWalk")
 
-[node name="PlayerMovementWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("root", "velocity_component", "gravity_component", "stats_component", "coyote_timer", "jump_buffer_timer", "player_collision_shape", "fmod_event_emitter_2d_jump", "fmod_event_emitter_2d_jump_landing", "player_speed_modifier", "animation_player")]
+[node name="PlayerMovementWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("root", "velocity_component", "gravity_component", "stats_component", "player_collision_shape", "fmod_event_emitter_2d_jump", "fmod_event_emitter_2d_jump_landing", "player_speed_modifier", "animation_player")]
 script = ExtResource("13_77jqb")
 root = NodePath("../..")
 velocity_component = NodePath("../../VelocityComponent")
 gravity_component = NodePath("../../GravityComponent")
 stats_component = NodePath("../../StatsComponent")
-coyote_timer = NodePath("../../CoyoteTimer")
-jump_buffer_timer = NodePath("../../JumpBufferTimer")
 player_collision_shape = NodePath("../../PlatformDetectionArea2D")
 fmod_event_emitter_2d_jump = NodePath("../../FmodEventEmitter2DJump")
 fmod_event_emitter_2d_jump_landing = NodePath("../../FmodEventEmitter2DJumpLanding")

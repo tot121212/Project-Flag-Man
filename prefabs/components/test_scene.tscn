@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://duuuguhiyuhil"]
+
+[ext_resource type="PackedScene" uid="uid://bmgtu0lwsfh3c" path="res://prefabs/characters/player/player.tscn" id="1_wvufh"]
+[ext_resource type="PackedScene" uid="uid://c75lcu6etujpf" path="res://prefabs/characters/player/player_flag/player_flag.tscn" id="2_yenoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgopa"]
+size = Vector2(550, 59)
+
+[node name="TestScene" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(47, 61.5)
+shape = SubResource("RectangleShape2D_qgopa")
+
+[node name="Player" parent="." instance=ExtResource("1_wvufh")]
+position = Vector2(-42, 1)
+
+[node name="PlayerFlag" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag2" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag3" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag4" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag5" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag7" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag8" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag9" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag10" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag11" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag12" parent="." instance=ExtResource("2_yenoj")]
+
+[node name="PlayerFlag6" parent="." instance=ExtResource("2_yenoj")]

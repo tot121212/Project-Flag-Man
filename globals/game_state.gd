@@ -60,7 +60,7 @@ var speed_upgrades : int = 0
 var speed_upgrades_modifier : float = 0.02 # the value at which speed upgrades will be multiplied, so as to modify the default max_speed of the statscomponent
 func get_speed_upgrades():
 	return snappedf(speed_upgrades * speed_upgrades_modifier, 0.01)
-	
+
 #endregion
 
 

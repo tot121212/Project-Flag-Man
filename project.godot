@@ -80,6 +80,12 @@ window/vsync/vsync_mode=0
 
 enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://prefabs/components/Godot 4.3 General Utilities for Game Dev/": "orange"
+}
+
 [global_group]
 
 Player=""

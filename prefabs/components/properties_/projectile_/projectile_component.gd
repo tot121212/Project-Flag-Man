@@ -5,42 +5,51 @@ signal proj_delete_self
 
 @export var root: Node2D ## projectile root
 @export var velocity_component : VelocityComponent
-@export var orientation_handler : OrientationHandler2DSimplified
 @export var stats_component : StatsComponent
 
 @export var direction : Vector2 ## direction of projectile
 @export var damage : int = 1 ## damage of projectile
 
-@export var lifespan_timer : Timer
-@export var lifespan : float = 1.0 ## Lifespan in seconds of projectile. Set to 0 to disable.
+@export_category("Lifespan")
+## Should projectile delete itself after x amount of time existing
+@export var use_lifespan : bool = true
+@onready var lifespan_timer : Timer = Timer.new()
+@export var lifespan : float = 1.0 ## Lifespan in seconds of projectile.
 
-@export var is_off_screen_timer : Timer
-@export var is_off_screen_timer_lifespan : float = 1.0 ## Lifespan of a timer for deleting projectiles that go offscreen. Set to 0 to disable
-@export var visible_on_screen_notifier : VisibleOnScreenNotifier2D
+@export_category("Offscreen Deletion")
+## Should projectile delete itself after being off-screen for x amount of time
+@export var use_off_screen_deletion_timer : bool = true
+@onready var off_screen_deletion_timer : Timer = Timer.new()
+@export var off_screen_deletion_timer_lifespan : float = 1.0 ## Lifespan of a timer for deleting projectiles that go offscreen.
+@export var visible_on_screen_notifier : VisibleOnScreenNotifier2D ## Needed for determining whether its on-screen or not
 
+@export_category("Seeking")
 @export var is_seeking : bool = false ## if projectile is seeking
 var seek_position : Vector2 = Vector2.ZERO # global position at which to seek to
 
 func _ready():
 	#print("Projectile Spawned")
-	if lifespan > 0:
+	if use_lifespan and lifespan > 0:
+		lifespan_timer.one_shot = true
 		lifespan_timer.wait_time = lifespan
 		lifespan_timer.timeout.connect(_on_lifespan_timer_timeout)
 		lifespan_timer.start()
-	if is_off_screen_timer_lifespan > 0:
-		is_off_screen_timer.wait_time = is_off_screen_timer_lifespan
-		is_off_screen_timer.timeout.connect(_on_is_on_screen_timer_timeout)
+	if use_off_screen_deletion_timer and off_screen_deletion_timer_lifespan > 0:
+		off_screen_deletion_timer.wait_time = off_screen_deletion_timer_lifespan
+		off_screen_deletion_timer.timeout.connect(_on_is_on_screen_timer_timeout)
+		
 		visible_on_screen_notifier.screen_entered.connect(_is_visible_on_screen)
 		visible_on_screen_notifier.screen_exited.connect(_is_not_visible_on_screen)
-		#dont start because we need to recieve is off screen signal first
+	if not direction:
+		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 
 func _is_visible_on_screen():
-	if not is_off_screen_timer.is_stopped():
-		is_off_screen_timer.stop()
+	if not off_screen_deletion_timer.is_stopped():
+		off_screen_deletion_timer.stop()
 
 func _is_not_visible_on_screen():
-	if is_off_screen_timer.is_stopped():
-		is_off_screen_timer.start()
+	if off_screen_deletion_timer.is_stopped():
+		off_screen_deletion_timer.start()
 
 func _physics_process(delta):
 	if is_seeking:
@@ -48,8 +57,8 @@ func _physics_process(delta):
 	
 	if direction != Vector2.ZERO:
 		velocity_component.move(delta, direction, stats_component.max_speed)
-		if direction != orientation_handler.last_direction:
-			root.change_orientation.emit(direction)
+		
+	root.change_orientation.emit(direction)
 
 func _on_lifespan_timer_timeout():
 	#print("Projectile Lifespan Reached")
@@ -58,5 +67,5 @@ func _on_lifespan_timer_timeout():
 
 func _on_is_on_screen_timer_timeout():
 	#print("Projectile Cleared Offscreen")
-	if is_off_screen_timer_lifespan > 0:
+	if off_screen_deletion_timer_lifespan > 0:
 		proj_delete_self.emit()

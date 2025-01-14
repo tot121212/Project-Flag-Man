@@ -35,15 +35,13 @@ func apply_collision_effects(collider): # custom collision effects based on proj
 		]
 		
 		for component in components:
-			if component is StatsComponent:
-				if component.has_method("take_damage"):
-					component.take_damage(projectile_component.damage)
-				
-				if component is VelocityComponent:
-					if component.has_method("take_knockback"):
-						var knockback = -get_velocity()
-						component.take_knockback(knockback)
-		projectile_component.proj_delete_self.emit()
+			if component.has_method("take_damage"):
+				component.take_damage(projectile_component.damage)
+			
+			if component.has_method("take_knockback"):
+				var knockback = -get_velocity()
+				component.take_knockback(knockback)
+	projectile_component.proj_delete_self.emit()
 
 func _on_delete_self():
 	# play anim of fading out

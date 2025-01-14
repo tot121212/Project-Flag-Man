@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 func _is_player_in_area():
 	var bodies = area_2d.get_overlapping_bodies()
 	for body in bodies:
-		if body.is_in_group("Player"):
+		if body.is_in_group*("Player"):
 			print("Player is inside of victory area")
 			return true
 	return false

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://2ie66o7j0hh"]
+
+[node name="JumpBufferTimer" type="Timer"]
+process_callback = 0
+wait_time = 0.1
+one_shot = true

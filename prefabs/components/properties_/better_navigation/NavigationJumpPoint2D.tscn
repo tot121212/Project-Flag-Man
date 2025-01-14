@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cci40b6lpb80a"]
+
+[ext_resource type="Script" path="res://prefabs/components/properties_/better_navigation/navigation_jump_point_2d.gd" id="1_jim7c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wnhrj"]
+resource_local_to_scene = true
+
+[sub_resource type="Curve2D" id="Curve2D_4nbpp"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(-0.566757, 64.1497, 0, -50, 0, 0, 0, 0, 0, 0, 64, -56, 0, -50, -0.222324, 63.8436, 128, 0)
+}
+point_count = 3
+
+[node name="NavigationJumpPoint2D" type="Node2D"]
+script = ExtResource("1_jim7c")
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="."]
+bidirectional = false
+end_position = Vector2(128, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wnhrj")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_4nbpp")

@@ -14,6 +14,9 @@ class_name MainMenu
 var secret = 0 ## lil secret
 
 func _ready() -> void:
+	## in case you dont understand,
+	## super ready runs the parent class' ready function
+	## if i didnt do this, the Menu ready function would not run, as it is overriden
 	super._ready()
 	flag_man_button.button_up.connect(_on_flag_man_button_clicked)
 	start_button.button_up.connect(_on_start_button_clicked)

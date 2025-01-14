@@ -46,7 +46,7 @@ func get_current_menu():
 signal open_message(message_resource : MessageResource)
 signal connect_button_to_callable(button : BaseButton, _callable : Callable)
 
-var current_message_resource : MessageResource:
+var current_message_resource : MessageResource: ## ensures that only one message is on-screen at one time
 	set(resource):
 		current_message_resource = resource
 	get:

@@ -197,11 +197,10 @@ stats_component = NodePath("../StatsComponent")
 acceleration_coefficient = Vector2(3640, 2460)
 friction = 0.0
 
-[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("root", "velocity_component", "orientation_handler", "stats_component") instance=ExtResource("1_i1dkc")]
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("root", "velocity_component", "stats_component") instance=ExtResource("1_i1dkc")]
 z_index = 20
 root = NodePath("..")
 velocity_component = NodePath("../VelocityComponent")
-orientation_handler = NodePath("../OrientationHandler2DSimplified")
 stats_component = NodePath("../StatsComponent")
 
 [node name="StatsComponent" type="Node2D" parent="." node_paths=PackedStringArray("root")]

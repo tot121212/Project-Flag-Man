@@ -4,5 +4,3 @@
 
 [node name="VelocityComponent" type="Node2D"]
 script = ExtResource("1_pjl8m")
-acceleration_coefficient = Vector2(640, 64)
-friction = 256.0

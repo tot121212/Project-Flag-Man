@@ -16,6 +16,7 @@ func _physics_process(_delta: float) -> void:
 	var is_colliding = move_and_slide()
 	move_slide_and_handle_collisions(is_colliding)
 
+## applys knockback, damage, etc on collision
 func apply_collision_effects(collider): # custom collision effects based on projectile type and settings
 	var components : Array[Node] = [
 		collider.get_node_or_null("StatsComponent"),
