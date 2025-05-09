@@ -1,6 +1,6 @@
 # Flag Man
-Flag Man is a 2D Platformer set on the planet Mars!
-You play as a martian lad taking back his home planet from the evil lizards.
+Flag Man is a 2D Platformer set on the planet Mars!<br>
+You play as a martian lad taking back his home planet from the evil lizards.<br>
 
 ## Video Demo
 https://youtu.be/x-JFOjV3bZ0
@@ -13,26 +13,27 @@ https://github.com/tot121212/Project-Flag-Man_windows-build
 
 ## Languages
 
-[GDScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
-[C#](https://learn.microsoft.com/en-us/dotnet/csharp/)
+[GDScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)<br>
+[C#](https://learn.microsoft.com/en-us/dotnet/csharp/)<br>
 
 ## Tools
 
-[Github](https://github.com/)
-[Godot Game Engine](https://docs.godotengine.org/en/stable/about/introduction.html)
-[Aseprite](https://www.aseprite.org/)
-[Ableton](https://www.ableton.com/en/)
+[Github](https://github.com/)<br>
+[Godot Game Engine](https://docs.godotengine.org/en/stable/about/introduction.html)<br>
+[Aseprite](https://www.aseprite.org/)<br>
+[Ableton](https://www.ableton.com/en/)<br>
 
 ## External Assets
 
-[FMOD GDExtension for Godot Engine 4.0](https://github.com/utopia-rise/fmod-gdextension)
-[Input Helper](https://github.com/nathanhoad/godot_input_helper)
-[Phantom Camera](https://github.com/ramokz/phantom-camera)
+[FMOD GDExtension for Godot Engine 4.0](https://github.com/utopia-rise/fmod-gdextension)<br>
+[Input Helper](https://github.com/nathanhoad/godot_input_helper)<br>
+[Phantom Camera](https://github.com/ramokz/phantom-camera)<br>
 
 ## Concept
 
-Flag Man is a tech demo / video game made within the Godot game engine./br
-It is an action platformer with a unique mechanic where-by you, as the player, can throw flags as projectiles and use frost magic to freeze them mid-air to create platforms and complete puzzles (puzzles not implemented yet).
+Flag Man is a tech demo / video game made within the Godot game engine.<br>
+It is an action platformer with a unique mechanic where-by the player can throw flags as projectiles and use frost magic to freeze them mid-air.<br> 
+You can also create platforms and complete puzzles (puzzles not implemented yet).<br>
 
 ## Personal Notes
 
@@ -48,23 +49,23 @@ Also considering I also made (basically) all of the assets (music/art included).
 Let it be known that I have included a [Game Design Document](https://en.wikipedia.org/wiki/Game_design_document)
 
 ## Story and Art
-I started first with just a little guy waving flags around.
-I thought, what if I made the main character a little martian guy.
-Then I created the art for the mountainous area, based on some reference images of mars and my own experience visiting the Grand Canyon, which definitely helped.
-And after that I thought, people always talk about lizard men from mars in conspiracy theories, what if I just make those guys the antagonist. And thus the lizardmen were born.
-I won't go too deep into lore in this as its mainly just to see if i've learned computer science, not storytelling, so...
+I started first with just a little guy waving flags around.<br>
+I thought, what if I made the main character a little martian guy.<br>
+Then I created the art for the mountainous area, based on some reference images of mars and my own experience visiting the Grand Canyon, which definitely helped.<br>
+And after that I thought, people always talk about lizard men from mars in conspiracy theories, what if I just make those guys the antagonist. And thus the lizardmen were born.<br>
+I won't go too deep into lore in this as its mainly just to see if i've learned computer science, not storytelling, so...<br>
 
 ## Mechanics
 When I first started the project I had a plethora of ideas considered for the main mechanic but I ended up choosing the frozen projectile concept because it was the most extensible for new mechanics, like quenching fire, freezing liquids, etc.
 
 #### Struggles and Shortcomings
-One of the first things I had trouble with was learning the editor, all of the little quirks. Once I got over the hurdle of tutorial hell, things were actually a lot easier once I sat and actually picked apart problems, reading the proper wiki's when needed.
-AI and Navigation are still some things that need work but I just couldn't get them the way I wanted within the timespan I am afforded currently.
-Animations still need polish.
-Git messages are horrible lol
+One of the first things I had trouble with was learning the editor, all of the little quirks.<br>
+Once I got over the hurdle of tutorial hell, things were actually a lot easier once I sat and actually picked apart problems, reading the proper wiki's when needed.<br>
+AI and Navigation are still some things that need work but I just couldn't get them the way I wanted within the timespan I am afforded currently.<br>
+Animations still need polish.<br>
 
 ## Programming
-Let's get down to the nitty gritty.
+Let's get down to the nitty gritty.<br>
 
 Many challenges were confronted in this project including but not limited to...
 - Inheritence V.S. Composition
@@ -79,21 +80,23 @@ Many challenges were confronted in this project including but not limited to...
 These were the most difficult for me to grasp, but there are plenty more things.
 
 ## Composition
-As opposed to an is-a relationship between classes and its parents, nodes of the composition design technique have a has-a relationship, where-by classes can have instances of other classes inside of them.
-So instead of being strictly stuck to inherit all parts of its parent, it can just instance little pieces of information from various classes, increasing modularity.
-Godot handles this nicely with its node-based structure, ensuring maximum modularity between components. It is so easy to take each individual part and make something entirely new with just a few nodes.
+As opposed to an is-a relationship between classes and its parents, nodes of the composition design technique have a has-a relationship, where-by classes can have instances of other classes inside of them.<br>
+So instead of being strictly stuck to inherit all parts of its parent, it can just instance little pieces of information from various classes, increasing modularity.<br>
+Godot handles this nicely with its node-based structure, ensuring maximum modularity between components. It is so easy to take each individual part and make something entirely new with just a few nodes.<br>
 
 ## Vectors and Normals
-Vector math was a doozy, I suck at it. I even had to watch like 3 or 4 videos to even get a grasp on it. But it's just magnitude from a direction, it kinda just clicked after awhile.
-In a similar vein, normals were equally confusing but they are just vectors pointing perpendicular to a plane. They help to orient things like lighting in the proper direction and ensures that what needs to be rendered, is.
+Vector math was a doozy, I suck at it.<br>
+I had to watch like 3 or 4 videos to even get a grasp on it.<br>
+But it's actually really simple once you get the hang of it, it kinda just clicked after awhile.<br>
+In a similar vein, normals were equally confusing but alas.<br>
 [This video really helped](https://www.youtube.com/watch?v=wgrKs6ItJUs)
 
 ## Save Systems
-Save Systems are deceptively tricky to work with.
-In Godot, [Resources](https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html) and [ConfigFiles](https://docs.godotengine.org/en/stable/classes/class_configfile.html) are not safe for saving and loading data due to code execution.
-So we have to come up with a different solution... 
-Hmm, whats good at storing data and relatively safe.
-Oh, i know! JSON
+Save Systems are deceptively tricky to work with.<br>
+In Godot, [Resources](https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html) and [ConfigFiles](https://docs.godotengine.org/en/stable/classes/class_configfile.html) are not safe for saving and loading data, due to code execution.<br>
+So we have to come up with a different solution... <br>
+Hmm, whats good at storing data and relatively safe.<br>
+Oh, I know! JSON<br>
 So we just use the [built-in json support](https://docs.godotengine.org/en/stable/classes/class_json.html) to save whatever data we need via...
 - Dictionaries inside each node that needs to be saved that lists what data needs to be saved,
 - A global SaveHandler, which does just as the name implies,
