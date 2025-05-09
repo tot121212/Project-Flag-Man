@@ -46,7 +46,7 @@ Also considering I also made (basically) all of the assets (music/art included).
 
 ## GDD
 
-Let it be known that I have included a [Game Design Document](https://en.wikipedia.org/wiki/Game_design_document)
+[Game Design Document](https://en.wikipedia.org/wiki/Game_design_document)
 
 ## Story and Art
 I started first with just a little guy waving flags around.<br>
