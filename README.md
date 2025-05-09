@@ -3,8 +3,8 @@
 ## Video Demo
 https://youtu.be/x-JFOjV3bZ0
 
-## Project Github
-https://github.com/tot121212/Project-Flag-Man
+## How to Play
+Download the latest Windows Build from Releases
 
 ## Working Windows Build
 https://github.com/tot121212/Project-Flag-Man_windows-build
