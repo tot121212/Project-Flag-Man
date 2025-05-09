@@ -1,5 +1,5 @@
 # Flag Man
-Flag Man is a Two Dimensional Platform set on Mars. 
+Flag Man is a 2D Platformer set on the planet Mars!
 You play as a martian lad taking back his home planet from the evil lizards.
 
 ## Video Demo
