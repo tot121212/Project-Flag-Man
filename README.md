@@ -31,7 +31,7 @@ https://github.com/tot121212/Project-Flag-Man_windows-build
 
 ## Concept
 
-Flag Man is a tech demo / video game made within the Godot game engine.
+Flag Man is a tech demo / video game made within the Godot game engine./br
 It is an action platformer with a unique mechanic where-by you, as the player, can throw flags as projectiles and use frost magic to freeze them mid-air to create platforms and complete puzzles (puzzles not implemented yet).
 
 ## Personal Notes
